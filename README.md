@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LocProof
 
-## Getting Started
+LocProof is a web application that helps tenants prove they are trustworthy by sharing verified recommendations from previous landlords.
 
-First, run the development server:
+## ✨ Concept
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Traditional rental applications rely on documents (salary, receipts), but they don’t reflect real behavior.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+LocProof introduces a **trust layer** based on:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Verified landlord feedback
+- Rental history
+- Shareable public profile
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Features (MVP)
 
-## Learn More
+- Landing page (product presentation)
+- Example profile (projection)
+- Tenant dossier creation
+- Landlord validation flow (via secure link)
+- Public tenant profile
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- (Planned) Strapi backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 Routes
 
-## Deploy on Vercel
+- `/` → Home
+- `/example` → Example profile
+- `/create` → Create dossier
+- `/validate/[token]` → Landlord validation
+- `/profile/[slug]` → Public profile
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧠 Vision
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Build a simple, trust-based standard for rental applications.
+
+---
+
+> MVP in progress 🚧
