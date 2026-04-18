@@ -33,13 +33,13 @@ export default function Home() {
 
           <div className="flex justify-center gap-4">
             <Button
-              asChild
+              aschild="true"
               className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
             >
               <Link href="/create">Créer mon dossier</Link>
             </Button>
             <Button
-              asChild
+              aschild="true"
               variant="outline"
               className="px-8 py-4 text-lg rounded-2xl"
             >
@@ -89,7 +89,7 @@ export default function Home() {
           Prêt à faire la différence ?
         </h2>
         <Button
-          asChild
+          aschild="true"
           className="px-10 py-5 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
         >
           <Link href="/create">Créer mon dossier LocProof</Link>

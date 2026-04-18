@@ -121,7 +121,7 @@ export default function ExamplePage({}: ExamplePageProps) {
           Et si c'était votre profil ?
         </h2>
         <Button
-          asChild
+          aschild="true"
           className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
         >
           <Link href="/create">Créer mon dossier LocProof</Link>
