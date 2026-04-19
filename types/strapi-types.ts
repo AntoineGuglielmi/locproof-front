@@ -29,6 +29,8 @@ export interface Rental {
   tokenExpiresAt?: Date | string;
   validatedAt?: Date | string;
   tenant?: Tenant | null;
+  reference?: Reference | null;
+  isValidated?: boolean;
 };
 
 export interface Tenant {
@@ -44,6 +46,7 @@ export interface Tenant {
   slug?: string;
   emailVerified?: boolean;
   emailVerificationToken?: string;
+  emailVerificationExpiresAt?: Date | string;
   rentals?: Rental[] | null;
 };
 

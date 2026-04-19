@@ -43,7 +43,6 @@ export default function CreatePage({}: CreatePageProps) {
             <Input placeholder="Prénom" />
           </div>
 
-          <Input placeholder="Adresse du logement" />
           <AddressAutocomplete />
 
           <div className="grid grid-cols-2 gap-4">

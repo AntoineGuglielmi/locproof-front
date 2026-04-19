@@ -3,14 +3,18 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 
-export function AddressAutocomplete() {
+export function AddressAutocomplete({
+  placeholder = 'Adresse du logement',
+}: {
+  placeholder?: string
+}) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<any[]>([])
 
   const handleChange = async (value: string) => {
     setQuery(value)
 
-    if (value.length < 3) {
+    if (value.length <= 3) {
       setResults([])
       return
     }
@@ -19,6 +23,9 @@ export function AddressAutocomplete() {
       `https://api-adresse.data.gouv.fr/search/?q=${value}&limit=5`,
     )
     const data = await res.json()
+    console.log({
+      data,
+    })
 
     setResults(data.features)
   }
@@ -28,7 +35,7 @@ export function AddressAutocomplete() {
       <Input
         value={query}
         onChange={(e) => handleChange(e.target.value)}
-        placeholder="Adresse du logement"
+        placeholder={placeholder}
       />
 
       {results.length > 0 && (

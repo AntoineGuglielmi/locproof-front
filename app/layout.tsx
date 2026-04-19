@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { Nunito } from 'next/font/google'
+import { Nunito, Geist } from 'next/font/google'
 import './globals.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const nunio = Nunito({
   variable: '--font-nunito',
@@ -21,7 +24,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${nunio.variable} antialiased font-nunito`}
+      className={cn("antialiased", "font-nunito", nunio.variable, "font-sans", geist.variable)}
     >
       <body className="bg-linear-to-br from-indigo-50 via-white to-blue-50 text-gray-900">
         {children}

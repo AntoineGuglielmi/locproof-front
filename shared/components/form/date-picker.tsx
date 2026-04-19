@@ -25,7 +25,7 @@ export function DatePicker({
 }) {
   return (
     <Popover>
-      <PopoverTrigger aschild="true">
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           className={cn(
