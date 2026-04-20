@@ -1,33 +1,47 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 
 export function AddressAutocomplete({
   placeholder = 'Adresse du logement',
+  onChange,
 }: {
   placeholder?: string
+  onChange?: (value: string) => void
 }) {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<any[]>([])
+  const debounceTimeout = useRef<number | null>(null)
 
-  const handleChange = async (value: string) => {
+  useEffect(() => {
+    return () => {
+      if (debounceTimeout.current) {
+        window.clearTimeout(debounceTimeout.current)
+      }
+    }
+  }, [])
+
+  const handleChange = (value: string) => {
     setQuery(value)
+
+    if (debounceTimeout.current) {
+      window.clearTimeout(debounceTimeout.current)
+    }
 
     if (value.length <= 3) {
       setResults([])
       return
     }
 
-    const res = await fetch(
-      `https://api-adresse.data.gouv.fr/search/?q=${value}&limit=5`,
-    )
-    const data = await res.json()
-    console.log({
-      data,
-    })
+    debounceTimeout.current = window.setTimeout(async () => {
+      const res = await fetch(
+        `https://api-adresse.data.gouv.fr/search/?q=${value}&limit=5`,
+      )
+      const data = await res.json()
 
-    setResults(data.features)
+      setResults(data.features)
+    }, 300)
   }
 
   return (
@@ -38,7 +52,7 @@ export function AddressAutocomplete({
         placeholder={placeholder}
       />
 
-      {results.length > 0 && (
+      {results && results.length > 0 && (
         <div className="absolute z-10 w-full bg-white border rounded-xl shadow mt-1">
           {results.map((item, i) => (
             <div
@@ -46,6 +60,7 @@ export function AddressAutocomplete({
               className="p-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
                 setQuery(item.properties.label)
+                onChange?.(item.properties.label)
                 setResults([])
               }}
             >
