@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { DatePicker } from '@/shared/components/form/date-picker'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { useState } from 'react'
+import { createLocProofAction } from './actions'
 
 type CreatePageProps = {
   params: Promise<void>
@@ -44,9 +45,6 @@ export default function CreatePage({}: CreatePageProps) {
           next.startDate = next.endDate
         }
       }
-      console.log({
-        next,
-      })
 
       return next
     })
@@ -64,11 +62,12 @@ export default function CreatePage({}: CreatePageProps) {
       return
     }
 
-    console.log({
-      form,
-    })
+    const result = await createLocProofAction(form)
 
-    // await ServerActionName(form)
+    if (!result.success) {
+      console.log(result.errors || result.error)
+      return
+    }
   }
 
   return (
