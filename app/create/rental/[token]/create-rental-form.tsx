@@ -41,12 +41,13 @@ export default function CreateRentalForm(props: {
       return
     }
 
-    if (landlordEmail === email) {
-      alert(
-        'L’email du bailleur ne peut pas être le même que celui du locataire.',
-      )
-      return
-    }
+    // TODO: uncomment when the tenant verification flow is ready
+    // if (landlordEmail === email) {
+    //   alert(
+    //     'L’email du bailleur ne peut pas être le même que celui du locataire.',
+    //   )
+    //   return
+    // }
 
     try {
       setLoading(true)

@@ -14,4 +14,17 @@ export const rentalRepository = {
     const res = await strapiClient.collection('rentals').create(data)
     return res.data
   },
+
+  async findByRentalToken(
+    rentalToken: Rental['rentalToken'],
+  ): Promise<Rental | null> {
+    const res = await strapiClient.collection('rentals').find({
+      filters: {
+        rentalToken: {
+          $eq: rentalToken,
+        },
+      },
+    })
+    return res.data.length > 0 ? res.data[0] : null
+  },
 }

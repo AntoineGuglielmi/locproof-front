@@ -38,7 +38,7 @@ export const sendEmailToLandlord = async ({
   landlordEmail: Rental['landlordEmail']
   rentalToken: Rental['rentalToken']
 }) => {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-rental/${rentalToken}`
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-rental?rentalToken=${rentalToken}`
   console.log({
     landlordEmail,
     rentalToken,

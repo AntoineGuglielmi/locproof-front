@@ -1,17 +1,21 @@
-// import { NextResponse } from 'next/server'
+import { ServiceCheckRentalToken } from '@/services/ServiceCheckRentalToken'
+import { NextResponse } from 'next/server'
 // import { ServiceCheckTenantToken } from '@/services/ServiceCheckTenantToken'
 // import { tenantRepository } from '@/repositories/tenant.repository'
 
 export async function GET(req: Request) {
-  //   const { searchParams } = new URL(req.url)
-  //   const tenantVerificationToken = searchParams.get('tenantVerificationToken')
-  //   if (!tenantVerificationToken) {
-  //     return NextResponse.json({ ok: false }, { status: 400 })
-  //   }
-  //   const { ok, redirectTo, email } = await ServiceCheckTenantToken({
-  //     tenantVerificationToken,
-  //   })
-  //   const res = NextResponse.redirect(new URL(redirectTo, req.url))
+  const { searchParams } = new URL(req.url)
+  const rentalToken = searchParams.get('rentalToken')
+  if (!rentalToken) {
+    return NextResponse.json({ ok: false }, { status: 400 })
+  }
+  console.log({
+    rentalToken,
+  })
+  const { ok, redirectTo } = await ServiceCheckRentalToken({
+    rentalToken,
+  })
+  const res = NextResponse.redirect(new URL(redirectTo, req.url))
   //   if (ok) {
   //     let cookieValue = ''
   //     const tenant = await tenantRepository.findByEmail(email!)
@@ -28,5 +32,5 @@ export async function GET(req: Request) {
   //       path: '/',
   //     })
   //   }
-  //   return res
+  return res
 }
