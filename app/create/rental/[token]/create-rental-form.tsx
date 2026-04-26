@@ -14,7 +14,7 @@ export default function CreateRentalForm(props: {
   lastname: Tenant['lastname']
   tenantVerificationToken: TenantVerification['tenantVerificationToken']
 }) {
-  const [email, setEmail] = useState(props.email!)
+  const [email] = useState(props.email!)
   const [firstname, setFirstname] = useState(props.firstname || '')
   const [lastname, setLastname] = useState(props.lastname || '')
   const [address, setAddress] = useState('')
@@ -27,6 +27,19 @@ export default function CreateRentalForm(props: {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+
+    if (
+      !email ||
+      !firstname ||
+      !lastname ||
+      !address ||
+      !startDate ||
+      !endDate ||
+      !landlordEmail
+    ) {
+      alert('Veuillez remplir tous les champs')
+      return
+    }
 
     if (landlordEmail === email) {
       alert(
@@ -59,19 +72,20 @@ export default function CreateRentalForm(props: {
       setEndDate(date)
     }
 
-    if (key === 'startDate' && startDate) {
-      const endDateIsBeforeStartDate =
-        endDate !== undefined && startDate > endDate
-      if (endDate === undefined || startDate > endDate) {
-        setEndDate(date)
+    if (date) {
+      if (key === 'startDate') {
+        const endDateIsBeforeStartDate = endDate === undefined || date > endDate
+        if (endDateIsBeforeStartDate) {
+          setEndDate(date)
+        }
       }
-    }
 
-    if (key === 'endDate' && endDate) {
-      const startDateIsAfterEndDate =
-        startDate !== undefined && startDate > endDate
-      if (startDate === undefined || endDate < startDate) {
-        setStartDate(date)
+      if (key === 'endDate' && endDate) {
+        const startDateIsAfterEndDate =
+          startDate === undefined || startDate > date
+        if (startDateIsAfterEndDate) {
+          setStartDate(date)
+        }
       }
     }
   }
@@ -139,7 +153,7 @@ export default function CreateRentalForm(props: {
           onClick={handleSubmit}
           className="w-full mt-4 rounded-full py-4 text-base bg-indigo-600 hover:bg-indigo-700"
         >
-          Demander une recommandation
+          {loading ? 'Envoi en cours...' : 'Demander une recommandation'}
         </Button>
       </form>
     </div>

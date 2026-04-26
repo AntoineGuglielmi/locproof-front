@@ -1,5 +1,4 @@
 import { strapiClient } from '@/lib/strapi'
-import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
 import { TenantVerification } from '@/types/strapi-types'
 
 export const tenantVerificationRepository = {
