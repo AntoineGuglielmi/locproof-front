@@ -3,7 +3,7 @@ import { TenantVerification } from '@/types/strapi-types'
 export class EntityTenantVerification {
   private _email: TenantVerification['email']
   private _expiresAt: TenantVerification['expiresAt']
-  private _tenantVerificationToken: TenantVerification['token']
+  private _tenantVerificationToken: TenantVerification['tenantVerificationToken']
   private _state: TenantVerification['state']
 
   constructor({
