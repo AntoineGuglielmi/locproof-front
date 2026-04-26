@@ -2,8 +2,9 @@
 
 import { createLocProofSchema } from '@/schemas/create-loc-proof.schema'
 import { createLocProof } from '@/services/create-loc-proof'
+import { CreateLocProofInput } from '@/types/loc-proof'
 
-export async function createLocProofAction(data: unknown) {
+export async function createLocProofAction(data: CreateLocProofInput) {
   const parsed = createLocProofSchema.safeParse(data)
 
   if (!parsed.success) {
@@ -14,11 +15,11 @@ export async function createLocProofAction(data: unknown) {
   }
 
   try {
-    await createLocProof(parsed.data)
+    await createLocProof(data)
 
     return { success: true }
   } catch (error) {
-    console.error(error)
+    console.error('Error: ', error)
     return {
       success: false,
       error: 'Erreur serveur',

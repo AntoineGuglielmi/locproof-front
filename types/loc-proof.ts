@@ -5,4 +5,5 @@ export type CreateLocProofInput = {
   startDate: Date
   endDate: Date
   landlordEmail: string
+  tenantEmail: string
 }

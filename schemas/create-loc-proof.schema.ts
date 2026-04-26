@@ -5,7 +5,8 @@ export const createLocProofSchema = z
     firstName: z.string().min(1),
     lastName: z.string().min(1),
     address: z.string().min(1),
-    landlordEmail: z.string().email(),
+    landlordEmail: z.email(),
+    tenantEmail: z.email(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
   })

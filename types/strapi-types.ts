@@ -6,7 +6,7 @@ export interface Reference {
   updatedAt?: Date | string;
   publishedAt?: Date | string;
   locale?: string | null;
-  rental?: Rental | null;
+  rentalDocumentId?: string;
   paidOnTime?: boolean;
   wellMaintained?: boolean;
   communication?: boolean;
@@ -24,13 +24,12 @@ export interface Rental {
   address?: string;
   startDate?: Date | string;
   endDate?: Date | string;
+  rentalToken?: string;
+  expiresAt?: Date | string;
   landlordEmail?: string;
-  validationToken?: string;
-  tokenExpiresAt?: Date | string;
+  tenantDocumentId?: string;
   validatedAt?: Date | string;
-  tenant?: Tenant | null;
-  reference?: Reference | null;
-  isValidated?: boolean;
+  state?: "pending" | "validated";
 };
 
 export interface Tenant {
@@ -44,10 +43,20 @@ export interface Tenant {
   lastname?: string;
   email?: string;
   slug?: string;
-  emailVerified?: boolean;
-  emailVerificationToken?: string;
-  emailVerificationExpiresAt?: Date | string;
-  rentals?: Rental[] | null;
+  verified?: boolean;
+};
+
+export interface TenantVerification {
+  id?: number;
+  documentId?: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  publishedAt?: Date | string;
+  locale?: string | null;
+  email?: string;
+  tenantVerificationToken?: string;
+  expiresAt?: Date | string;
+  state?: "pending" | "validated";
 };
 
 export interface Media {

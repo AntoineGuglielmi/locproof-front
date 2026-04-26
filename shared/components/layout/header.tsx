@@ -11,7 +11,7 @@ export default function Header() {
       </Link>
 
       <nav className="flex gap-6 text-sm text-gray-600">
-        <Link href="/create">Créer un dossier</Link>
+        <Link href="/create/me">Créer un dossier</Link>
       </nav>
     </header>
   )
