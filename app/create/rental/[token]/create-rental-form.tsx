@@ -22,6 +22,7 @@ export default function CreateRentalForm(props: {
   const [endDate, setEndDate] = useState<Date | undefined>(undefined)
   const [landlordEmail, setLandlordEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   const { tenantVerificationToken } = props
 
@@ -61,6 +62,7 @@ export default function CreateRentalForm(props: {
         landlordEmail,
         tenantVerificationToken,
       })
+      setFormSubmitted(true)
     } finally {
       setLoading(false)
     }
@@ -156,6 +158,12 @@ export default function CreateRentalForm(props: {
         >
           {loading ? 'Envoi en cours...' : 'Demander une recommandation'}
         </Button>
+
+        {formSubmitted && (
+          <p className="text-green-600 text-center mt-4">
+            Demande envoyée ! Votre bailleur devrait recevoir un email sous peu.
+          </p>
+        )}
       </form>
     </div>
   )

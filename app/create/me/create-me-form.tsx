@@ -8,6 +8,7 @@ import { ActionSendMailToTenant } from './action'
 export default function CreateMeForm() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -21,6 +22,7 @@ export default function CreateMeForm() {
       setLoading(true)
       await ActionSendMailToTenant({ email })
       // 👉 plus tard : afficher un état "email envoyé"
+      setFormSubmitted(true)
     } finally {
       setLoading(false)
     }
@@ -56,6 +58,12 @@ export default function CreateMeForm() {
         >
           {loading ? 'Envoi en cours...' : 'Recevoir mon lien sécurisé'}
         </Button>
+
+        {formSubmitted && (
+          <p className="text-green-600 text-center mt-4">
+            Lien envoyé ! Vérifiez votre boîte de réception.
+          </p>
+        )}
       </form>
     </div>
   )

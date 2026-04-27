@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { Button } from '@/components/ui/button'
@@ -32,6 +33,7 @@ export default function ValidateForm({
   const [recommended, setWouldRecommend] = useState(false)
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   const startDateShort = ucfirst(dateShort(startDate!))
   const endDateShort = ucfirst(dateShort(endDate!))
@@ -71,6 +73,7 @@ export default function ValidateForm({
       rentalDocumentId,
     })
     setLoading(false)
+    setFormSubmitted(true)
   }
 
   return (
@@ -121,14 +124,24 @@ export default function ValidateForm({
               </div>
             </div>
           ))}
+
           <Input
             placeholder="Commentaire (optionnel)"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
+
           <Button className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]">
             {loading ? 'Enregistrement...' : 'Valider la recommandation'}
           </Button>
+
+          {formSubmitted && (
+            <p className="text-green-600 text-center mt-4">
+              Merci pour votre recommandation ! Si vous avez des commentaires ou
+              des questions, n'hésitez pas à nous contacter. Vous pouvez fermer
+              cette page en toute sécurité.
+            </p>
+          )}
         </form>
       </MotionDiv>
     </section>
