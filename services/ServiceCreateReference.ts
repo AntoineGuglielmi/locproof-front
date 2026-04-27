@@ -1,5 +1,7 @@
+import { sendReferenceEmailToTenant } from '@/lib/email'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
+import { tenantRepository } from '@/repositories/tenant.repository'
 import { Reference } from '@/types/strapi-types'
 
 export const ServiceCreateReference = async ({
@@ -27,4 +29,16 @@ export const ServiceCreateReference = async ({
   })
 
   await rentalRepository.markAsValidated(rentalDocumentId)
+  const rental = await rentalRepository.findByDocumentId(rentalDocumentId)
+
+  const tenant = await tenantRepository.findBydDocumentId(
+    rental?.tenantDocumentId,
+  )
+
+  if (tenant?.email && tenant?.slug) {
+    await sendReferenceEmailToTenant({
+      tenantEmail: tenant.email,
+      tenantSlug: tenant.slug,
+    })
+  }
 }

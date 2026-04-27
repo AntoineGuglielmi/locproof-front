@@ -34,4 +34,17 @@ export const rentalRepository = {
       validatedAt: new Date(),
     })
   },
+
+  async findByDocumentId(
+    documentId: Rental['documentId'],
+  ): Promise<Rental | null> {
+    const res = await strapiClient.collection('rentals').find({
+      filters: {
+        documentId: {
+          $eq: documentId,
+        },
+      },
+    })
+    return res.data[0] || null
+  },
 }
