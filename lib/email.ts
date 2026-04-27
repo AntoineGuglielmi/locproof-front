@@ -39,11 +39,6 @@ export const sendEmailToLandlord = async ({
   rentalToken: Rental['rentalToken']
 }) => {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-rental?rentalToken=${rentalToken}`
-  console.log({
-    landlordEmail,
-    rentalToken,
-    url,
-  })
   await resend.emails.send({
     from: 'LocProof <onboarding@resend.dev>',
     to: landlordEmail!,

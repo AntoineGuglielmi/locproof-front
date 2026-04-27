@@ -11,13 +11,10 @@ export const tenantVerificationRepository = {
     tenantVerificationToken: TenantVerification['tenantVerificationToken']
     expiresAt: TenantVerification['expiresAt']
   }) {
-    const res = await strapiClient.collection('tenant-verifications').create({
+    await strapiClient.collection('tenant-verifications').create({
       email,
       tenantVerificationToken,
       expiresAt,
-    })
-    console.log({
-      res,
     })
   },
 

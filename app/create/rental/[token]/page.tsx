@@ -68,10 +68,6 @@ export default async function CreateRentalPage({
     )
   }
 
-  console.log({
-    tenantVerification: tenantVerification,
-  })
-
   if (tenantVerification.state === 'validated') {
     return (
       <AppLayout>

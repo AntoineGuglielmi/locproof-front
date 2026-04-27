@@ -1,36 +1,66 @@
-'use client'
-
+/* eslint-disable react/no-unescaped-entities */
 import AppLayout from '@/shared/components/layout/app-layout'
 import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
+import MotionDiv from '@/shared/components/layout/motion-div'
+import { tenantRepository } from '@/repositories/tenant.repository'
+import { rentalRepository } from '@/repositories/rental.repository'
+import { referenceRepository } from '@/repositories/reference.repository'
+import { mergeReferenceRental } from '@/lib/referenceRental'
+import { EntityReferenceRental } from '@/shared/entities/EntityReferenceRental'
 
 type ProfilePageProps = {
-  params: Promise<void>
+  params: Promise<{
+    slug: string
+  }>
 }
 
-export default function ProfilePage({}: ProfilePageProps) {
+export default async function ProfilePage({ params }: ProfilePageProps) {
+  const { slug } = await params
+  const tenant = await tenantRepository.findBySlug(slug)
+
+  const { documentId } = tenant || {}
+
+  const rentals = await rentalRepository.findByTenantDocumentId(documentId)
+
+  const validatedRentals: Array<EntityReferenceRental> = []
+  for (const rental of rentals) {
+    const reference = await referenceRepository.findByRentalDocumentId(
+      rental.documentId!,
+    )
+
+    if (reference) {
+      const mergedRenferenceRental = mergeReferenceRental({
+        reference,
+        rental,
+      })
+      validatedRentals.push(new EntityReferenceRental(mergedRenferenceRental))
+    }
+  }
+
   return (
     <AppLayout>
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-10">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6"
         >
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-400 to-blue-500" />
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-indigo-400 to-blue-500" />
 
           <div>
-            <h1 className="text-3xl font-bold">Martin Dupont</h1>
+            <h1 className="text-3xl font-bold">
+              {tenant?.firstname} {tenant?.lastname}
+            </h1>
             <p className="text-green-600 font-medium mt-1">
               ✔ Profil LocProof vérifié
             </p>
           </div>
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-10">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -50,11 +80,11 @@ export default function ProfilePage({}: ProfilePageProps) {
               <p className="font-semibold text-lg">{item.value}</p>
             </div>
           ))}
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-20">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -62,14 +92,17 @@ export default function ProfilePage({}: ProfilePageProps) {
         >
           <h2 className="text-2xl font-semibold">Références</h2>
 
-          {[1, 2].map((_, i) => (
+          {validatedRentals.map((entityReferenceRental) => (
             <div
-              key={i}
+              key={entityReferenceRental.documentId}
               className="bg-white rounded-3xl p-6 shadow-md flex flex-col gap-4"
             >
-              <div className="text-sm text-gray-500">📍 12 rue des Lilas</div>
               <div className="text-sm text-gray-500">
-                📅 Jan 2022 → Mars 2024
+                📍 {entityReferenceRental.address}
+              </div>
+              <div className="text-sm text-gray-500">
+                📅 {entityReferenceRental.startDate} →{' '}
+                {entityReferenceRental.endDate}
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-gray-700 text-sm">
@@ -80,7 +113,7 @@ export default function ProfilePage({}: ProfilePageProps) {
               </div>
 
               <div className="bg-gray-50 p-4 rounded-2xl text-gray-700 italic">
-                "Locataire sérieux et respectueux."
+                "{entityReferenceRental.comment}"
               </div>
 
               <div className="text-xs text-gray-400">
@@ -88,7 +121,7 @@ export default function ProfilePage({}: ProfilePageProps) {
               </div>
             </div>
           ))}
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="text-center pb-20">

@@ -108,4 +108,15 @@ export const tenantRepository = {
     })
     return res.data.length > 0 ? res.data[0] : null
   },
+
+  async findBySlug(slug: Tenant['slug']): Promise<Tenant | null> {
+    const res = await strapiClient.collection('tenants').find({
+      filters: {
+        slug: {
+          $eq: slug,
+        },
+      },
+    })
+    return res.data.length > 0 ? res.data[0] : null
+  },
 }

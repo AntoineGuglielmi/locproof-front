@@ -27,7 +27,7 @@ export const referenceRepository = {
     })
   },
 
-  async findByRentalToken(rentalDocumentId: Rental['documentId']) {
+  async findByRentalDocumentId(rentalDocumentId: Rental['documentId']) {
     const res = await strapiClient.collection('references').find({
       filters: {
         rentalDocumentId: {

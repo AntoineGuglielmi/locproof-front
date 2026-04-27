@@ -28,8 +28,5 @@ export const ServiceCreateTenant = async ({
       })
     ).data
   }
-  console.log({
-    tenant,
-  })
   return tenant
 }

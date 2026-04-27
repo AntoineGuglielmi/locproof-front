@@ -1,5 +1,5 @@
 import { strapiClient } from '@/lib/strapi'
-import { Rental } from '@/types/strapi-types'
+import { Rental, Tenant } from '@/types/strapi-types'
 
 export const rentalRepository = {
   async create(data: {
@@ -46,5 +46,18 @@ export const rentalRepository = {
       },
     })
     return res.data[0] || null
+  },
+
+  async findByTenantDocumentId(
+    tenantDocumentId: Tenant['documentId'],
+  ): Promise<Rental[]> {
+    const res = await strapiClient.collection('rentals').find({
+      filters: {
+        tenantDocumentId: {
+          $eq: tenantDocumentId,
+        },
+      },
+    })
+    return res.data || []
   },
 }

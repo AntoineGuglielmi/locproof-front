@@ -7,9 +7,7 @@ export async function GET(req: Request) {
   if (!rentalToken) {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
-  console.log({
-    rentalToken,
-  })
+
   const { redirectTo } = await ServiceCheckRentalToken({
     rentalToken,
   })
