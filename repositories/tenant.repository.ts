@@ -95,4 +95,17 @@ export const tenantRepository = {
       })
     return tenant
   },
+
+  async findBydDocumentId(
+    documentId: Tenant['documentId'],
+  ): Promise<Tenant | null> {
+    const res = await strapiClient.collection('tenants').find({
+      filters: {
+        documentId: {
+          $eq: documentId,
+        },
+      },
+    })
+    return res.data.length > 0 ? res.data[0] : null
+  },
 }

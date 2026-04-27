@@ -42,7 +42,7 @@ export const ActionSubmitCreateRentalForm = async ({
     tenantDocumentId,
   })
 
-  // await tenantVerificationRepository.markAsValidated(
-  //   tenantVerification!.documentId,
-  // )
+  await tenantVerificationRepository.markAsValidated(
+    tenantVerification!.documentId,
+  )
 }

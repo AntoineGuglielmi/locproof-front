@@ -41,4 +41,8 @@ export class EntityTenantVerification {
   isValid() {
     return !this.isExpired() && this._state === 'pending'
   }
+
+  isValidated() {
+    return this._state === 'validated'
+  }
 }

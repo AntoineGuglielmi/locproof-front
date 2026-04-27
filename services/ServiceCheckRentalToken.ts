@@ -23,6 +23,9 @@ export const ServiceCheckRentalToken = async ({
   const referenceAlreadyExists = await referenceRepository.findByRentalToken(
     rental.documentId,
   )
+  console.log({
+    "rental.state === 'validated'": rental.state === 'validated',
+  })
   if (referenceAlreadyExists || rental.state === 'validated') {
     return { ok: false, redirectTo: '/error/rental-already-validated' }
   }

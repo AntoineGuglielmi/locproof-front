@@ -27,4 +27,11 @@ export const rentalRepository = {
     })
     return res.data.length > 0 ? res.data[0] : null
   },
+
+  async markAsValidated(rentalDocumentId: Rental['documentId']) {
+    await strapiClient.collection('rentals').update(rentalDocumentId!, {
+      state: 'validated',
+      validatedAt: new Date(),
+    })
+  },
 }
