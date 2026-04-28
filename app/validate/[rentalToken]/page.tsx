@@ -7,13 +7,13 @@ import ValidateForm from './validate-form'
 
 type ValidatePageProps = {
   params: Promise<{
-    token: string
+    rentalToken: string
   }>
 }
 
 export default async function ValidatePage({ params }: ValidatePageProps) {
-  const { token } = await params
-  const rental = await rentalRepository.findByRentalToken(token)
+  const { rentalToken } = await params
+  const rental = await rentalRepository.findByRentalToken(rentalToken)
 
   if (!rental) {
     return (
