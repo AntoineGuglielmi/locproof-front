@@ -7,6 +7,7 @@ import { rentalRepository } from '@/repositories/rental.repository'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { mergeReferenceRental } from '@/lib/referenceRental'
 import { EntityReferenceRental } from '@/shared/entities/EntityReferenceRental'
+import { redirect } from 'next/navigation'
 
 type ProfilePageProps = {
   params: Promise<{
@@ -17,6 +18,10 @@ type ProfilePageProps = {
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const { slug } = await params
   const tenant = await tenantRepository.findBySlug(slug)
+
+  if (!tenant) {
+    return redirect('/error/no-profile')
+  }
 
   const { documentId } = tenant || {}
 
