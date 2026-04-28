@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import AppLayout from '@/shared/components/layout/app-layout'
-import { Button } from '@/components/ui/button'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
@@ -8,6 +7,7 @@ import { referenceRepository } from '@/repositories/reference.repository'
 import { mergeReferenceRental } from '@/lib/referenceRental'
 import { EntityReferenceRental } from '@/shared/entities/EntityReferenceRental'
 import { redirect } from 'next/navigation'
+import CopyProfileLink from './copy-profile-link'
 
 type ProfilePageProps = {
   params: Promise<{
@@ -130,9 +130,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       </section>
 
       <section className="text-center pb-20">
-        <Button className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700">
-          Copier le lien du profil
-        </Button>
+        <CopyProfileLink>Copier le lien du profil</CopyProfileLink>
       </section>
     </AppLayout>
   )
