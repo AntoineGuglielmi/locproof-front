@@ -10,7 +10,7 @@ export async function sendValidationEmail({
   to: string
   tenantVerificationToken: string
 }) {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/create/validate?tenantVerificationToken=${tenantVerificationToken}`
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
 
   await resend.emails.send({
     from: 'LocProof <onboarding@resend.dev>',
