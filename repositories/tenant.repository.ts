@@ -1,6 +1,7 @@
 import { strapiClient } from '@/lib/strapi'
 import { EntityTenant } from '@/shared/entities/EntityTenant'
 import { Tenant } from '@/types/strapi-types'
+import slugify from 'slugify'
 
 export const tenantRepository = {
   async create({
@@ -12,14 +13,20 @@ export const tenantRepository = {
     firstname: Tenant['firstname']
     lastname: Tenant['lastname']
   }) {
-    const slug =
-      `${firstname}-${lastname}-${await this.getSlugSuffix(firstname!, lastname!)}`.toLowerCase()
-    return await strapiClient.collection('tenants').create({
+    const newTenant = await strapiClient.collection('tenants').create({
       email,
       firstname,
       lastname,
-      slug,
       verified: true,
+    })
+    const { id, documentId } = newTenant.data
+    const baseSlug = slugify(`${firstname}-${lastname}`, {
+      lower: true,
+      strict: true,
+    })
+    const slug = `${baseSlug}-${id}`
+    return await strapiClient.collection('tenants').update(documentId, {
+      slug,
     })
   },
 
@@ -82,18 +89,32 @@ export const tenantRepository = {
       lastname?: Tenant['lastname']
     },
   ) {
-    const slug = `${firstname}-${lastname}-${await this.getSlugSuffix(
-      firstname!,
-      lastname!,
-    )}`.toLowerCase()
-    const tenant = await strapiClient
+    const tenant = (
+      await strapiClient.collection('tenants').find({
+        filters: {
+          documentId: {
+            $eq: tenantDocumentId,
+          },
+        },
+      })
+    ).data[0]
+
+    const { id } = tenant
+
+    const baseSlug = slugify(`${firstname}-${lastname}`, {
+      lower: true,
+      strict: true,
+    })
+    const slug = `${baseSlug}-${id}`.toLowerCase()
+
+    const tenantUpdate = await strapiClient
       .collection('tenants')
       .update(tenantDocumentId!, {
         firstname,
         lastname,
         slug,
       })
-    return tenant
+    return tenantUpdate
   },
 
   async findBydDocumentId(
