@@ -42,13 +42,12 @@ export default function CreateRentalForm(props: {
       return
     }
 
-    // TODO: uncomment when the tenant verification flow is ready
-    // if (landlordEmail === email) {
-    //   alert(
-    //     'L’email du bailleur ne peut pas être le même que celui du locataire.',
-    //   )
-    //   return
-    // }
+    if (!process.env.NEXT_PUBLIC_LOCPROOF_DEV && landlordEmail === email) {
+      alert(
+        'L’email du bailleur ne peut pas être le même que celui du locataire.',
+      )
+      return
+    }
 
     try {
       setLoading(true)
