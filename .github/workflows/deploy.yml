@@ -1,0 +1,57 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - develop
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/develop' && 'development' || 'production' }}
+    env:
+      STRAPI_API_BASE_URL: ${{ vars.STRAPI_API_BASE_URL }}
+      STRAPI_API_KEY: ${{ secrets.STRAPI_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.19.4'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.1
+        with:
+          server: ${{ vars.FTP_SERVER }}
+          username: ${{ vars.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ vars.DOMAIN }}/
+
+      - name: 🔁 Trigger Passenger restart
+        run: |
+          mkdir -p tmp
+          echo "restarted-by-github-actions: $(date -u)" > tmp/restart.txt
+
+      - name: 📤 Upload restart file via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.1
+        with:
+          server: ${{ vars.FTP_SERVER }}
+          username: ${{ vars.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ vars.DOMAIN }}/tmp/
+          local-dir: ./tmp/
+
+      - name: ✅ Done
+        run: echo "🎉 Deployed and Passenger restarted successfully!"
