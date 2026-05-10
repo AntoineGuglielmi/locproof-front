@@ -53,7 +53,7 @@ export function DatePicker({
             onSelect={(date) => {
               setDate(date)
               setOpen(false)
-              onChange?.(date)
+              onChange?.(date!)
             }}
           />
         </PopoverContent>
