@@ -14,7 +14,9 @@ export async function GET(req: Request) {
     tenantVerificationToken,
   })
 
-  const res = NextResponse.redirect(new URL(redirectTo, req.url))
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL!
+
+  const res = NextResponse.redirect(new URL(redirectTo, appUrl))
 
   if (ok) {
     let cookieValue = ''
