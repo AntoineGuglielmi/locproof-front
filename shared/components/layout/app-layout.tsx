@@ -1,4 +1,5 @@
 import Container from './container'
+import Footer from './footer'
 import Header from './header'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -8,6 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="py-8 flex-1">
         <Container>{children}</Container>
       </main>
+      <Footer />
     </div>
   )
 }
