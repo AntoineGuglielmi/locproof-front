@@ -2,13 +2,13 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { dateShort } from '@/lib/date'
 import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { Reference, Rental, Tenant } from '@/types/strapi-types'
 import { useState } from 'react'
 import { ActionSubmitValidateRental } from './actions'
+import { Textarea } from '@/components/ui/textarea'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -166,7 +166,7 @@ export default function ValidateForm({
             </div>
           ))}
 
-          <Input
+          <Textarea
             placeholder="Commentaire (optionnel)"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
