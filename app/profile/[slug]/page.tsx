@@ -125,7 +125,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
               <div className="grid grid-cols-2 gap-2 text-gray-700 text-sm">
                 {scoresDisplay.map(({ name, label }) => {
-                  return reference[name] ? (
+                  return reference[name] === 'yes' ? (
                     <p
                       key={label}
                       className="flex gap-2 items-center"
