@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { dateShort } from '@/lib/date'
 import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { Rental, Tenant } from '@/types/strapi-types'
+import { Reference, Rental, Tenant } from '@/types/strapi-types'
 import { useState } from 'react'
 import { ActionSubmitValidateRental } from './actions'
 
@@ -27,10 +27,18 @@ export default function ValidateForm({
   startDate,
   rentalDocumentId,
 }: ValidateFormProps) {
-  const [paidOnTime, setRentPaidOnTime] = useState(false)
-  const [wellMaintained, setWellMaintained] = useState(false)
-  const [communication, setGoodCommunication] = useState(false)
-  const [recommended, setWouldRecommend] = useState(false)
+  const [paidOnTime, setRentPaidOnTime] = useState<
+    Reference['paidOnTime'] | null
+  >(null)
+  const [wellMaintained, setWellMaintained] = useState<
+    Reference['wellMaintained'] | null
+  >(null)
+  const [communication, setGoodCommunication] = useState<
+    Reference['communication'] | null
+  >(null)
+  const [recommended, setWouldRecommend] = useState<
+    Reference['recommended'] | null
+  >(null)
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -42,27 +50,40 @@ export default function ValidateForm({
     {
       question: 'Les loyers ont-ils été payés à temps',
       name: 'rentPaidOnTime',
-      onChange: (value: boolean) => setRentPaidOnTime(value),
+      onChange: (value: Reference['paidOnTime']) => setRentPaidOnTime(value),
     },
     {
       question: 'Le logement a-t-il été bien entretenu',
       name: 'wellMaintained',
-      onChange: (value: boolean) => setWellMaintained(value),
+      onChange: (value: Reference['wellMaintained']) =>
+        setWellMaintained(value),
     },
     {
       question: 'La communication était-elle fluide',
       name: 'goodCommunication',
-      onChange: (value: boolean) => setGoodCommunication(value),
+      onChange: (value: Reference['communication']) =>
+        setGoodCommunication(value),
     },
     {
       question: `Recommanderiez-vous ce locataire à d'autres bailleurs`,
       name: 'wouldRecommend',
-      onChange: (value: boolean) => setWouldRecommend(value),
+      onChange: (value: Reference['recommended']) => setWouldRecommend(value),
     },
   ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (
+      paidOnTime === null ||
+      wellMaintained === null ||
+      communication === null ||
+      recommended === null
+    ) {
+      alert('Veuillez répondre à toutes les questions')
+      return
+    }
+
     setLoading(true)
     await ActionSubmitValidateRental({
       paidOnTime,
@@ -119,17 +140,27 @@ export default function ValidateForm({
                   <input
                     type="radio"
                     name={name}
-                    onChange={() => onChange(true)}
+                    onChange={() => onChange('yes')}
                   />
                   Oui
                 </label>
+
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name={name}
-                    onChange={() => onChange(false)}
+                    onChange={() => onChange('no')}
                   />
                   Non
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name={name}
+                    onChange={() => onChange('skip')}
+                  />
+                  Je ne souhaite pas répondre
                 </label>
               </div>
             </div>
