@@ -68,7 +68,7 @@ export class EntityTenantSynthesis {
       const scoreKey = key as keyof typeof this._synthesis.scores
       this._synthesis.scores[scoreKey] =
         this._synthesis.references.reduce((number, reference) => {
-          if (reference[scoreKey]!) {
+          if (reference[scoreKey] === 'yes') {
             number++
           }
           return number
