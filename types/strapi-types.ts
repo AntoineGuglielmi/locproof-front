@@ -30,6 +30,7 @@ export interface Rental {
   tenantDocumentId?: string;
   validatedAt?: Date | string;
   state?: "pending" | "validated";
+  cityPublic?: string;
 };
 
 export interface Tenant {
