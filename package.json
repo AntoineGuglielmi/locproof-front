@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "get-types": "node ./bin/get-types.js"
+    "types": "node ./bin/get-types.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
