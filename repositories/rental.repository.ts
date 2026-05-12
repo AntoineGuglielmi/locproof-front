@@ -10,6 +10,7 @@ export const rentalRepository = {
     tenantDocumentId: Rental['tenantDocumentId']
     expiresAt: Rental['expiresAt']
     rentalToken: Rental['rentalToken']
+    cityPublic: Rental['cityPublic']
   }) {
     const res = await strapiClient.collection('rentals').create(data)
     return res.data

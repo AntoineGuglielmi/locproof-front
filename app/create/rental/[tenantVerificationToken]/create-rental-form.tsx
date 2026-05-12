@@ -23,6 +23,7 @@ export default function CreateRentalForm(props: {
   const [landlordEmail, setLandlordEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [cityPublic, setCityPublic] = useState('')
 
   const { tenantVerificationToken } = props
 
@@ -60,6 +61,7 @@ export default function CreateRentalForm(props: {
         endDate: endDate!.toISOString(),
         landlordEmail,
         tenantVerificationToken,
+        cityPublic,
       })
       setFormSubmitted(true)
     } finally {
@@ -122,7 +124,17 @@ export default function CreateRentalForm(props: {
           Le logement concerné
         </label>
         <div className="mt-2">
-          <AddressAutocomplete onChange={(value) => setAddress(value)} />
+          <AddressAutocomplete
+            onChange={(address, city) => {
+              setAddress(address)
+              setCityPublic(city)
+            }}
+          />
+          <input
+            type="hidden"
+            name="cityPublic"
+            defaultValue={cityPublic}
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-4">

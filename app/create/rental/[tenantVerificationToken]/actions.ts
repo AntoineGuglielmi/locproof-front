@@ -14,6 +14,7 @@ export const ActionSubmitCreateRentalForm = async ({
   endDate,
   landlordEmail,
   tenantVerificationToken,
+  cityPublic,
 }: {
   email: Tenant['email']
   firstname: Tenant['firstname']
@@ -23,7 +24,8 @@ export const ActionSubmitCreateRentalForm = async ({
   endDate: Rental['endDate']
   landlordEmail: Rental['landlordEmail']
   tenantVerificationToken: TenantVerification['tenantVerificationToken']
-}) => {
+  cityPublic: Rental['cityPublic']
+}): Promise<void> => {
   const tenantVerification =
     await tenantVerificationRepository.findTenantVerificationByToken(
       tenantVerificationToken,
@@ -40,6 +42,7 @@ export const ActionSubmitCreateRentalForm = async ({
     endDate,
     landlordEmail,
     tenantDocumentId,
+    cityPublic,
   })
 
   await tenantVerificationRepository.markAsValidated(
