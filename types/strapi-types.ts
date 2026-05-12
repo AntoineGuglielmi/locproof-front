@@ -7,11 +7,11 @@ export interface Reference {
   publishedAt?: Date | string;
   locale?: string | null;
   rentalDocumentId?: string;
-  paidOnTime?: boolean;
-  wellMaintained?: boolean;
-  communication?: boolean;
-  recommended?: boolean;
   comment?: string;
+  paidOnTime?: "yes" | "no" | "skip";
+  wellMaintained?: "yes" | "no" | "skip";
+  communication?: "yes" | "no" | "skip";
+  recommended?: "yes" | "no" | "skip";
 };
 
 export interface Rental {
