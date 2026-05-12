@@ -13,7 +13,9 @@ type TypeRentalReference = {
   paidOnTime: Reference['paidOnTime']
   recommended: Reference['recommended']
   wellMaintained: Reference['wellMaintained']
+  cityPublic: Rental['cityPublic']
 }
+
 type TypeSynthesis = {
   references: Array<TypeRentalReference>
   scores: {
@@ -78,7 +80,13 @@ export class EntityTenantSynthesis {
     rental: Rental,
     reference: Reference,
   ): TypeRentalReference {
-    const { address, endDate, startDate, documentId: rentalDocumentId } = rental
+    const {
+      address,
+      endDate,
+      startDate,
+      documentId: rentalDocumentId,
+      cityPublic,
+    } = rental
     const {
       comment,
       communication,
@@ -97,6 +105,7 @@ export class EntityTenantSynthesis {
       paidOnTime,
       recommended,
       wellMaintained,
+      cityPublic,
     }
   }
 }

@@ -117,7 +117,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               className="bg-white rounded-3xl p-6 shadow-md flex flex-col gap-4"
             >
               <div className="text-sm text-gray-500">
-                📍 {reference.address}
+                📍 {reference.cityPublic}
               </div>
               <div className="text-sm text-gray-500">
                 📅 {reference.startDate} → {reference.endDate}
