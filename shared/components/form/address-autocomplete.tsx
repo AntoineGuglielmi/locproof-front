@@ -8,9 +8,9 @@ export function AddressAutocomplete({
   onChange,
 }: {
   placeholder?: string
-  onChange?: (value: string) => void
+  onChange?: (label: string, city: string) => void
 }) {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('8 rue sainte ')
   const [results, setResults] = useState<any[]>([])
   const debounceTimeout = useRef<number | null>(null)
 
@@ -54,17 +54,17 @@ export function AddressAutocomplete({
 
       {results && results.length > 0 && (
         <div className="absolute z-10 w-full bg-white border rounded-xl shadow mt-1">
-          {results.map((item, i) => (
+          {results.map(({ properties: { label, city } }, i) => (
             <div
               key={i}
               className="p-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
-                setQuery(item.properties.label)
-                onChange?.(item.properties.label)
+                setQuery(label)
+                onChange?.(label, city)
                 setResults([])
               }}
             >
-              {item.properties.label}
+              {label}
             </div>
           ))}
         </div>
