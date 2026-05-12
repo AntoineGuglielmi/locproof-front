@@ -77,22 +77,32 @@ export default function ValidateForm({
   }
 
   return (
-    <section className="max-w-xl mx-auto px-6 pb-20">
+    <section className="max-w-xl mx-auto px-6">
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
         className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
       >
-        <div className="text-sm text-gray-500">
-          {firstname} {lastname} a indiqué avoir loué votre bien :
+        <div className="text-sm text-gray-600 leading-relaxed text-balance">
+          {firstname} {lastname} vous a demandé de confirmer une ancienne
+          location via LocProof.
         </div>
 
         <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
-          📍 {address}
-          <br />
-          📅 {startDateShort} → {endDateShort}
+          <div className="flex flex-col gap-1">
+            <div>📍 {address}</div>
+            <div>
+              📅 {startDateShort} → {endDateShort}
+            </div>
+          </div>
         </div>
+
+        <p className="text-xs text-gray-500 leading-relaxed">
+          Vos réponses resteront privées et seront uniquement utilisées pour
+          générer une recommandation synthétique visible par le locataire et les
+          personnes avec lesquelles il choisit de partager son profil.
+        </p>
 
         <form
           onSubmit={handleSubmit}
@@ -131,8 +141,16 @@ export default function ValidateForm({
             onChange={(e) => setComment(e.target.value)}
           />
 
-          <Button className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]">
-            {loading ? 'Enregistrement...' : 'Valider la recommandation'}
+          <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-sm text-indigo-800">
+            En validant ce formulaire, vous confirmez avoir bien été le bailleur
+            de ce logement durant cette période.
+          </div>
+
+          <Button
+            disabled={loading || formSubmitted}
+            className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]"
+          >
+            {loading ? 'Enregistrement...' : 'Envoyer mon retour'}
           </Button>
 
           {formSubmitted && (

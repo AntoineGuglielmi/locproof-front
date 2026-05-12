@@ -87,6 +87,10 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
           rentalDocumentId,
         }}
       />
+
+      <p className="text-xs text-center text-gray-400 mt-6">
+        Aucun compte requis • Réponse en moins d’une minute
+      </p>
     </AppLayout>
   )
 }
