@@ -9,6 +9,16 @@ import { Reference, Rental, Tenant } from '@/types/strapi-types'
 import { useState } from 'react'
 import { ActionSubmitValidateRental } from './actions'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from '@/components/ui/field'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import Link from 'next/link'
+import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -17,6 +27,15 @@ type ValidateFormProps = {
   firstname: Tenant['firstname']
   lastname: Tenant['lastname']
   rentalDocumentId: Rental['documentId']
+}
+
+type ReferenceAnswer = 'yes' | 'no' | 'skip'
+
+type Question = {
+  legend: string
+  description?: string
+  name: string
+  onChange: (value: ReferenceAnswer) => void
 }
 
 export default function ValidateForm({
@@ -46,28 +65,28 @@ export default function ValidateForm({
   const startDateShort = ucfirst(dateShort(startDate!))
   const endDateShort = ucfirst(dateShort(endDate!))
 
-  const questions = [
+  const questions: Question[] = [
     {
-      question: 'Les loyers ont-ils été payés à temps',
+      legend: 'Les loyers ont-ils été payés à temps',
       name: 'rentPaidOnTime',
-      onChange: (value: Reference['paidOnTime']) => setRentPaidOnTime(value),
+      onChange: setRentPaidOnTime,
     },
     {
-      question: 'Le logement a-t-il été bien entretenu',
+      legend: 'Le logement a-t-il été bien entretenu',
+      description: `Tenez compte uniquement des dégradations anormales.`,
       name: 'wellMaintained',
-      onChange: (value: Reference['wellMaintained']) =>
-        setWellMaintained(value),
+      onChange: setWellMaintained,
     },
     {
-      question: 'La communication était-elle fluide',
+      legend: 'La communication était-elle fluide',
       name: 'goodCommunication',
-      onChange: (value: Reference['communication']) =>
-        setGoodCommunication(value),
+      onChange: setGoodCommunication,
     },
     {
-      question: `Recommanderiez-vous ce locataire à d'autres bailleurs`,
+      legend: `Recommanderiez-vous ce locataire à d'autres bailleurs`,
+      description: `Vous pouvez choisir “Je ne souhaite pas répondre”.`,
       name: 'wouldRecommend',
-      onChange: (value: Reference['recommended']) => setWouldRecommend(value),
+      onChange: setWouldRecommend,
     },
   ]
 
@@ -112,69 +131,130 @@ export default function ValidateForm({
 
         <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
           <div className="flex flex-col gap-1">
-            <div>📍 {address}</div>
-            <div>
-              📅 {startDateShort} → {endDateShort}
+            <div className="flex gap-2 items-center">
+              <MapPin
+                size={14}
+                className="text-indigo-500"
+              />{' '}
+              {address}
+            </div>
+            <div className="flex gap-2 items-center">
+              <Calendar
+                size={14}
+                className="text-indigo-500"
+              />{' '}
+              {startDateShort} <ArrowRight size={14} /> {endDateShort}
             </div>
           </div>
         </div>
 
         <p className="text-xs text-gray-500 leading-relaxed">
-          Vos réponses resteront privées et seront uniquement utilisées pour
-          générer une recommandation synthétique visible par le locataire et les
-          personnes avec lesquelles il choisit de partager son profil.
+          Vos réponses restent privées.
+          <br /> Le locataire verra uniquement une recommandation synthétique.
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-8"
         >
-          {questions.map(({ question, name, onChange }) => (
-            <div
-              key={name}
-              className="flex flex-col gap-2"
-            >
-              <span className="text-gray-800">{question} ?</span>
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name={name}
+          {questions.map(({ legend, name, description, onChange }) => {
+            const idYes = `${name}-yes`
+            const idNo = `${name}-no`
+            const idSkip = `${name}-skip`
+            return (
+              <FieldSet
+                key={name}
+                className="w-full text-gray-800"
+                name={name}
+              >
+                <FieldLegend variant="label">{legend} ?</FieldLegend>
+                {description && (
+                  <FieldDescription>{description}</FieldDescription>
+                )}
+                <RadioGroup>
+                  <Field
+                    orientation="horizontal"
+                    className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
                     onChange={() => onChange('yes')}
-                  />
-                  Oui
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name={name}
+                  >
+                    <RadioGroupItem
+                      value={idYes}
+                      id={idYes}
+                      className="cursor-pointer"
+                    />
+                    <FieldLabel
+                      htmlFor={idYes}
+                      className="font-normal cursor-pointer"
+                    >
+                      Oui
+                    </FieldLabel>
+                  </Field>
+                  <Field
+                    orientation="horizontal"
+                    className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
                     onChange={() => onChange('no')}
-                  />
-                  Non
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name={name}
+                  >
+                    <RadioGroupItem
+                      value={idNo}
+                      id={idNo}
+                      className="cursor-pointer"
+                    />
+                    <FieldLabel
+                      htmlFor={idNo}
+                      className="font-normal cursor-pointer"
+                    >
+                      Non
+                    </FieldLabel>
+                  </Field>
+                  <Field
+                    orientation="horizontal"
+                    className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
                     onChange={() => onChange('skip')}
-                  />
-                  Je ne souhaite pas répondre
-                </label>
-              </div>
-            </div>
-          ))}
+                  >
+                    <RadioGroupItem
+                      value={idSkip}
+                      id={idSkip}
+                      className="cursor-pointer"
+                    />
+                    <FieldLabel
+                      htmlFor={idSkip}
+                      className="font-normal text-muted-foreground cursor-pointer"
+                    >
+                      Je ne souhaite pas répondre
+                    </FieldLabel>
+                  </Field>
+                </RadioGroup>
+              </FieldSet>
+            )
+          })}
 
-          <Textarea
-            placeholder="Commentaire (optionnel)"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
+          <Field>
+            <FieldLabel>Commentaire (optionnel)</FieldLabel>
+            <Textarea
+              placeholder="Ajouter un contexte si vous le souhaitez"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+          </Field>
 
-          <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-sm text-indigo-800">
-            En validant ce formulaire, vous confirmez avoir bien été le bailleur
-            de ce logement durant cette période.
+          <div className="bg-indigo-50/20 border border-indigo-100/50 rounded-2xl p-4 text-xs text-indigo-700">
+            <p>
+              Vous confirmez avoir été le bailleur de ce logement durant cette
+              période.
+            </p>
+
+            <p className="mt-1">
+              Vos réponses resteront privées et seront utilisées uniquement pour
+              générer une recommandation locative synthétique, conformément à
+              notre{' '}
+              <Link
+                href="/privacy"
+                className="underline underline-offset-2"
+              >
+                politique de confidentialité
+              </Link>
+              .
+            </p>
           </div>
 
           <Button
