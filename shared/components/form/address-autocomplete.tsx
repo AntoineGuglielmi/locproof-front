@@ -10,7 +10,7 @@ export function AddressAutocomplete({
   placeholder?: string
   onChange?: (label: string, city: string) => void
 }) {
-  const [query, setQuery] = useState('8 rue sainte ')
+  const [query, setQuery] = useState('')
   const [results, setResults] = useState<any[]>([])
   const debounceTimeout = useRef<number | null>(null)
 
