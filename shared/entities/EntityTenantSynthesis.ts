@@ -13,7 +13,9 @@ type TypeRentalReference = {
   paidOnTime: Reference['paidOnTime']
   recommended: Reference['recommended']
   wellMaintained: Reference['wellMaintained']
+  cityPublic: Rental['cityPublic']
 }
+
 type TypeSynthesis = {
   references: Array<TypeRentalReference>
   scores: {
@@ -66,7 +68,7 @@ export class EntityTenantSynthesis {
       const scoreKey = key as keyof typeof this._synthesis.scores
       this._synthesis.scores[scoreKey] =
         this._synthesis.references.reduce((number, reference) => {
-          if (reference[scoreKey]!) {
+          if (reference[scoreKey] === 'yes') {
             number++
           }
           return number
@@ -78,7 +80,13 @@ export class EntityTenantSynthesis {
     rental: Rental,
     reference: Reference,
   ): TypeRentalReference {
-    const { address, endDate, startDate, documentId: rentalDocumentId } = rental
+    const {
+      address,
+      endDate,
+      startDate,
+      documentId: rentalDocumentId,
+      cityPublic,
+    } = rental
     const {
       comment,
       communication,
@@ -97,6 +105,7 @@ export class EntityTenantSynthesis {
       paidOnTime,
       recommended,
       wellMaintained,
+      cityPublic,
     }
   }
 }

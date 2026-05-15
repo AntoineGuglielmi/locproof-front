@@ -8,12 +8,14 @@ export const ServiceCreateRental = async ({
   endDate,
   landlordEmail,
   tenantDocumentId,
+  cityPublic,
 }: {
   address: Rental['address']
   startDate: Rental['startDate']
   endDate: Rental['endDate']
   landlordEmail: Rental['landlordEmail']
   tenantDocumentId: Rental['tenantDocumentId']
+  cityPublic: Rental['cityPublic']
 }) => {
   const rentalToken = crypto.randomUUID()
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) // 7 days from now
@@ -25,6 +27,7 @@ export const ServiceCreateRental = async ({
     tenantDocumentId,
     expiresAt,
     rentalToken,
+    cityPublic,
   })
   await sendEmailToLandlord({
     landlordEmail,
