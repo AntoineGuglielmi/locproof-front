@@ -265,7 +265,7 @@ export default function ValidateForm({
           </Button>
 
           {formSubmitted && (
-            <p className="text-green-600 text-center mt-4">
+            <p className="text-green-600 text-center mt-4 text-balance">
               Merci pour votre recommandation ! Si vous avez des commentaires ou
               des questions, n'hésitez pas à nous contacter. Vous pouvez fermer
               cette page en toute sécurité.
