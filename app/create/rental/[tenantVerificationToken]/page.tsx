@@ -114,13 +114,14 @@ export default async function CreateRentalPage({
           <h1 className="text-4xl font-bold mb-4">
             Invitez votre ancien bailleur
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-balance">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
           </p>
-          <CreateRentalForm {...createRentalFormProps} />
         </MotionDiv>
       </section>
+
+      <CreateRentalForm {...createRentalFormProps} />
     </AppLayout>
   )
 }
