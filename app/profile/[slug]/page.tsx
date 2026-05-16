@@ -14,6 +14,33 @@ type ProfilePageProps = {
   }>
 }
 
+export const metadata = {
+  title: 'Profil locataire vérifié | LocProof',
+  description:
+    'Consultez un profil locataire vérifié avec ses recommandations d’anciens bailleurs et son historique de location.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Profil locataire vérifié | LocProof',
+    description:
+      'Découvrez les recommandations et l’historique d’un locataire vérifié sur LocProof.',
+    type: 'website',
+    siteName: 'LocProof',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Profil locataire vérifié | LocProof',
+    description:
+      'Profil locataire avec recommandations vérifiées par des bailleurs.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/profile',
+  },
+}
+
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const { slug } = await params
   const tenant = await tenantRepository.findBySlug(slug)

@@ -6,6 +6,34 @@ type CreateMePageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Créer mon dossier locataire | LocProof',
+  description:
+    'Demandez une recommandation vérifiée auprès d’un ancien bailleur en quelques minutes. Aucun compte requis. Lien sécurisé envoyé par email.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Créer mon dossier locataire | LocProof',
+    description:
+      'Invitez un ancien bailleur à confirmer votre sérieux en tant que locataire via un lien sécurisé.',
+    url: 'https://locproof.fr/create/me',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Créer mon dossier locataire | LocProof',
+    description:
+      'Demandez une recommandation vérifiée en quelques minutes, sans compte.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/create/me',
+  },
+}
+
 export default function CreateMePage({}: CreateMePageProps) {
   return (
     <AppLayout>

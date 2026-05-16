@@ -9,6 +9,34 @@ type ExamplePageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Exemple de profil locataire | LocProof',
+  description:
+    'Découvrez à quoi ressemble un profil locataire vérifié sur LocProof : recommandations d’anciens bailleurs, historique de location et retours fiables.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Exemple de profil locataire | LocProof',
+    description:
+      'Voyez à quoi ressemble un profil locataire vérifié avec recommandations d’anciens bailleurs.',
+    url: 'https://locproof.fr/example',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Exemple de profil locataire | LocProof',
+    description:
+      'Découvrez un exemple de profil locataire vérifié avec recommandations de bailleurs.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/example',
+  },
+}
+
 export default function ExamplePage({}: ExamplePageProps) {
   return (
     <AppLayout>

@@ -13,6 +13,34 @@ type CreateRentalPageProps = {
   }>
 }
 
+export const metadata = {
+  title: 'Invitez votre ancien bailleur | LocProof',
+  description:
+    'Envoyez une demande de recommandation à votre ancien bailleur pour confirmer votre expérience locative. Simple, rapide et sécurisé.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Invitez votre ancien bailleur | LocProof',
+    description:
+      'Demandez à votre ancien bailleur de confirmer votre expérience locative via un lien sécurisé.',
+    url: 'https://locproof.fr/create/rental',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Invitez votre ancien bailleur | LocProof',
+    description:
+      'Envoyez une demande de recommandation en quelques minutes à votre ancien bailleur.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/create/rental',
+  },
+}
+
 export default async function CreateRentalPage({
   params,
 }: CreateRentalPageProps) {
