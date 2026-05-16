@@ -14,6 +14,7 @@ export default function Header() {
           width={50}
           height={50}
           className="size-8"
+          unoptimized
         />{' '}
         LocProof
       </Link>
