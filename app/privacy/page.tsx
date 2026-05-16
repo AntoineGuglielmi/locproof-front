@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
