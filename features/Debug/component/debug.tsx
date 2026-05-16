@@ -3,7 +3,7 @@ import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import List from '@/shared/components/list/List'
-import { Rental, TenantVerification } from '@/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/types/strapi-types'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 
@@ -28,6 +28,7 @@ const DebugVariants = cva('Debug mx-4 p-4 bg-gray-200 rounded-md', {
 export default async function Debug({ className }: DebugProps) {
   const tenantVerifications = await tenantVerificationRepository.all()
   const rentals = await rentalRepository.all()
+  const tenants = await tenantRepository.all()
 
   const pendingVerifications: DebugSection<TenantVerification> = {
     title: 'Demandes de vérification en attente',
@@ -62,7 +63,23 @@ export default async function Debug({ className }: DebugProps) {
     },
   }
 
-  const debug = [pendingVerifications, pendingRentals]
+  const tenantsProfiles: DebugSection<Tenant> = {
+    title: 'Profils des locataires',
+    items: tenants,
+    getKey: (item) => item.documentId!,
+    renderItem: async (tenant) => {
+      return (
+        <Link
+          href={`${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenant.slug}`}
+        >
+          /profile/{tenant.slug} by{' '}
+          <span className="font-bold">{tenant?.email}</span>
+        </Link>
+      )
+    },
+  }
+
+  const debug = [pendingVerifications, pendingRentals, tenantsProfiles]
 
   return (
     <div className={cn(DebugVariants({ className }))}>

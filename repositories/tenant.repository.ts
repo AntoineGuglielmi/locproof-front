@@ -3,6 +3,8 @@ import { EntityTenant } from '@/shared/entities/EntityTenant'
 import { Tenant } from '@/types/strapi-types'
 import slugify from 'slugify'
 
+const COLLECTION_NAME = 'tenants'
+
 export const tenantRepository = {
   async create({
     email,
@@ -13,7 +15,7 @@ export const tenantRepository = {
     firstname: Tenant['firstname']
     lastname: Tenant['lastname']
   }) {
-    const newTenant = await strapiClient.collection('tenants').create({
+    const newTenant = await strapiClient.collection(COLLECTION_NAME).create({
       email,
       firstname,
       lastname,
@@ -25,14 +27,14 @@ export const tenantRepository = {
       strict: true,
     })
     const slug = `${baseSlug}-${id}`
-    return await strapiClient.collection('tenants').update(documentId, {
+    return await strapiClient.collection(COLLECTION_NAME).update(documentId, {
       slug,
     })
   },
 
   async getSlugSuffix(firstname: string, lastname: string): Promise<number> {
     const tenantsWithSameFirstnameAndLastname = await strapiClient
-      .collection('tenants')
+      .collection(COLLECTION_NAME)
       .find({
         filters: {
           firstname: {
@@ -47,7 +49,7 @@ export const tenantRepository = {
   },
 
   async findByEmail(email: string): Promise<Tenant | null> {
-    const res = await strapiClient.collection('tenants').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         email: {
           $eq: email,
@@ -58,7 +60,7 @@ export const tenantRepository = {
   },
 
   async findEntityByEmail(email: string): Promise<EntityTenant> {
-    const res = await strapiClient.collection('tenants').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         email: {
           $eq: email,
@@ -69,7 +71,7 @@ export const tenantRepository = {
   },
 
   async checkIfTenantExists(email: Tenant['email']): Promise<Tenant | null> {
-    const res = await strapiClient.collection('tenants').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         email: {
           $eq: email,
@@ -90,7 +92,7 @@ export const tenantRepository = {
     },
   ) {
     const tenant = (
-      await strapiClient.collection('tenants').find({
+      await strapiClient.collection(COLLECTION_NAME).find({
         filters: {
           documentId: {
             $eq: tenantDocumentId,
@@ -108,7 +110,7 @@ export const tenantRepository = {
     const slug = `${baseSlug}-${id}`.toLowerCase()
 
     const tenantUpdate = await strapiClient
-      .collection('tenants')
+      .collection(COLLECTION_NAME)
       .update(tenantDocumentId!, {
         firstname,
         lastname,
@@ -120,7 +122,7 @@ export const tenantRepository = {
   async findBydDocumentId(
     documentId: Tenant['documentId'],
   ): Promise<Tenant | null> {
-    const res = await strapiClient.collection('tenants').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         documentId: {
           $eq: documentId,
@@ -131,7 +133,7 @@ export const tenantRepository = {
   },
 
   async findBySlug(slug: Tenant['slug']): Promise<Tenant | null> {
-    const res = await strapiClient.collection('tenants').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         slug: {
           $eq: slug,
@@ -139,5 +141,9 @@ export const tenantRepository = {
       },
     })
     return res.data.length > 0 ? res.data[0] : null
+  },
+
+  async all(): Promise<Array<Tenant>> {
+    return (await strapiClient.collection(COLLECTION_NAME).find()).data
   },
 }
