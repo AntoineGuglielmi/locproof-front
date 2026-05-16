@@ -50,7 +50,7 @@ export default function ExamplePage({}: ExamplePageProps) {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6"
         >
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-400 to-blue-500" />
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-indigo-400 to-blue-500" />
 
           <div>
             <h1 className="text-3xl font-bold">Martin Dupont</h1>
