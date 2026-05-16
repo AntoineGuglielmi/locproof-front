@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { tenantRepository } from '@/repositories/tenant.repository'
@@ -6,7 +5,6 @@ import { redirect } from 'next/navigation'
 import CopyProfileLink from './copy-profile-link'
 import { EntityTenantSynthesis } from '@/shared/entities/EntityTenantSynthesis'
 import { percentage } from '@/lib/string'
-import { Check } from 'lucide-react'
 import List from '@/shared/components/list/List'
 import ReferenceItem from '@/features/Profile/components/reference-item'
 import Link from 'next/link'
