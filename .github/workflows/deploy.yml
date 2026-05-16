@@ -15,6 +15,8 @@ jobs:
     env:
       STRAPI_API_BASE_URL: ${{ vars.STRAPI_API_BASE_URL }}
       STRAPI_API_KEY: ${{ secrets.STRAPI_API_KEY }}
+      REMOTE_PATTERN_PROTOCOL: ${{ vars.REMOTE_PATTERN_PROTOCOL }}
+      REMOTE_PATTERN_HOSTNAME: ${{ vars.REMOTE_PATTERN_HOSTNAME }}
 
     steps:
       - name: Checkout repository
