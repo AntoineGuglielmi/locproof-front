@@ -2,7 +2,7 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { TypeRentalReference } from '@/types/profile-synthesis'
-import { Check } from 'lucide-react'
+import { ArrowRight, Calendar, Check, MapPin } from 'lucide-react'
 import { ucfirst } from '@/lib/string'
 
 type ReferenceItemProps = {
@@ -57,9 +57,23 @@ export default function ReferenceItem({
 
   return (
     <div className={cn(ReferenceItemVariants({ className }))}>
-      <div className="text-sm text-gray-500">📍 {cityPublic}</div>
-      <div className="text-sm text-gray-500">
-        📅 {ucfirst(startDate)} → {ucfirst(endDate)}
+      <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
+        <div className="flex flex-col gap-1">
+          <div className="flex gap-2 items-center">
+            <MapPin
+              size={14}
+              className="text-indigo-500"
+            />{' '}
+            {cityPublic}
+          </div>
+          <div className="flex gap-2 items-center">
+            <Calendar
+              size={14}
+              className="text-indigo-500"
+            />{' '}
+            {ucfirst(startDate)} <ArrowRight size={14} /> {ucfirst(endDate)}
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-2 text-gray-700 text-sm">
