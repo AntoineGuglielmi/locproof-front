@@ -1,8 +1,7 @@
-'use client'
-
+/* eslint-disable react/no-unescaped-entities */
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/shared/components/layout/app-layout'
-import { motion } from 'framer-motion'
+import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 
 type ExamplePageProps = {
@@ -45,7 +44,7 @@ export default function ExamplePage({}: ExamplePageProps) {
       </div>
 
       <section className="max-w-4xl mx-auto px-6 pt-12 pb-8">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -62,11 +61,11 @@ export default function ExamplePage({}: ExamplePageProps) {
               Ce profil peut être partagé avec un bailleur en un clic
             </p>
           </div>
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-10">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -86,11 +85,11 @@ export default function ExamplePage({}: ExamplePageProps) {
               <p className="font-semibold text-lg">{item.value}</p>
             </div>
           ))}
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-16">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -141,7 +140,7 @@ export default function ExamplePage({}: ExamplePageProps) {
               Recommandation vérifiée par un bailleur
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="text-center pb-20">
