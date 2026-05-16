@@ -6,6 +6,16 @@ type RentalAlreadyValidatedPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Location déjà validée | LocProof',
+  description:
+    'Cette location a déjà été validée via LocProof. Aucun nouvel avis ne peut être soumis pour cette demande.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function RentalAlreadyValidatedPage({}: RentalAlreadyValidatedPageProps) {
   return (
     <AppLayout>

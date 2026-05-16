@@ -6,6 +6,16 @@ type RentalExpiredPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Lien expiré | LocProof',
+  description:
+    'Ce lien de validation de location a expiré. Veuillez demander un nouveau lien pour continuer.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function RentalExpiredPage({}: RentalExpiredPageProps) {
   return (
     <AppLayout>
