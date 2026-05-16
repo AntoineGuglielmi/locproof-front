@@ -1,30 +1,8 @@
 import { dateShort } from '@/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
+import { TypeRentalReference, TypeSynthesis } from '@/types/profile-synthesis'
 import { Reference, Rental, Tenant } from '@/types/strapi-types'
-
-type TypeRentalReference = {
-  id: string
-  address: Rental['address']
-  endDate: string
-  startDate: string
-  comment: Reference['comment']
-  communication: Reference['communication']
-  paidOnTime: Reference['paidOnTime']
-  recommended: Reference['recommended']
-  wellMaintained: Reference['wellMaintained']
-  cityPublic: Rental['cityPublic']
-}
-
-type TypeSynthesis = {
-  references: Array<TypeRentalReference>
-  scores: {
-    communication: number
-    paidOnTime: number
-    recommended: number
-    wellMaintained: number
-  }
-}
 
 export class EntityTenantSynthesis {
   private _tenant: Tenant
@@ -56,15 +34,20 @@ export class EntityTenantSynthesis {
       const reference = await referenceRepository.findByRentalDocumentId(
         rental.documentId,
       )
-      this._synthesis.references.push(
-        this.mergeRentalAndReference(rental, reference!),
-      )
+      if (reference !== null) {
+        this._synthesis.references.push(
+          this.mergeRentalAndReference(rental, reference!),
+        )
+      }
     }
   }
 
   private async generateScores() {
     const referencesNumber = this._synthesis.references.length
     Object.keys(this._synthesis.scores).map((key) => {
+      if (referencesNumber === 0) {
+        return 0
+      }
       const scoreKey = key as keyof typeof this._synthesis.scores
       this._synthesis.scores[scoreKey] =
         this._synthesis.references.reduce((number, reference) => {
