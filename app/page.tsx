@@ -4,6 +4,41 @@ import AppLayout from '@/shared/components/layout/app-layout'
 import Link from 'next/link'
 import MotionDiv from '@/shared/components/layout/motion-div'
 
+export const metadata = {
+  title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
+  description:
+    'LocProof aide les locataires à valoriser leur sérieux grâce à des recommandations vérifiées par leurs anciens bailleurs. Les propriétaires prennent des décisions plus éclairées et louent en confiance.',
+  keywords: [
+    'location immobilière',
+    'locataire sérieux',
+    'recommandation bailleur',
+    'dossier locataire',
+    'avis bailleur',
+    'location appartement',
+    'propriétaire bailleur',
+    'référence locataire',
+    'LocProof',
+  ],
+  openGraph: {
+    title: 'LocProof — Louer en confiance, des deux côtés',
+    description:
+      'Les locataires valorisent leur sérieux. Les bailleurs prennent des décisions plus éclairées grâce à des retours vérifiés.',
+    url: 'https://locproof.fr',
+    siteName: 'LocProof',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
+    description:
+      'Valorisez votre sérieux locatif grâce à des recommandations vérifiées.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr',
+  },
+}
+
 export default function HomePage() {
   return (
     <AppLayout>
