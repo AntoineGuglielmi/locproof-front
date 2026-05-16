@@ -18,7 +18,7 @@ export default function HomePage() {
             🔒 Recommandations vérifiées
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">
             Louer en confiance, des deux côtés
           </h1>
 
@@ -26,7 +26,7 @@ export default function HomePage() {
             Locataires et bailleurs gagnent en visibilité et en sérénité
           </p>
 
-          <p className="text-gray-500 mb-10 max-w-2xl mx-auto">
+          <p className="text-gray-500 mb-10 max-w-2xl mx-auto text-balance">
             Les locataires valorisent leur sérieux. Les bailleurs prennent des
             décisions plus éclairées grâce à des retours vérifiés.
           </p>

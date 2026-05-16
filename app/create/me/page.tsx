@@ -24,7 +24,7 @@ export default function CreateMePage({}: CreateMePageProps) {
               Demandez une recommandation
             </h1>
 
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-8 text-balance">
               En quelques minutes, invitez un ancien bailleur à confirmer votre
               sérieux en tant que locataire.{' '}
             </p>
