@@ -5,6 +5,16 @@ type VerificationExpiredPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Lien expiré | LocProof',
+  description:
+    'Le lien de vérification a expiré. Veuillez demander un nouveau lien pour continuer.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function VerificationExpiredPage({}: VerificationExpiredPageProps) {
   return (
     <AppLayout>

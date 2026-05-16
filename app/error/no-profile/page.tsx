@@ -6,6 +6,16 @@ type NoProfilePageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Profil introuvable | LocProof',
+  description:
+    'Le profil locataire demandé est introuvable ou le lien est invalide.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function NoProfilePage({}: NoProfilePageProps) {
   return (
     <AppLayout>

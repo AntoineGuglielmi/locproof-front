@@ -5,6 +5,16 @@ type VerificationNoLongerValidPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Lien invalide ou expiré | LocProof',
+  description:
+    'Ce lien de vérification n’est plus valide ou a expiré. Veuillez demander un nouveau lien pour continuer.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function VerificationNoLongerValidPage({}: VerificationNoLongerValidPageProps) {
   return (
     <AppLayout>

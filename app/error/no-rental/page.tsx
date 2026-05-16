@@ -5,6 +5,15 @@ type NoRentalPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Demande introuvable | LocProof',
+  description: 'La demande de recommandation est invalide ou a expiré.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function NoRentalPage({}: NoRentalPageProps) {
   return (
     <AppLayout>
