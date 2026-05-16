@@ -3,6 +3,34 @@ import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Politique de confidentialité | LocProof',
+  description:
+    'Découvrez comment LocProof collecte, utilise et protège vos données personnelles dans le cadre des recommandations locatives.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Politique de confidentialité | LocProof',
+    description:
+      'Transparence sur la collecte et l’utilisation des données personnelles dans le cadre du service LocProof.',
+    url: 'https://locproof.fr/privacy',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Politique de confidentialité | LocProof',
+    description:
+      'Comment vos données sont utilisées et protégées sur LocProof.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/privacy',
+  },
+}
+
 export default function PrivacyPage() {
   return (
     <AppLayout>
