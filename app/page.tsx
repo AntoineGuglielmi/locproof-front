@@ -148,7 +148,7 @@ export default function HomePage() {
           asChild
           className="px-10 py-5 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
         >
-          <Link href="/create">Créer mon dossier LocProof</Link>
+          <Link href="/create/me">Créer mon dossier LocProof</Link>
         </Button>
       </section>
     </AppLayout>
