@@ -3,6 +3,32 @@ import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Mentions légales | LocProof',
+  description:
+    'Informations légales concernant l’éditeur, l’hébergement et le fonctionnement de LocProof.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Mentions légales | LocProof',
+    description: 'Informations légales et cadre juridique du service LocProof.',
+    url: 'https://locproof.fr/legals',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Mentions légales | LocProof',
+    description: 'Mentions légales et informations sur l’éditeur de LocProof.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/legals',
+  },
+}
+
 export default function LegalPage() {
   return (
     <AppLayout>
