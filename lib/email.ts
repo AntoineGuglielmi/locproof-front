@@ -13,7 +13,7 @@ export async function sendValidationEmail({
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
 
   await resend.emails.send({
-    from: 'LocProof <hello@locproof.fr>',
+    from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
     to,
     subject: 'Validez votre adresse email',
     html: `
@@ -40,7 +40,7 @@ export const sendEmailToLandlord = async ({
 }) => {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-rental?rentalToken=${rentalToken}`
   await resend.emails.send({
-    from: 'LocProof <hello@locproof.fr>',
+    from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
     to: landlordEmail!,
     subject:
       'Vous avez reçu une demande de recommandation de la part de votre ancien locataire',
@@ -68,7 +68,7 @@ export const sendReferenceEmailToTenant = async ({
 }) => {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenantSlug}`
   await resend.emails.send({
-    from: 'LocProof <hello@locproof.fr>',
+    from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
     to: tenantEmail!,
     subject: 'Votre recommandation a été rédigée !',
     html: `
