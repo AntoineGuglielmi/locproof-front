@@ -75,7 +75,7 @@ export const sendReferenceEmailToTenant = async ({
       <p>Bonjour,</p>
       <p>Votre ancien bailleur a rédigé une recommandation pour vous sur LocProof, la plateforme de recommandation de location.</p>
       <p>Cette recommandation est désormais disponible sur votre profil. Pour la consulter, cliquez simplement sur le lien ci-dessous :</p>
-      <p><a href="${url}">👉 Rédiger ma recommandation</a></p>
+      <p><a href="${url}">👉 Voir mon profil</a></p>
       <p>Si vous pensez qu'il y a une erreur ou si vous avez des questions, n'hésitez pas à contacter notre support.</p>
       <p></p>
       <p>—</p>
