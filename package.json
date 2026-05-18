@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "types": "node ./bin/get-types.js"
+    "types": "node ./bin/get-types.js",
+    "email": "email dev --port 3001 --dir features/Email/components/templates"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
@@ -24,6 +25,7 @@
     "react-copy-to-clipboard": "^5.1.1",
     "react-day-picker": "^9.14.0",
     "react-dom": "19.2.4",
+    "react-email": "^6.1.4",
     "resend": "^6.12.2",
     "shadcn": "^4.3.0",
     "slugify": "^1.6.9",
@@ -32,6 +34,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@react-email/ui": "^6.1.4",
     "@tailwindcss/postcss": "^4",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",

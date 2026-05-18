@@ -1,3 +1,4 @@
+import EmailValidation from '@/features/Email/components/templates/email-validation'
 import { Rental, Tenant } from '@/types/strapi-types'
 import { Resend } from 'resend'
 
@@ -10,24 +11,13 @@ export async function sendValidationEmail({
   to: string
   tenantVerificationToken: string
 }) {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
+  const href = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
 
   await resend.emails.send({
     from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
     to,
     subject: 'Validez votre adresse email',
-    html: `
-      <p>Bonjour,</p>
-      <p>Vous êtes sur le point de demander une recommandation à un ancien bailleur.</p>
-      <p>Pour vérifier que cette demande vient bien de vous, cliquez simplement sur le lien ci-dessous :</p>
-      <p><a href="${url}">👉 Confirmer ma demande</a></p>
-      <p>Ce lien est valable pendant 24 heures.</p>
-      <p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet email.</p>
-      <p></p>
-      <p>—</p>
-      <p></p>
-      <p>LocProof</p>
-    `,
+    react: EmailValidation({ href }),
   })
 }
 
