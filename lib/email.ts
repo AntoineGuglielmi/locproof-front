@@ -1,4 +1,5 @@
 import EmailValidation from '@/features/Email/components/templates/email-validation'
+import YouGotAReference from '@/features/Email/components/templates/you-got-a-reference'
 import YouGotARequest from '@/features/Email/components/templates/you-got-a-request'
 import { Rental, Tenant } from '@/types/strapi-types'
 import { Resend } from 'resend'
@@ -46,21 +47,11 @@ export const sendReferenceEmailToTenant = async ({
   tenantEmail: Tenant['email']
   tenantSlug: Tenant['slug']
 }) => {
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenantSlug}`
+  const href = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenantSlug}`
   await resend.emails.send({
     from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
     to: tenantEmail!,
     subject: 'Votre recommandation a été rédigée !',
-    html: `
-      <p>Bonjour,</p>
-      <p>Votre ancien bailleur a rédigé une recommandation pour vous sur LocProof, la plateforme de recommandation de location.</p>
-      <p>Cette recommandation est désormais disponible sur votre profil. Pour la consulter, cliquez simplement sur le lien ci-dessous :</p>
-      <p><a href="${url}">👉 Voir mon profil</a></p>
-      <p>Si vous pensez qu'il y a une erreur ou si vous avez des questions, n'hésitez pas à contacter notre support.</p>
-      <p></p>
-      <p>—</p>
-      <p></p>
-      <p>LocProof</p>
-    `,
+    react: YouGotAReference({ href }),
   })
 }
