@@ -1,5 +1,8 @@
-import { Rental, Tenant } from '@/types/strapi-types'
 import { Resend } from 'resend'
+import React from 'react'
+import { ValidationEmail } from '@/emails/templates/validation-email'
+import { renderEmail } from '@/emails/render'
+import { Rental, Tenant } from '@/types/strapi-types'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -11,23 +14,18 @@ export async function sendValidationEmail({
   tenantVerificationToken: string
 }) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
+  
+  // 1. Render React Email -> HTML
+  const html = await renderEmail(
+    React.createElement(ValidationEmail, { url })
+  )
 
+  // 2. SEND via Resend
   await resend.emails.send({
     from: 'LocProof <hello@locproof.fr>',
     to,
     subject: 'Validez votre adresse email',
-    html: `
-      <p>Bonjour,</p>
-      <p>Vous êtes sur le point de demander une recommandation à un ancien bailleur.</p>
-      <p>Pour vérifier que cette demande vient bien de vous, cliquez simplement sur le lien ci-dessous :</p>
-      <p><a href="${url}">👉 Confirmer ma demande</a></p>
-      <p>Ce lien est valable pendant 24 heures.</p>
-      <p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet email.</p>
-      <p></p>
-      <p>—</p>
-      <p></p>
-      <p>LocProof</p>
-    `,
+    html, // IMPORTANT: on garde html pour rollback safe
   })
 }
 
