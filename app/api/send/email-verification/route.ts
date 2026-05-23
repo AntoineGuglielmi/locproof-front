@@ -1,3 +1,4 @@
+import React from 'react'
 import { resend } from '../../../../features/Emails/utils/resend'
 import { emailElement } from './tamere'
 
@@ -13,7 +14,11 @@ export async function POST(req: Request) {
       from: `LocProof <${process.env.RESEND_EMAIL_FROM}>`,
       to: ['tonmail@test.com'],
       subject: 'Test',
-      react: emailElement,
+      react: React.createElement(
+        'div',
+        null,
+        React.createElement('h1', null, 'TEST'),
+      ),
     })
 
     console.log('STEP 3', result)
