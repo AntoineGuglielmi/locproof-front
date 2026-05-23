@@ -12,12 +12,14 @@ export async function POST(req: Request) {
     RESEND_EMAIL_FROM,
   })
 
+  const html = await render(EmailTemplate({ firstName: 'John' }))
+
   try {
     const { data, error } = await resend.emails.send({
       from: `LocProof <${RESEND_EMAIL_FROM}>`,
       to: [email],
       subject: 'Hello world',
-      react: EmailTemplate({ firstName: 'John' }),
+      html,
     })
 
     if (error) {
