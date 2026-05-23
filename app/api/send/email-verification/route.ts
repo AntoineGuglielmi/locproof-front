@@ -1,5 +1,5 @@
-import { EmailTemplate } from '@/features/Emails/components/email-template'
-import { resend } from '@/features/Emails/utils/resend'
+import { EmailTemplate } from '../../../../features/Emails/components/email-template'
+import { resend } from '../../../../features/Emails/utils/resend'
 
 export const runtime = 'nodejs'
 
