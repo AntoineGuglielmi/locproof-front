@@ -1,5 +1,6 @@
 import { EmailTemplate } from '../../../../features/Emails/components/email-template'
 import { resend } from '../../../../features/Emails/utils/resend'
+import { render } from '@react-email/render'
 
 export const runtime = 'nodejs'
 
