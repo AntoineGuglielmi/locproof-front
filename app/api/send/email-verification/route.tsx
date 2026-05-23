@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `LocProof <${RESEND_EMAIL_FROM}>`,
+      from: `LocProof <hello@locproof.fr`,
       to: [email],
       subject: 'Hello world',
       react: <EmailTemplate firstName="Jooohn" />,
