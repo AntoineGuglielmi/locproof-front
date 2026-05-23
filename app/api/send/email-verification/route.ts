@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       from: `LocProof <${RESEND_EMAIL_FROM}>`,
       to: [email],
       subject: 'Hello world',
-      react: EmailTemplate({ firstName: 'John' }),
+      html: '<p>ça me surgonfle</p>',
     })
 
     if (error) {
