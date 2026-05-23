@@ -1,4 +1,3 @@
-import { sendEmailToLandlord } from '@/lib/email'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { Rental } from '@/types/strapi-types'
 
@@ -29,8 +28,5 @@ export const ServiceCreateRental = async ({
     rentalToken,
     cityPublic,
   })
-  await sendEmailToLandlord({
-    landlordEmail,
-    rentalToken,
-  })
+  return { rentalToken }
 }

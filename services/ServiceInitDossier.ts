@@ -1,4 +1,3 @@
-import { sendValidationEmail } from '@/lib/email'
 import { generateToken } from '@/lib/token'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
 import { Tenant } from '@/types/strapi-types'
@@ -15,8 +14,7 @@ export const ServiceInitDossier = async ({
     tenantVerificationToken,
     expiresAt,
   })
-  await sendValidationEmail({
-    to: email!,
+  return {
     tenantVerificationToken,
-  })
+  }
 }
