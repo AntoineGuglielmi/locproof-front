@@ -1,6 +1,8 @@
 import { EmailTemplate } from '@/features/Emails/components/email-template'
 import { resend } from '@/features/Emails/utils/resend'
 
+export const runtime = 'nodejs'
+
 export async function POST(req: Request) {
   const { email, tenantVerificationToken } = await req.json()
   const { RESEND_EMAIL_FROM } = process.env
