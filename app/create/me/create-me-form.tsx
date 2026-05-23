@@ -21,6 +21,7 @@ export default function CreateMeForm() {
     try {
       setLoading(true)
       await ActionSendMailToTenant({ email })
+
       // 👉 plus tard : afficher un état "email envoyé"
       setFormSubmitted(true)
     } finally {

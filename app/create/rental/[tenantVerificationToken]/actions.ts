@@ -36,7 +36,7 @@ export const ActionSubmitCreateRentalForm = async ({
     lastname,
   })
   const { documentId: tenantDocumentId } = tenant
-  await ServiceCreateRental({
+  const { rentalToken } = await ServiceCreateRental({
     address,
     startDate,
     endDate,
@@ -44,6 +44,17 @@ export const ActionSubmitCreateRentalForm = async ({
     tenantDocumentId,
     cityPublic,
   })
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/send/landlord-notification`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        landlordEmail,
+        rentalToken,
+      }),
+    },
+  )
 
   await tenantVerificationRepository.markAsValidated(
     tenantVerification!.documentId,

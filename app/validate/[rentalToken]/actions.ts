@@ -18,7 +18,7 @@ export async function ActionSubmitValidateRental({
   comment: Reference['comment']
   rentalDocumentId: Reference['rentalDocumentId']
 }) {
-  await ServiceCreateReference({
+  const { tenant } = await ServiceCreateReference({
     paidOnTime,
     wellMaintained,
     communication,
@@ -26,4 +26,15 @@ export async function ActionSubmitValidateRental({
     comment,
     rentalDocumentId,
   })
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/send/tenant-notification`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        email: tenant!.email,
+        slug: tenant!.slug,
+      }),
+    },
+  )
 }

@@ -1,4 +1,3 @@
-import { sendReferenceEmailToTenant } from '@/lib/email'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'
@@ -35,10 +34,5 @@ export const ServiceCreateReference = async ({
     rental?.tenantDocumentId,
   )
 
-  if (tenant?.email && tenant?.slug) {
-    await sendReferenceEmailToTenant({
-      tenantEmail: tenant.email,
-      tenantSlug: tenant.slug,
-    })
-  }
+  return { tenant }
 }

@@ -8,5 +8,18 @@ export const ActionSendMailToTenant = async ({
 }: {
   email: Tenant['email']
 }): Promise<void> => {
-  await ServiceInitDossier({ email })
+  const { tenantVerificationToken } = await ServiceInitDossier({ email })
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/send/email-verification`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        tenantVerificationToken,
+      }),
+    },
+  )
+  console.log({
+    res,
+  })
 }
