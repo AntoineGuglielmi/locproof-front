@@ -18,6 +18,7 @@ jobs:
       REMOTE_PATTERN_PROTOCOL: ${{ vars.REMOTE_PATTERN_PROTOCOL }}
       REMOTE_PATTERN_HOSTNAME: ${{ vars.REMOTE_PATTERN_HOSTNAME }}
       RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      RESEND_EMAIL_FROM: ${{ vars.RESEND_EMAIL_FROM }}
 
     steps:
       - name: Checkout repository
