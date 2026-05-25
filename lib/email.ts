@@ -1,6 +1,7 @@
 import { Rental, Tenant } from '@/types/strapi-types'
 import { Resend } from 'resend'
 import EmailVerification from '@/features/Emails/components/email-verification'
+import { render } from "@react-email/render";
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -12,12 +13,13 @@ export async function sendValidationEmail({
   tenantVerificationToken: string
 }) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
+  const html = await render(EmailVerification({firstname: 'Jooohn'}));
 
   await resend.emails.send({
     from: 'LocProof <hello@locproof.fr>',
     to,
     subject: 'Validez votre adresse email',
-    react: EmailVerification({firstname: 'Jooohn'}),
+    html,
   })
 }
 
