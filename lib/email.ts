@@ -13,7 +13,7 @@ export async function sendValidationEmail({
   tenantVerificationToken: string
 }) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
-  const html = await render(EmailVerification({firstname: 'Jooohn'}));
+  const html = await render(EmailVerification({firstname: 'Jooohn'}), { pretty: false });
 
   await resend.emails.send({
     from: 'LocProof <hello@locproof.fr>',

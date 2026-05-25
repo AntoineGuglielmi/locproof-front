@@ -17,7 +17,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: ['@react-email/render'],
 }
 
 export default nextConfig
