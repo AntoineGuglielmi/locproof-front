@@ -13,11 +13,11 @@ import {
   Preview,
 } from 'react-email'
 
-interface EmailValidationProps {
+interface ValidateRentalProps {
   href: string
 }
 
-export default function EmailValidation({ href }: EmailValidationProps) {
+export default function ValidateRental({ href }: ValidateRentalProps) {
   return (
     <Html>
       <Head />
@@ -36,30 +36,30 @@ export default function EmailValidation({ href }: EmailValidationProps) {
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Container className="mx-auto my-10 max-w-116.25 rounded-2xl border border-[#eaeaea] border-solid p-5">
             <Preview>
-              Cliquez sur le lien fourni pour valider que la demande vient bien
-              de vous
+              Cliquez sur le lien fourni pour consulter la demande de votre
+              ancien locataire
             </Preview>
             <Heading as="h2">Bonjour</Heading>
 
             <Text>
-              Vous êtes sur le point de demander une recommandation à un ancien
-              bailleur.
+              Votre ancien locataire vous a demandé une recommandation via
+              LocProof, la plateforme de recommandation de location.
             </Text>
             <Text>
-              Pour vérifier que cette demande vient bien de vous, cliquez
-              simplement sur le lien ci-dessous :
+              Pour consulter cette demande et rédiger votre recommandation,
+              cliquez simplement sur le lien ci-dessous :
             </Text>
             <Text>
               <Link
                 href={href}
                 className="inline-flex gap-4 items-center rounded-full py-2 px-4 text-base text-white bg-indigo-600"
               >
-                Confirmer ma demande
+                Rédiger ma recommandation
               </Link>
             </Text>
-            <Text>Ce lien est valable pendant 24 heures.</Text>
+            <Text> Ce lien est valable pendant 7 jours.</Text>
             <Text>
-              Si vous n’êtes pas à l’origine de cette demande, vous pouvez
+              Si vous ne souhaitez pas rédiger de recommandation, vous pouvez
               ignorer cet email.
             </Text>
             <Hr />
