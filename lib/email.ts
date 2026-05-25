@@ -1,5 +1,6 @@
 import { Rental, Tenant } from '@/types/strapi-types'
 import { Resend } from 'resend'
+import EmailVerification from '@/features/Emails/components/email-verification'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -16,18 +17,7 @@ export async function sendValidationEmail({
     from: 'LocProof <hello@locproof.fr>',
     to,
     subject: 'Validez votre adresse email',
-    html: `
-      <p>Bonjour,</p>
-      <p>Vous êtes sur le point de demander une recommandation à un ancien bailleur.</p>
-      <p>Pour vérifier que cette demande vient bien de vous, cliquez simplement sur le lien ci-dessous :</p>
-      <p><a href="${url}">👉 Confirmer ma demande</a></p>
-      <p>Ce lien est valable pendant 24 heures.</p>
-      <p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet email.</p>
-      <p></p>
-      <p>—</p>
-      <p></p>
-      <p>LocProof</p>
-    `,
+    react: EmailVerification({firstname: 'Jooohn'}),
   })
 }
 
