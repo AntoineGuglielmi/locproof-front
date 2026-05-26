@@ -125,6 +125,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               items={synthesis.references}
               getKey={(item) => item.id}
               renderItem={ReferenceItem}
+              className='flex flex-col gap-4'
             />
           ) : (
             <>

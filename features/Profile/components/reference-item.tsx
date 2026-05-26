@@ -90,9 +90,11 @@ export default function ReferenceItem({
         })}
       </div>
 
-      <div className="bg-gray-50 p-4 rounded-2xl text-gray-700 italic">
-        "{comment}"
-      </div>
+      {comment && (
+        <div className="bg-gray-50 p-4 rounded-2xl text-gray-700 italic">
+          "{comment}"
+        </div>
+      )}
 
       <div className="text-xs text-gray-400">
         Recommandation vérifiée par un bailleur
