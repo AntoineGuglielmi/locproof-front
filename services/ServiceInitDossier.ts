@@ -8,6 +8,8 @@ export const ServiceInitDossier = async ({
 }: {
   email: Tenant['email']
 }) => {
+  await tenantVerificationRepository.deletePendingByEmail(email)
+
   const tenantVerificationToken = generateToken()
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24) // 24h
   await tenantVerificationRepository.create({
