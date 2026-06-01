@@ -47,4 +47,16 @@ export const tenantVerificationRepository = {
   async all(): Promise<Array<TenantVerification>> {
     return (await strapiClient.collection(COLLECTION_NAME).find()).data
   },
+
+  async deletePendingByEmail(tenantEmail: TenantVerification['email']): Promise<void> {
+    const pendingVerificationsForTheEmail = (await strapiClient.collection(COLLECTION_NAME).find({
+      filters: {
+        email: tenantEmail,
+        state: 'pending',
+      }
+    })).data as Array<TenantVerification>
+    for (const tenantVerification of pendingVerificationsForTheEmail) {
+      await strapiClient.collection(COLLECTION_NAME).delete(tenantVerification.documentId!)
+    }
+  }
 }
