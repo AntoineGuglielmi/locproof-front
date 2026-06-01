@@ -7,6 +7,16 @@ import { Tenant, TenantVerification } from '@/types/strapi-types'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { DatePicker } from '@/shared/components/form/date-picker'
 import { ActionSubmitCreateRentalForm } from './actions'
+import MotionDiv from '@/shared/components/layout/motion-div'
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field'
 
 export default function CreateRentalForm(props: {
   email: Tenant['email']
@@ -23,6 +33,7 @@ export default function CreateRentalForm(props: {
   const [landlordEmail, setLandlordEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [cityPublic, setCityPublic] = useState('')
 
   const { tenantVerificationToken } = props
 
@@ -60,6 +71,7 @@ export default function CreateRentalForm(props: {
         endDate: endDate!.toISOString(),
         landlordEmail,
         tenantVerificationToken,
+        cityPublic,
       })
       setFormSubmitted(true)
     } finally {
@@ -93,77 +105,127 @@ export default function CreateRentalForm(props: {
   }
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border">
-      <form
-        className="space-y-4"
-        onSubmit={handleSubmit}
+    <section className="max-w-xl mx-auto px-6">
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
       >
-        <div>
-          <label className="text-sm font-medium text-gray-700">
-            Vos informations
-          </label>
-          <div className="grid grid-cols-2 gap-4">
-            <Input
-              placeholder="Prénom"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
-              className="mt-2"
-            />
-            <Input
-              placeholder="Nom"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-              className="mt-2"
-            />
-          </div>
-        </div>
-
-        <label className="text-sm font-medium text-gray-700">
-          Le logement concerné
-        </label>
-        <div className="mt-2">
-          <AddressAutocomplete onChange={(value) => setAddress(value)} />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <DatePicker
-            value={startDate}
-            onChange={(date) => updateDate('startDate', date)}
-            placeholder="Date de début"
-          />
-
-          <DatePicker
-            value={endDate}
-            onChange={(date) => updateDate('endDate', date)}
-            placeholder="Date de fin"
-          />
-        </div>
-
-        <Input
-          placeholder="Email du bailleur"
-          type="email"
-          value={landlordEmail}
-          onChange={(e) => setLandlordEmail(e.target.value)}
-        />
-
-        <p className="text-sm text-gray-500">
-          Votre bailleur recevra un email simple pour confirmer votre location.
-          Aucune création de compte requise.
-        </p>
-
-        <Button
-          onClick={handleSubmit}
-          className="w-full mt-4 rounded-full py-4 text-base bg-indigo-600 hover:bg-indigo-700"
+        <form
+          className="flex flex-col gap-8"
+          onSubmit={handleSubmit}
         >
-          {loading ? 'Envoi en cours...' : 'Demander une recommandation'}
-        </Button>
+          <FieldSet className="w-full">
+            <FieldLegend>Vos information</FieldLegend>
+            <FieldDescription>
+              Ces informations permettent au bailleur d’identifier la location.
+            </FieldDescription>
+            <FieldGroup>
+              <div className="grid grid-cols-2 gap-4">
+                <Field>
+                  <FieldLabel htmlFor="firstname">Prénom</FieldLabel>
+                  <Input
+                    id="firstname"
+                    type="text"
+                    placeholder="Vore prénom"
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="lastname">Nom</FieldLabel>
+                  <Input
+                    id="lastname"
+                    type="text"
+                    placeholder="Votre nom"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                  />
+                </Field>
+              </div>
+            </FieldGroup>
+          </FieldSet>
 
-        {formSubmitted && (
-          <p className="text-green-600 text-center mt-4">
-            Demande envoyée ! Votre bailleur devrait recevoir un email sous peu.
-          </p>
-        )}
-      </form>
-    </div>
+          <FieldSeparator />
+
+          <FieldSet className="w-full">
+            <FieldLegend>Le logement concerné</FieldLegend>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="address">Adresse</FieldLabel>
+                <AddressAutocomplete
+                  onChange={(address, city) => {
+                    setAddress(address)
+                    setCityPublic(city)
+                  }}
+                />
+                <input
+                  type="hidden"
+                  name="cityPublic"
+                  defaultValue={cityPublic}
+                />
+              </Field>
+              <div className="grid grid-cols-2 gap-4">
+                <Field>
+                  <FieldLabel htmlFor="firstname">
+                    Date de début de location
+                  </FieldLabel>
+                  <DatePicker
+                    value={startDate}
+                    onChange={(date) => updateDate('startDate', date)}
+                    placeholder="Date de début"
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="lastname">
+                    Date de fin de location
+                  </FieldLabel>
+                  <DatePicker
+                    value={endDate}
+                    onChange={(date) => updateDate('endDate', date)}
+                    placeholder="Date de fin"
+                  />
+                </Field>
+              </div>
+            </FieldGroup>
+          </FieldSet>
+
+          <FieldSeparator />
+
+          <FieldSet className="w-full">
+            <FieldLegend>Votre bailleur</FieldLegend>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="landlordEmail">
+                  Email du bailleur
+                </FieldLabel>
+                <Input
+                  id="landlordEmail"
+                  type="email"
+                  placeholder="bailleur@email.com"
+                  value={landlordEmail}
+                  onChange={(e) => setLandlordEmail(e.target.value)}
+                />
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+
+          <Button
+            disabled={loading || formSubmitted}
+            className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]"
+          >
+            {loading ? 'Envoi en cours...' : 'Demander une recommandation'}
+          </Button>
+
+          {formSubmitted && (
+            <p className="text-green-600 text-center mt-4 text-balance">
+              Demande envoyée ! Votre bailleur devrait recevoir un email sous
+              peu.
+            </p>
+          )}
+        </form>
+      </MotionDiv>
+    </section>
   )
 }

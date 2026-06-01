@@ -1,6 +1,8 @@
 import { strapiClient } from '@/lib/strapi'
 import { TenantVerification } from '@/types/strapi-types'
 
+const COLLECTION_NAME = 'tenant-verifications'
+
 export const tenantVerificationRepository = {
   async create({
     email,
@@ -11,7 +13,7 @@ export const tenantVerificationRepository = {
     tenantVerificationToken: TenantVerification['tenantVerificationToken']
     expiresAt: TenantVerification['expiresAt']
   }) {
-    await strapiClient.collection('tenant-verifications').create({
+    await strapiClient.collection(COLLECTION_NAME).create({
       email,
       tenantVerificationToken,
       expiresAt,
@@ -21,7 +23,7 @@ export const tenantVerificationRepository = {
   async findTenantVerificationByToken(
     tenantVerificationToken: TenantVerification['tenantVerificationToken'],
   ): Promise<TenantVerification | null> {
-    const res = await strapiClient.collection('tenant-verifications').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         tenantVerificationToken: {
           $eq: tenantVerificationToken,
@@ -36,9 +38,25 @@ export const tenantVerificationRepository = {
     tenantVerificationId: TenantVerification['documentId'],
   ) {
     await strapiClient
-      .collection('tenant-verifications')
+      .collection(COLLECTION_NAME)
       .update(tenantVerificationId!, {
         state: 'validated',
       })
   },
+
+  async all(): Promise<Array<TenantVerification>> {
+    return (await strapiClient.collection(COLLECTION_NAME).find()).data
+  },
+
+  async deletePendingByEmail(tenantEmail: TenantVerification['email']): Promise<void> {
+    const pendingVerificationsForTheEmail = (await strapiClient.collection(COLLECTION_NAME).find({
+      filters: {
+        email: tenantEmail,
+        state: 'pending',
+      }
+    })).data as Array<TenantVerification>
+    for (const tenantVerification of pendingVerificationsForTheEmail) {
+      await strapiClient.collection(COLLECTION_NAME).delete(tenantVerification.documentId!)
+    }
+  }
 }

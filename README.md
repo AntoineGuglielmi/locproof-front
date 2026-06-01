@@ -40,6 +40,7 @@ LocProof introduces a **trust layer** based on:
 
 Build a simple, trust-based standard for rental applications.
 
+
 ---
 
 > MVP in progress 🚧

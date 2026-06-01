@@ -13,17 +13,42 @@ type CreateRentalPageProps = {
   }>
 }
 
+export const metadata = {
+  title: 'Invitez votre ancien bailleur | LocProof',
+  description:
+    'Envoyez une demande de recommandation à votre ancien bailleur pour confirmer votre expérience locative. Simple, rapide et sécurisé.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Invitez votre ancien bailleur | LocProof',
+    description:
+      'Demandez à votre ancien bailleur de confirmer votre expérience locative via un lien sécurisé.',
+    url: 'https://locproof.fr/create/rental',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Invitez votre ancien bailleur | LocProof',
+    description:
+      'Envoyez une demande de recommandation en quelques minutes à votre ancien bailleur.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/create/rental',
+  },
+}
+
 export default async function CreateRentalPage({
   params,
 }: CreateRentalPageProps) {
   const { tenantVerificationToken } = await params
-  const tenantVerification = new EntityTenantVerification(
-    (await tenantVerificationRepository.findTenantVerificationByToken(
-      tenantVerificationToken!,
-    ))!,
+  const tenantVerification = await tenantVerificationRepository.findTenantVerificationByToken(
+    tenantVerificationToken!,
   )
-
-  if (!tenantVerification || tenantVerification.isExpired()) {
+  if (!tenantVerification) {
     return (
       <AppLayout>
         <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
@@ -36,7 +61,33 @@ export default async function CreateRentalPage({
               Lien de vérification invalide ou expiré
             </h1>
             <p className="text-gray-600">
-              $ Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
+              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
+              demander un nouveau lien de vérification et réessayer.
+            </p>
+          </MotionDiv>
+        </section>
+      </AppLayout>
+    )
+  }
+  
+  const tenantVerificationEntity = new EntityTenantVerification(
+    tenantVerification,
+  )
+
+  if (!tenantVerificationEntity || tenantVerificationEntity.isExpired()) {
+    return (
+      <AppLayout>
+        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl font-bold mb-4">
+              Lien de vérification invalide ou expiré
+            </h1>
+            <p className="text-gray-600">
+              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
               demander un nouveau lien de vérification et réessayer.
             </p>
           </MotionDiv>
@@ -45,7 +96,7 @@ export default async function CreateRentalPage({
     )
   }
 
-  if (tenantVerification.isValidated()) {
+  if (tenantVerificationEntity.isValidated()) {
     return (
       <AppLayout>
         <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
@@ -68,7 +119,7 @@ export default async function CreateRentalPage({
     )
   }
 
-  if (tenantVerification.state === 'validated') {
+  if (tenantVerificationEntity.state === 'validated') {
     return (
       <AppLayout>
         <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
@@ -93,11 +144,11 @@ export default async function CreateRentalPage({
 
   const createRentalFormProps = {
     tenantVerificationToken,
-    email: tenantVerification.email!,
+    email: tenantVerificationEntity.email!,
     firstname: '',
     lastname: '',
   }
-  const tenant = await tenantRepository.findByEmail(tenantVerification.email!)
+  const tenant = await tenantRepository.findByEmail(tenantVerificationEntity.email!)
   if (tenant) {
     createRentalFormProps.firstname = tenant.firstname!
     createRentalFormProps.lastname = tenant.lastname!
@@ -114,13 +165,14 @@ export default async function CreateRentalPage({
           <h1 className="text-4xl font-bold mb-4">
             Invitez votre ancien bailleur
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-balance">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
           </p>
-          <CreateRentalForm {...createRentalFormProps} />
         </MotionDiv>
       </section>
+
+      <CreateRentalForm {...createRentalFormProps} />
     </AppLayout>
   )
 }

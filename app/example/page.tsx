@@ -1,12 +1,39 @@
-'use client'
-
+/* eslint-disable react/no-unescaped-entities */
 import { Button } from '@/components/ui/button'
 import AppLayout from '@/shared/components/layout/app-layout'
-import { motion } from 'framer-motion'
+import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 
 type ExamplePageProps = {
   params: Promise<void>
+}
+
+export const metadata = {
+  title: 'Exemple de profil locataire | LocProof',
+  description:
+    'Découvrez à quoi ressemble un profil locataire vérifié sur LocProof : recommandations d’anciens bailleurs, historique de location et retours fiables.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Exemple de profil locataire | LocProof',
+    description:
+      'Voyez à quoi ressemble un profil locataire vérifié avec recommandations d’anciens bailleurs.',
+    url: 'https://locproof.fr/example',
+    siteName: 'LocProof',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Exemple de profil locataire | LocProof',
+    description:
+      'Découvrez un exemple de profil locataire vérifié avec recommandations de bailleurs.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/example',
+  },
 }
 
 export default function ExamplePage({}: ExamplePageProps) {
@@ -17,13 +44,13 @@ export default function ExamplePage({}: ExamplePageProps) {
       </div>
 
       <section className="max-w-4xl mx-auto px-6 pt-12 pb-8">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6"
         >
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-400 to-blue-500" />
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-indigo-400 to-blue-500" />
 
           <div>
             <h1 className="text-3xl font-bold">Martin Dupont</h1>
@@ -34,11 +61,11 @@ export default function ExamplePage({}: ExamplePageProps) {
               Ce profil peut être partagé avec un bailleur en un clic
             </p>
           </div>
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-10">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -58,11 +85,11 @@ export default function ExamplePage({}: ExamplePageProps) {
               <p className="font-semibold text-lg">{item.value}</p>
             </div>
           ))}
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-16">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -113,7 +140,7 @@ export default function ExamplePage({}: ExamplePageProps) {
               Recommandation vérifiée par un bailleur
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </section>
 
       <section className="text-center pb-20">

@@ -1,6 +1,8 @@
 import { strapiClient } from '@/lib/strapi'
 import { Rental, Tenant } from '@/types/strapi-types'
 
+const COLLECTION_NAME = 'rentals'
+
 export const rentalRepository = {
   async create(data: {
     address: Rental['address']
@@ -10,15 +12,16 @@ export const rentalRepository = {
     tenantDocumentId: Rental['tenantDocumentId']
     expiresAt: Rental['expiresAt']
     rentalToken: Rental['rentalToken']
+    cityPublic: Rental['cityPublic']
   }) {
-    const res = await strapiClient.collection('rentals').create(data)
+    const res = await strapiClient.collection(COLLECTION_NAME).create(data)
     return res.data
   },
 
   async findByRentalToken(
     rentalToken: Rental['rentalToken'],
   ): Promise<Rental | null> {
-    const res = await strapiClient.collection('rentals').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         rentalToken: {
           $eq: rentalToken,
@@ -29,7 +32,7 @@ export const rentalRepository = {
   },
 
   async markAsValidated(rentalDocumentId: Rental['documentId']) {
-    await strapiClient.collection('rentals').update(rentalDocumentId!, {
+    await strapiClient.collection(COLLECTION_NAME).update(rentalDocumentId!, {
       state: 'validated',
       validatedAt: new Date(),
     })
@@ -38,7 +41,7 @@ export const rentalRepository = {
   async findByDocumentId(
     documentId: Rental['documentId'],
   ): Promise<Rental | null> {
-    const res = await strapiClient.collection('rentals').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         documentId: {
           $eq: documentId,
@@ -51,7 +54,7 @@ export const rentalRepository = {
   async findByTenantDocumentId(
     tenantDocumentId: Tenant['documentId'],
   ): Promise<Rental[]> {
-    const res = await strapiClient.collection('rentals').find({
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         tenantDocumentId: {
           $eq: tenantDocumentId,
@@ -59,5 +62,9 @@ export const rentalRepository = {
       },
     })
     return res.data || []
+  },
+
+  async all(): Promise<Array<Rental>> {
+    return (await strapiClient.collection(COLLECTION_NAME).find()).data
   },
 }

@@ -5,6 +5,16 @@ type NoVerificationPageProps = {
   params: Promise<void>
 }
 
+export const metadata = {
+  title: 'Demande introuvable | LocProof',
+  description:
+    'Aucune demande de recommandation n’a été trouvée pour ce lien. Veuillez vérifier le lien ou en demander un nouveau.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function NoVerificationPage({}: NoVerificationPageProps) {
   return (
     <AppLayout>

@@ -11,6 +11,34 @@ type ValidatePageProps = {
   }>
 }
 
+export const metadata = {
+  title: 'Validation de location | LocProof',
+  description:
+    'Confirmez en quelques secondes l’expérience locative d’un ancien locataire via un lien sécurisé LocProof.',
+  robots: {
+    index: false,
+    follow: false,
+    noindex: true,
+    nofollow: true,
+  },
+  openGraph: {
+    title: 'Validation de location | LocProof',
+    description:
+      'Confirmez l’expérience locative d’un ancien locataire en quelques secondes.',
+    type: 'website',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Validation de location | LocProof',
+    description:
+      'Répondez à une demande de recommandation locative en moins d’une minute.',
+  },
+  alternates: {
+    canonical: 'https://locproof.fr/validate',
+  },
+}
+
 export default async function ValidatePage({ params }: ValidatePageProps) {
   const { rentalToken } = await params
   const rental = await rentalRepository.findByRentalToken(rentalToken)
@@ -87,6 +115,10 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
           rentalDocumentId,
         }}
       />
+
+      <p className="text-xs text-center text-gray-400 mt-6">
+        Aucun compte requis • Réponse en moins d’une minute
+      </p>
     </AppLayout>
   )
 }
