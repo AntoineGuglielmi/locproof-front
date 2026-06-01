@@ -53,7 +53,7 @@ export default function CreateMeForm() {
 
         <Button
           type="submit"
-          disabled={loading}
+          disabled={loading || formSubmitted}
           className="w-full mt-4 rounded-full py-4 text-base bg-indigo-600 hover:bg-indigo-700"
         >
           {loading ? 'Envoi en cours...' : 'Recevoir mon lien sécurisé'}
