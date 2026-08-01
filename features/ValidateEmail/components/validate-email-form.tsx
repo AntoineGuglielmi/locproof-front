@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ActionSendMailToTenant } from './action'
+import { ActionValidateEmail } from '../actions/ActionValidateEmail'
 
-export default function CreateMeForm() {
+export default function ValidateEmailForm() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -20,7 +20,7 @@ export default function CreateMeForm() {
 
     try {
       setLoading(true)
-      await ActionSendMailToTenant({ email })
+      await ActionValidateEmail({ email })
       // 👉 plus tard : afficher un état "email envoyé"
       setFormSubmitted(true)
     } finally {

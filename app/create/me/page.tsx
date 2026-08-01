@@ -1,6 +1,6 @@
+import ValidateEmailForm from '@/features/ValidateEmail/components/validate-email-form'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import CreateMeForm from './create-me-form'
 
 type CreateMePageProps = {
   params: Promise<void>
@@ -58,7 +58,7 @@ export default function CreateMePage({}: CreateMePageProps) {
             </p>
           </div>
 
-          <CreateMeForm />
+          <ValidateEmailForm />
 
           <p className="text-center text-xs text-gray-400 mt-6">
             Aucun compte requis • Lien sécurisé envoyé par email
