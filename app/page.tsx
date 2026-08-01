@@ -71,7 +71,7 @@ export default function HomePage() {
               asChild
               className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
             >
-              <Link href="/create/me">Je suis locataire</Link>
+              <Link href="/validate-email">Je suis locataire</Link>
             </Button>
             <Button
               asChild
@@ -183,7 +183,7 @@ export default function HomePage() {
           asChild
           className="px-10 py-5 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
         >
-          <Link href="/create/me">Créer mon dossier LocProof</Link>
+          <Link href="/validate-email">Créer mon dossier LocProof</Link>
         </Button>
       </section>
     </AppLayout>

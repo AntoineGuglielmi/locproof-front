@@ -151,7 +151,7 @@ export default function ExamplePage({}: ExamplePageProps) {
           asChild
           className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
         >
-          <Link href="/create/me">Créer mon dossier LocProof</Link>
+          <Link href="/validate-email">Créer mon dossier LocProof</Link>
         </Button>
       </section>
     </AppLayout>

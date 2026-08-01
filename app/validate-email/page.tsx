@@ -18,7 +18,7 @@ export const metadata = {
     title: 'Créer mon dossier locataire | LocProof',
     description:
       'Invitez un ancien bailleur à confirmer votre sérieux en tant que locataire via un lien sécurisé.',
-    url: 'https://locproof.fr/create/me',
+    url: 'https://locproof.fr/validate-email',
     siteName: 'LocProof',
     type: 'website',
     locale: 'fr_FR',
@@ -30,7 +30,7 @@ export const metadata = {
       'Demandez une recommandation vérifiée en quelques minutes, sans compte.',
   },
   alternates: {
-    canonical: 'https://locproof.fr/create/me',
+    canonical: 'https://locproof.fr/validate-email',
   },
 }
 
