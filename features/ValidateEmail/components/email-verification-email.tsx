@@ -17,7 +17,7 @@ interface EmailValidationProps {
   href: string
 }
 
-export default function EmailValidation({ href }: EmailValidationProps) {
+export default function EmailValidationEmail({ href }: EmailValidationProps) {
   return (
     <Html>
       <Head />
