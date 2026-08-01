@@ -33,13 +33,12 @@ LocProof introduces a **trust layer** based on:
 - `/` → Home
 - `/example` → Example profile
 - `/create` → Create dossier
-- `/validate/[token]` → Landlord validation
+- `/create-reference/[token]` → Landlord validation
 - `/profile/[slug]` → Public profile
 
 ## 🧠 Vision
 
 Build a simple, trust-based standard for rental applications.
-
 
 ---
 
