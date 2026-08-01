@@ -3,7 +3,7 @@
 import { ServiceCreateReference } from '@/services/ServiceCreateReference'
 import { Reference } from '@/types/strapi-types'
 
-export async function ActionSubmitValidateRental({
+export async function ActionCreateReference({
   paidOnTime,
   wellMaintained,
   communication,
