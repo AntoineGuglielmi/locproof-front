@@ -1,29 +1,21 @@
 'use server'
 
-import { ServiceCreateReference } from '@/services/ServiceCreateReference'
-import { Reference } from '@/types/strapi-types'
+import { TypeInputCreateReference } from '../types/TypeInputCreateReference'
+import { TypeContextCreateReference } from '../types/TypeContextCreateReference'
+import { UseCaseCreateReference } from '../useCase/UseCaseCreateReference'
 
-export async function ActionCreateReference({
-  paidOnTime,
-  wellMaintained,
-  communication,
-  recommended,
-  comment,
-  rentalDocumentId,
-}: {
-  paidOnTime: Reference['paidOnTime']
-  wellMaintained: Reference['wellMaintained']
-  communication: Reference['communication']
-  recommended: Reference['recommended']
-  comment: Reference['comment']
-  rentalDocumentId: Reference['rentalDocumentId']
-}) {
-  await ServiceCreateReference({
-    paidOnTime,
-    wellMaintained,
-    communication,
-    recommended,
-    comment,
-    rentalDocumentId,
-  })
+export async function ActionCreateReference(
+  formInput: TypeInputCreateReference,
+) {
+  const contextCreateReference: TypeContextCreateReference = {
+    formInput,
+    rental: null,
+    tenant: null,
+  }
+
+  const useCaseCreateReference = new UseCaseCreateReference(
+    contextCreateReference,
+  )
+
+  useCaseCreateReference.execute()
 }

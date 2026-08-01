@@ -17,7 +17,7 @@ interface NewReferenceProps {
   href: string
 }
 
-export default function NewReference({ href }: NewReferenceProps) {
+export default function NewReferenceEmail({ href }: NewReferenceProps) {
   return (
     <Html>
       <Head />
