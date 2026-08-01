@@ -3,7 +3,7 @@ import AppLayout from '@/shared/components/layout/app-layout'
 import { rentalRepository } from '@/repositories/rental.repository'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { tenantRepository } from '@/repositories/tenant.repository'
-import ValidateForm from './validate-form'
+import CreateReferenceForm from '@/features/CreateReference/components/create-reference-form'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -105,7 +105,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
         </MotionDiv>
       </section>
 
-      <ValidateForm
+      <CreateReferenceForm
         {...{
           address,
           startDate,
