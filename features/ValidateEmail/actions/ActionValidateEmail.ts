@@ -3,7 +3,7 @@
 import { ServiceInitDossier } from '@/services/ServiceInitDossier'
 import { Tenant } from '@/types/strapi-types'
 
-export const ActionSendMailToTenant = async ({
+export const ActionValidateEmail = async ({
   email,
 }: {
   email: Tenant['email']
