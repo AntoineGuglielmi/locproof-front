@@ -1,12 +1,13 @@
 'use server'
 
+import { TypeContextRequestingAReference } from '../types/TypeContextRequestingAReference'
 import { TypeInputRequestingAReference } from '../types/TypeInputRequestingAReference'
 import { UseCaseRequestingAReference } from '../useCase/UseCaseRequestingAReference'
 
 export const ActionRequestingAReference = async (
   formInput: TypeInputRequestingAReference,
 ): Promise<void> => {
-  const ContextRequestingAReference = {
+  const contextRequestingAReference: TypeContextRequestingAReference = {
     formInput,
     tenant: null,
     tenantVerification: null,
@@ -14,7 +15,7 @@ export const ActionRequestingAReference = async (
   }
 
   const useCaseRequestingAReference = new UseCaseRequestingAReference(
-    ContextRequestingAReference,
+    contextRequestingAReference,
   )
 
   useCaseRequestingAReference.execute()
