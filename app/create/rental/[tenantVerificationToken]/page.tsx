@@ -4,8 +4,8 @@ import { tenantRepository } from '@/repositories/tenant.repository'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { TenantVerification } from '@/types/strapi-types'
-import CreateRentalForm from './create-rental-form'
 import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
+import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -45,9 +45,10 @@ export default async function CreateRentalPage({
   params,
 }: CreateRentalPageProps) {
   const { tenantVerificationToken } = await params
-  const tenantVerification = await tenantVerificationRepository.findTenantVerificationByToken(
-    tenantVerificationToken!,
-  )
+  const tenantVerification =
+    await tenantVerificationRepository.findTenantVerificationByToken(
+      tenantVerificationToken!,
+    )
   if (!tenantVerification) {
     return (
       <AppLayout>
@@ -69,7 +70,7 @@ export default async function CreateRentalPage({
       </AppLayout>
     )
   }
-  
+
   const tenantVerificationEntity = new EntityTenantVerification(
     tenantVerification,
   )
@@ -148,7 +149,9 @@ export default async function CreateRentalPage({
     firstname: '',
     lastname: '',
   }
-  const tenant = await tenantRepository.findByEmail(tenantVerificationEntity.email!)
+  const tenant = await tenantRepository.findByEmail(
+    tenantVerificationEntity.email!,
+  )
   if (tenant) {
     createRentalFormProps.firstname = tenant.firstname!
     createRentalFormProps.lastname = tenant.lastname!
@@ -172,7 +175,7 @@ export default async function CreateRentalPage({
         </MotionDiv>
       </section>
 
-      <CreateRentalForm {...createRentalFormProps} />
+      <RequestingAReferenceForm {...createRentalFormProps} />
     </AppLayout>
   )
 }

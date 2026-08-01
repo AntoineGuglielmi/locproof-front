@@ -17,7 +17,9 @@ interface ValidateRentalProps {
   href: string
 }
 
-export default function ValidateRental({ href }: ValidateRentalProps) {
+export default function AnswerAReferenceRequestEmail({
+  href,
+}: ValidateRentalProps) {
   return (
     <Html>
       <Head />
