@@ -125,7 +125,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
               items={synthesis.references}
               getKey={(item) => item.id}
               renderItem={ReferenceItem}
-              className='flex flex-col gap-4'
+              className="flex flex-col gap-4"
             />
           ) : (
             <>
@@ -138,7 +138,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 sa crédibilité auprès des bailleurs.
               </p>
               <Link
-                href="/create/me"
+                href="/validate-email"
                 className="text-indigo-600 text-sm font-medium block text-center mt-4"
               >
                 Demander une première recommandation
