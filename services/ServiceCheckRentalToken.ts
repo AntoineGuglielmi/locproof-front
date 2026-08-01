@@ -27,5 +27,5 @@ export const ServiceCheckRentalToken = async ({
     return { ok: false, redirectTo: '/error/rental-already-validated' }
   }
 
-  return { ok: true, redirectTo: `/validate/${rentalToken}` }
+  return { ok: true, redirectTo: `/create-reference/${rentalToken}` }
 }

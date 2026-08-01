@@ -13,11 +13,11 @@ import {
   Preview,
 } from 'react-email'
 
-interface EmailValidationProps {
+interface NewReferenceProps {
   href: string
 }
 
-export default function EmailValidation({ href }: EmailValidationProps) {
+export default function NewReferenceEmail({ href }: NewReferenceProps) {
   return (
     <Html>
       <Head />
@@ -36,31 +36,30 @@ export default function EmailValidation({ href }: EmailValidationProps) {
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Container className="mx-auto my-10 max-w-116.25 rounded-2xl border border-[#eaeaea] border-solid p-5">
             <Preview>
-              Cliquez sur le lien fourni pour valider que la demande vient bien
-              de vous
+              Cliquez sur le lien fourni pour consulter la recommandation
+              rédigée par votre ancien bailleur
             </Preview>
             <Heading as="h2">Bonjour</Heading>
 
             <Text>
-              Vous êtes sur le point de demander une recommandation à un ancien
-              bailleur.
+              Votre ancien bailleur a rédigé une recommandation pour vous sur
+              LocProof, la plateforme de recommandation de location.
             </Text>
             <Text>
-              Pour vérifier que cette demande vient bien de vous, cliquez
-              simplement sur le lien ci-dessous :
+              Cette recommandation est désormais disponible sur votre profil.
+              Pour la consulter, cliquez simplement sur le lien ci-dessous :
             </Text>
             <Text>
               <Link
                 href={href}
                 className="inline-flex gap-4 items-center rounded-full py-2 px-4 text-base text-white bg-indigo-600"
               >
-                Confirmer ma demande
+                Voir mon profil
               </Link>
             </Text>
-            <Text>Ce lien est valable pendant 24 heures.</Text>
             <Text>
-              Si vous n’êtes pas à l’origine de cette demande, vous pouvez
-              ignorer cet email.
+              Si vous pensez qu'il y a une erreur ou si vous avez des questions,
+              n'hésitez pas à contacter notre support.
             </Text>
             <Hr />
             <Text className="font-bold">
