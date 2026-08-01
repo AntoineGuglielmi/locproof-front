@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { Tenant, TenantVerification } from '@/types/strapi-types'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { DatePicker } from '@/shared/components/form/date-picker'
-import { ActionSubmitCreateRentalForm } from './actions'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import {
   Field,
@@ -17,8 +16,9 @@ import {
   FieldSeparator,
   FieldSet,
 } from '@/components/ui/field'
+import { ActionRequestingAReference } from '../actions/ActionRequestingAReference'
 
-export default function CreateRentalForm(props: {
+export default function RequestingAReferenceForm(props: {
   email: Tenant['email']
   firstname: Tenant['firstname']
   lastname: Tenant['lastname']
@@ -62,7 +62,7 @@ export default function CreateRentalForm(props: {
 
     try {
       setLoading(true)
-      await ActionSubmitCreateRentalForm({
+      await ActionRequestingAReference({
         email,
         firstname,
         lastname,
