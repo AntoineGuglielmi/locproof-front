@@ -1,6 +1,6 @@
+import ValidateEmailForm from '@/features/ValidateEmail/components/validate-email-form'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import CreateMeForm from './create-me-form'
 
 type CreateMePageProps = {
   params: Promise<void>
@@ -18,7 +18,7 @@ export const metadata = {
     title: 'Créer mon dossier locataire | LocProof',
     description:
       'Invitez un ancien bailleur à confirmer votre sérieux en tant que locataire via un lien sécurisé.',
-    url: 'https://locproof.fr/create/me',
+    url: 'https://locproof.fr/validate-email',
     siteName: 'LocProof',
     type: 'website',
     locale: 'fr_FR',
@@ -30,7 +30,7 @@ export const metadata = {
       'Demandez une recommandation vérifiée en quelques minutes, sans compte.',
   },
   alternates: {
-    canonical: 'https://locproof.fr/create/me',
+    canonical: 'https://locproof.fr/validate-email',
   },
 }
 
@@ -58,7 +58,7 @@ export default function CreateMePage({}: CreateMePageProps) {
             </p>
           </div>
 
-          <CreateMeForm />
+          <ValidateEmailForm />
 
           <p className="text-center text-xs text-gray-400 mt-6">
             Aucun compte requis • Lien sécurisé envoyé par email
