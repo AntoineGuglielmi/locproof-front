@@ -1,7 +1,7 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { TypeContextValidateEmail } from '../../types/TypeContextValidateEmail'
-import EmailValidation from '@/features/Emails/components/email-verification'
 import { sendEmailViaResend } from '@/features/Emails/lib/resend'
+import EmailValidationEmail from '../../components/email-verification-email'
 
 export class StepSendValidationEmail extends Step<TypeContextValidateEmail> {
   async execute(context: TypeContextValidateEmail): Promise<void> {
@@ -13,7 +13,7 @@ export class StepSendValidationEmail extends Step<TypeContextValidateEmail> {
     const from = 'LocProof <hello@locproof.fr>'
     const to = email!
     const subject = 'Validez votre adresse email'
-    const react = EmailValidation({ href })
+    const react = EmailValidationEmail({ href })
 
     await sendEmailViaResend({
       from,
