@@ -54,9 +54,9 @@ export default async function Debug({ className }: DebugProps) {
       )
       return (
         <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/validate/${rental.rentalToken}`}
+          href={`${process.env.NEXT_PUBLIC_APP_URL}/create-reference/${rental.rentalToken}`}
         >
-          /validate/{rental.rentalToken} by{' '}
+          /create-reference/{rental.rentalToken} by{' '}
           <span className="font-bold">{tenant?.email}</span>
         </Link>
       )
