@@ -36,9 +36,9 @@ export default async function Debug({ className }: DebugProps) {
     getKey: (item) => item.documentId!,
     renderItem: (tenver) => (
       <Link
-        href={`${process.env.NEXT_PUBLIC_APP_URL}/create/rental/${tenver.tenantVerificationToken}`}
+        href={`${process.env.NEXT_PUBLIC_APP_URL}/request-reference/${tenver.tenantVerificationToken}`}
       >
-        /create/rental/{tenver.tenantVerificationToken} by{' '}
+        /request-reference/{tenver.tenantVerificationToken} by{' '}
         <span className="font-bold">{tenver.email}</span>
       </Link>
     ),

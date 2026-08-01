@@ -25,7 +25,7 @@ export const metadata = {
     title: 'Invitez votre ancien bailleur | LocProof',
     description:
       'Demandez à votre ancien bailleur de confirmer votre expérience locative via un lien sécurisé.',
-    url: 'https://locproof.fr/create/rental',
+    url: 'https://locproof.fr/request-reference',
     siteName: 'LocProof',
     type: 'website',
     locale: 'fr_FR',
@@ -37,7 +37,7 @@ export const metadata = {
       'Envoyez une demande de recommandation en quelques minutes à votre ancien bailleur.',
   },
   alternates: {
-    canonical: 'https://locproof.fr/create/rental',
+    canonical: 'https://locproof.fr/request-reference',
   },
 }
 

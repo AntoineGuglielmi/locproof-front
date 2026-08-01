@@ -45,7 +45,7 @@ export const ServiceCheckTenantToken = async ({
 
   return {
     ok: true,
-    redirectTo: `/create/rental/${tenantVerificationToken}`,
+    redirectTo: `/request-reference/${tenantVerificationToken}`,
     email: tenantVerification.email,
   }
 }
