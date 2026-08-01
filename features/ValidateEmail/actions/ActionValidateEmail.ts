@@ -1,12 +1,20 @@
 'use server'
 
-import { ServiceInitDossier } from '@/services/ServiceInitDossier'
 import { Tenant } from '@/types/strapi-types'
+import { UseCaseValidateEmail } from '../useCase/UseCaseValidateEmail'
+import { TypeContextValidateEmail } from '../types/TypeContextValidateEmail'
 
 export const ActionValidateEmail = async ({
   email,
 }: {
   email: Tenant['email']
 }): Promise<void> => {
-  await ServiceInitDossier({ email })
+  const contextValidateEmail: TypeContextValidateEmail = {
+    email,
+    tenantVerificationToken: null,
+  }
+
+  const useCaseValidateEmail = new UseCaseValidateEmail(contextValidateEmail)
+
+  useCaseValidateEmail.execute()
 }
