@@ -1,19 +1,19 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { TypeContextCreateReference } from '../../types/TypeContextCreateReference'
 import { sendEmailViaResend } from '@/features/Emails/lib/resend'
 import NewReferenceEmail from '../../components/new-reference-email'
+import { TypeContextWithTenant } from '../../types/TypesSteps'
 
-export class StepSendEmailToTenant extends Step<TypeContextCreateReference> {
-  async execute(context: TypeContextCreateReference): Promise<void> {
-    const tenant = context.tenant
-    const tenantSlug = tenant?.slug
-    const tenantEmail = tenant?.email
+export class StepSendEmailToTenant extends Step<TypeContextWithTenant> {
+  async execute(context: TypeContextWithTenant): Promise<void> {
+    const {
+      tenant: { slug: tenantSlug, email: tenantEmail },
+    } = context
 
-    if (tenant?.email && tenant?.slug) {
+    if (tenantEmail && tenantSlug) {
       const href = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenantSlug}`
 
       const from = 'LocProof <hello@locproof.fr>'
-      const to = tenantEmail!
+      const to = tenantEmail
       const subject = 'Votre recommandation a été rédigée !'
       const react = NewReferenceEmail({ href })
 
