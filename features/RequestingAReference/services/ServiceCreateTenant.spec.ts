@@ -4,7 +4,7 @@ import { Tenant } from '@/shared/types/strapi-types'
 
 vi.mock('@/repositories/tenant.repository', () => ({
   tenantRepository: {
-    checkIfTenantExists: vi.fn(),
+    findByEmail: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
   },
@@ -23,7 +23,7 @@ describe('ServiceCreateTenant', () => {
       lastname: 'G',
     } as Tenant
 
-    vi.mocked(tenantRepository.checkIfTenantExists).mockResolvedValue(null)
+    vi.mocked(tenantRepository.findByEmail).mockResolvedValue(null)
 
     vi.mocked(tenantRepository.create).mockResolvedValue(tenant)
 
@@ -33,9 +33,7 @@ describe('ServiceCreateTenant', () => {
       lastname: 'G',
     })
 
-    expect(tenantRepository.checkIfTenantExists).toHaveBeenCalledWith(
-      'test@test.com',
-    )
+    expect(tenantRepository.findByEmail).toHaveBeenCalledWith('test@test.com')
 
     expect(tenantRepository.create).toHaveBeenCalledWith({
       email: 'test@test.com',
@@ -62,9 +60,7 @@ describe('ServiceCreateTenant', () => {
       lastname: 'G',
     } as Tenant
 
-    vi.mocked(tenantRepository.checkIfTenantExists).mockResolvedValue(
-      existingTenant,
-    )
+    vi.mocked(tenantRepository.findByEmail).mockResolvedValue(existingTenant)
 
     vi.mocked(tenantRepository.update).mockResolvedValue(updatedTenant)
 
@@ -74,9 +70,7 @@ describe('ServiceCreateTenant', () => {
       lastname: 'G',
     })
 
-    expect(tenantRepository.checkIfTenantExists).toHaveBeenCalledWith(
-      'test@test.com',
-    )
+    expect(tenantRepository.findByEmail).toHaveBeenCalledWith('test@test.com')
 
     expect(tenantRepository.update).toHaveBeenCalledWith('tenant-123', {
       firstname: 'Antoine',
