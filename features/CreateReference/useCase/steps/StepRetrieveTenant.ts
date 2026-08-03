@@ -1,12 +1,13 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { TypeContextCreateReference } from '../../types/TypeContextCreateReference'
 import { tenantRepository } from '@/repositories/tenant.repository'
+import { TypeContextWithRental } from '../../types/TypesSteps'
 
-export class StepRetrieveTenant extends Step<TypeContextCreateReference> {
-  async execute(context: TypeContextCreateReference): Promise<void> {
-    const rental = context.rental
-    context.tenant = await tenantRepository.findBydDocumentId(
-      rental?.tenantDocumentId,
-    )
+export class StepRetrieveTenant extends Step<TypeContextWithRental> {
+  async execute(context: TypeContextWithRental): Promise<void> {
+    const {
+      rental: { tenantDocumentId },
+    } = context
+
+    context.tenant = await tenantRepository.findBydDocumentId(tenantDocumentId)
   }
 }

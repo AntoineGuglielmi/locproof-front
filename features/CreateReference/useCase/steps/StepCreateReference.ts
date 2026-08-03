@@ -1,15 +1,17 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { TypeContextCreateReference } from '../../types/TypeContextCreateReference'
 import { referenceRepository } from '@/repositories/reference.repository'
+import { TypeContextWithFormInput } from '../../types/TypesSteps'
 
-export class StepCreateReference extends Step<TypeContextCreateReference> {
-  async execute(context: TypeContextCreateReference): Promise<void> {
-    const paidOnTime = context.formInput?.paidOnTime
-    const wellMaintained = context.formInput?.wellMaintained
-    const communication = context.formInput?.communication
-    const recommended = context.formInput?.recommended
-    const comment = context.formInput?.comment
-    const rentalDocumentId = context.formInput?.rentalDocumentId
+export class StepCreateReference extends Step<TypeContextWithFormInput> {
+  async execute(context: TypeContextWithFormInput): Promise<void> {
+    const {
+      paidOnTime,
+      wellMaintained,
+      communication,
+      recommended,
+      comment,
+      rentalDocumentId,
+    } = context.formInput
 
     await referenceRepository.create({
       paidOnTime,
