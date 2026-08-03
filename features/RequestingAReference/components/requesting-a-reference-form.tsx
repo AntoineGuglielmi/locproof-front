@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@/shared/components/shadcn/ui/button'
+import { Input } from '@/shared/components/shadcn/ui/input'
 import { Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { DatePicker } from '@/shared/components/form/date-picker'
@@ -15,7 +15,7 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from '@/components/ui/field'
+} from '@/shared/components/shadcn/ui/field'
 import { ActionRequestingAReference } from '../actions/ActionRequestingAReference'
 
 export default function RequestingAReferenceForm(props: {

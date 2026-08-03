@@ -1,13 +1,13 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
-import { Field } from '@/components/ui/field'
+import { Button } from '@/shared/components/shadcn/ui/button'
+import { Calendar } from '@/shared/components/shadcn/ui/calendar'
+import { Field } from '@/shared/components/shadcn/ui/field'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@/shared/components/shadcn/ui/popover'
 import { useEffect, useState } from 'react'
 
 export function DatePicker({

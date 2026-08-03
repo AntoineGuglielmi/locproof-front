@@ -1,20 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/shadcn/ui/button'
 import { dateShort } from '@/shared/lib/date'
 import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { useState } from 'react'
-import { Textarea } from '@/components/ui/textarea'
+import { Textarea } from '@/shared/components/shadcn/ui/textarea'
 import {
   Field,
   FieldDescription,
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from '@/components/ui/field'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+} from '@/shared/components/shadcn/ui/field'
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/shared/components/shadcn/ui/radio-group'
 import Link from 'next/link'
 import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 import { ActionCreateReference } from '../actions/ActionCreateReference'
