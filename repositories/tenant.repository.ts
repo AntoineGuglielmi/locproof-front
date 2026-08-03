@@ -50,7 +50,7 @@ export const tenantRepository = {
     return tenantsWithSameFirstnameAndLastname.data.length + 1
   },
 
-  async findByEmail(email: string): Promise<Tenant | null> {
+  async findByEmail(email: Tenant['email']): Promise<Tenant | null> {
     const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
         email: {
@@ -70,17 +70,6 @@ export const tenantRepository = {
       },
     })
     return new EntityTenant(res.data.length > 0 ? res.data[0] : { email })
-  },
-
-  async checkIfTenantExists(email: Tenant['email']): Promise<Tenant | null> {
-    const res = await strapiClient.collection(COLLECTION_NAME).find({
-      filters: {
-        email: {
-          $eq: email,
-        },
-      },
-    })
-    return res.data[0] || null
   },
 
   async update(
