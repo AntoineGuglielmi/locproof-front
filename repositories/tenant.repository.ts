@@ -1,4 +1,4 @@
-import { strapiClient } from '@/lib/strapi'
+import { strapiClient } from '@/shared/lib/strapi'
 import { EntityTenant } from '@/shared/entities/EntityTenant'
 import { Tenant } from '@/shared/types/strapi-types'
 import slugify from 'slugify'
