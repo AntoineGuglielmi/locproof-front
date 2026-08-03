@@ -1,4 +1,4 @@
-import { dateShort } from '@/lib/date'
+import { dateShort } from '@/shared/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { Reference, Rental, Tenant } from '../types/strapi-types'

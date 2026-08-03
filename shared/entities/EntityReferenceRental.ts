@@ -1,4 +1,4 @@
-import { dateShort } from '@/lib/date'
+import { dateShort } from '@/shared/lib/date'
 import { ucfirst } from '@/lib/string'
 import { Reference, Rental } from '@/shared/types/strapi-types'
 
