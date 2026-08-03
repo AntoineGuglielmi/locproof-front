@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/shared/components/shadcn/ui/input'
 
 export function AddressAutocomplete({
   placeholder = 'Adresse du logement',

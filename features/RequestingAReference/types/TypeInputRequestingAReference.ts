@@ -1,4 +1,4 @@
-import { Rental, Tenant, TenantVerification } from '@/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 
 export type TypeInputRequestingAReference = {
   email: Tenant['email']

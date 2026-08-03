@@ -1,4 +1,4 @@
-import { Reference } from '@/types/strapi-types'
+import { Reference } from '@/shared/types/strapi-types'
 
 export type TypeInputCreateReference = {
   paidOnTime: Reference['paidOnTime']

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Nunito, Geist } from 'next/font/google'
 import './globals.css'
-import { cn } from "@/lib/utils";
+import { cn } from '@/shared/lib/className'
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
 
 const nunio = Nunito({
   variable: '--font-nunito',
@@ -24,7 +24,13 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={cn("antialiased", "font-nunito", nunio.variable, "font-sans", geist.variable)}
+      className={cn(
+        'antialiased',
+        'font-nunito',
+        nunio.variable,
+        'font-sans',
+        geist.variable,
+      )}
     >
       <body className="bg-linear-to-br from-indigo-50 via-white to-blue-50 text-gray-900">
         {children}

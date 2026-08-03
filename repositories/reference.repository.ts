@@ -1,5 +1,5 @@
-import { strapiClient } from '@/lib/strapi'
-import { Reference, Rental } from '@/types/strapi-types'
+import { strapiClient } from '@/shared/lib/strapi'
+import { Reference, Rental } from '@/shared/types/strapi-types'
 
 export const referenceRepository = {
   async create({

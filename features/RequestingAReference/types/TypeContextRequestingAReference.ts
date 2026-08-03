@@ -1,4 +1,4 @@
-import { Rental, Tenant, TenantVerification } from '@/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { TypeInputRequestingAReference } from './TypeInputRequestingAReference'
 
 export type TypeContextRequestingAReference = {

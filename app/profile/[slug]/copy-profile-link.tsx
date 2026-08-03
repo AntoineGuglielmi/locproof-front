@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/shadcn/ui/button'
 import { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
