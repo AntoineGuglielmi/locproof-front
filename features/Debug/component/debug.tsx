@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/className'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'

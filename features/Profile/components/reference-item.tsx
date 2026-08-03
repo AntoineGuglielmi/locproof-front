@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/className'
 import { TypeRentalReference } from '@/shared/types/profile-synthesis'
 import { ArrowRight, Calendar, Check, MapPin } from 'lucide-react'
 import { ucfirst } from '@/lib/string'
