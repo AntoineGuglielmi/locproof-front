@@ -1,10 +1,10 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { TypeContextValidateEmail } from '../../types/TypeContextValidateEmail'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
+import { TypeContextWithEmail } from '../../types/TypesSteps'
 
-export class StepCreateNewTenantVerification extends Step<TypeContextValidateEmail> {
-  async execute(context: TypeContextValidateEmail): Promise<void> {
-    const email = context.email!
+export class StepCreateNewTenantVerification extends Step<TypeContextWithEmail> {
+  async execute(context: TypeContextWithEmail): Promise<void> {
+    const { email } = context
 
     const tenantVerificationToken = crypto.randomUUID()
 
