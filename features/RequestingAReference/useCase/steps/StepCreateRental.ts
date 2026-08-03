@@ -1,15 +1,15 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
+import { TypeContextWithFormInputAndTenant } from '../../types/TypesSteps'
 
-export class StepCreateRental extends Step<TypeContextRequestingAReference> {
-  async execute(context: TypeContextRequestingAReference): Promise<void> {
-    const tenantDocumentId = context.tenant?.documentId
-    const address = context.formInput?.address
-    const startDate = context.formInput?.startDate
-    const endDate = context.formInput?.endDate
-    const landlordEmail = context.formInput?.landlordEmail
-    const cityPublic = context.formInput?.cityPublic
+export class StepCreateRental extends Step<TypeContextWithFormInputAndTenant> {
+  async execute(context: TypeContextWithFormInputAndTenant): Promise<void> {
+    const tenantDocumentId = context.tenant.documentId
+    const address = context.formInput.address
+    const startDate = context.formInput.startDate
+    const endDate = context.formInput.endDate
+    const landlordEmail = context.formInput.landlordEmail
+    const cityPublic = context.formInput.cityPublic
 
     const rentalToken = crypto.randomUUID()
 

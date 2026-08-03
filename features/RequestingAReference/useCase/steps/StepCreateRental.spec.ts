@@ -1,7 +1,7 @@
 import { StepCreateRental } from './StepCreateRental'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
 import { Rental } from '@/shared/types/strapi-types'
+import { TypeContextWithFormInputAndTenant } from '../../types/TypesSteps'
 
 vi.mock('@/repositories/rental.repository', () => ({
   rentalRepository: {
@@ -30,7 +30,7 @@ describe('StepCreateRental', () => {
         landlordEmail: 'contact.antoine.guglielmi@gmail.com',
         cityPublic: 'Bordeaux',
       },
-    } as TypeContextRequestingAReference
+    } as TypeContextWithFormInputAndTenant
 
     await new StepCreateRental().execute(context)
 

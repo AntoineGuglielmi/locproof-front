@@ -1,7 +1,7 @@
 import { StepGetTenantVerification } from './StepGetTenantVerification'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
 import { TenantVerification } from '@/shared/types/strapi-types'
+import { TypeContextWithFormInput } from '../../types/TypesSteps'
 
 vi.mock('@/repositories/tenant-verification.repository', () => ({
   tenantVerificationRepository: {
@@ -24,7 +24,7 @@ describe('StepGetTenantVerification', () => {
       formInput: {
         tenantVerificationToken: 'abc-token',
       },
-    } as TypeContextRequestingAReference
+    } as TypeContextWithFormInput
 
     await new StepGetTenantVerification().execute(context)
 

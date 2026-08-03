@@ -1,6 +1,6 @@
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
 import { StepValidateTenantVerification } from './StepValidateTenantVerification'
+import { TypeContextWithTenantVerification } from '../../types/TypesSteps'
 
 vi.mock('@/repositories/tenant-verification.repository', () => ({
   tenantVerificationRepository: {
@@ -14,7 +14,7 @@ describe('StepValidateTenantVerification', () => {
       tenantVerification: {
         documentId: 'verification-123',
       },
-    } as TypeContextRequestingAReference
+    } as TypeContextWithTenantVerification
 
     vi.mocked(tenantVerificationRepository.markAsValidated).mockResolvedValue(
       undefined,

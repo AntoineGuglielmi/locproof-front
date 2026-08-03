@@ -1,6 +1,6 @@
 import { StepSendEmailToLandlord } from './StepSendEmailToLandlord'
 import { sendEmailViaResend } from '@/features/Emails/lib/resend'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
+import { TypeContextWithFormuInputAndRental } from '../../types/TypesSteps'
 
 vi.mock('@/features/Emails/lib/resend', () => ({
   sendEmailViaResend: vi.fn(),
@@ -19,7 +19,7 @@ describe('StepSendEmailToLandlord', () => {
       rental: {
         rentalToken: 'rental-token-123',
       },
-    } as TypeContextRequestingAReference
+    } as TypeContextWithFormuInputAndRental
 
     await new StepSendEmailToLandlord().execute(context)
 
