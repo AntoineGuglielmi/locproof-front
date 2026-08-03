@@ -13,7 +13,7 @@ export const rentalRepository = {
     expiresAt: Rental['expiresAt']
     rentalToken: Rental['rentalToken']
     cityPublic: Rental['cityPublic']
-  }) {
+  }): Promise<Rental> {
     const res = await strapiClient.collection(COLLECTION_NAME).create(data)
     return res.data
   },

@@ -9,24 +9,19 @@ export const ServiceCreateTenant = async ({
   email: Tenant['email']
   firstname: Tenant['firstname']
   lastname: Tenant['lastname']
-}) => {
-  let tenant
-  const existingTenant = await tenantRepository.checkIfTenantExists(email)
+}): Promise<Tenant> => {
+  const existingTenant = await tenantRepository.findByEmail(email)
+
   if (!existingTenant) {
-    tenant = (
-      await tenantRepository.create({
-        email,
-        firstname,
-        lastname,
-      })
-    ).data
-  } else {
-    tenant = (
-      await tenantRepository.update(existingTenant.documentId, {
-        firstname,
-        lastname,
-      })
-    ).data
+    return await tenantRepository.create({
+      email,
+      firstname,
+      lastname,
+    })
   }
-  return tenant
+
+  return await tenantRepository.update(existingTenant.documentId, {
+    firstname,
+    lastname,
+  })
 }

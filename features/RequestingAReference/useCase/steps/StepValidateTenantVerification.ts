@@ -1,10 +1,12 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
+import { TypeContextWithTenantVerification } from '../../types/TypesSteps'
 
-export class StepValidateTenantVerification extends Step<TypeContextRequestingAReference> {
-  async execute(context: TypeContextRequestingAReference): Promise<void> {
-    const tenantVerificationDocumentId = context.tenantVerification?.documentId
+export class StepValidateTenantVerification extends Step<TypeContextWithTenantVerification> {
+  async execute(context: TypeContextWithTenantVerification): Promise<void> {
+    const { documentId: tenantVerificationDocumentId } =
+      context.tenantVerification
+
     await tenantVerificationRepository.markAsValidated(
       tenantVerificationDocumentId,
     )
