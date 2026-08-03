@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { dateShort } from '@/lib/date'
 import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { Reference, Rental, Tenant } from '@/types/strapi-types'
 import { useState } from 'react'
 import { Textarea } from '@/components/ui/textarea'
 import {
@@ -19,6 +18,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import Link from 'next/link'
 import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 import { ActionCreateReference } from '../actions/ActionCreateReference'
+import { Reference, Rental, Tenant } from '@/shared/types/strapi-types'
 
 type ValidateFormProps = {
   address: Rental['address']

@@ -1,5 +1,5 @@
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { TenantVerification } from '@/types/strapi-types'
+import { TenantVerification } from '@/shared/types/strapi-types'
 
 export const ServiceCheckTenantToken = async ({
   tenantVerificationToken,

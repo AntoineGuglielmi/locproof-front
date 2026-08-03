@@ -1,6 +1,6 @@
 import { dateShort } from '@/lib/date'
 import { ucfirst } from '@/lib/string'
-import { Reference, Rental } from '@/types/strapi-types'
+import { Reference, Rental } from '@/shared/types/strapi-types'
 
 export class EntityReferenceRental {
   private _id: string

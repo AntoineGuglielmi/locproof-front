@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Tenant, TenantVerification } from '@/types/strapi-types'
+import { Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { DatePicker } from '@/shared/components/form/date-picker'
 import MotionDiv from '@/shared/components/layout/motion-div'
