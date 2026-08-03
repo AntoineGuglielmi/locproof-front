@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/className'
 import { CSSProperties, Key } from 'react'
 
 type ListProps<T extends object, P extends object> = {
