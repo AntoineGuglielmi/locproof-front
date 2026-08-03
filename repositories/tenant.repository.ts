@@ -14,7 +14,7 @@ export const tenantRepository = {
     email: Tenant['email']
     firstname: Tenant['firstname']
     lastname: Tenant['lastname']
-  }) {
+  }): Promise<Tenant> {
     const newTenant = await strapiClient.collection(COLLECTION_NAME).create({
       email,
       firstname,
@@ -27,9 +27,11 @@ export const tenantRepository = {
       strict: true,
     })
     const slug = `${baseSlug}-${id}`
-    return await strapiClient.collection(COLLECTION_NAME).update(documentId, {
-      slug,
-    })
+    return (
+      await strapiClient.collection(COLLECTION_NAME).update(documentId, {
+        slug,
+      })
+    ).data
   },
 
   async getSlugSuffix(firstname: string, lastname: string): Promise<number> {
@@ -90,7 +92,7 @@ export const tenantRepository = {
       firstname?: Tenant['firstname']
       lastname?: Tenant['lastname']
     },
-  ) {
+  ): Promise<Tenant> {
     const tenant = (
       await strapiClient.collection(COLLECTION_NAME).find({
         filters: {
@@ -116,7 +118,7 @@ export const tenantRepository = {
         lastname,
         slug,
       })
-    return tenantUpdate
+    return tenantUpdate.data
   },
 
   async findBydDocumentId(
