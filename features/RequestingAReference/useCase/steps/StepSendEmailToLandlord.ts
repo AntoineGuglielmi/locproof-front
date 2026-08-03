@@ -1,12 +1,12 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
 import AnswerAReferenceRequestEmail from '../../components/answer-a-reference-request-email'
 import { sendEmailViaResend } from '@/features/Emails/lib/resend'
+import { TypeContextWithFormuInputAndRental } from '../../types/TypesSteps'
 
-export class StepSendEmailToLandlord extends Step<TypeContextRequestingAReference> {
-  async execute(context: TypeContextRequestingAReference): Promise<void> {
-    const landlordEmail = context.formInput?.landlordEmail
-    const rentalToken = context.rental?.rentalToken
+export class StepSendEmailToLandlord extends Step<TypeContextWithFormuInputAndRental> {
+  async execute(context: TypeContextWithFormuInputAndRental): Promise<void> {
+    const { landlordEmail } = context.formInput
+    const { rentalToken } = context.rental
 
     const href = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-rental?rentalToken=${rentalToken}`
 

@@ -1,7 +1,7 @@
 import { StepGetTenant } from './StepGetTenant'
 import { ServiceCreateTenant } from '../../services/ServiceCreateTenant'
-import { TypeContextRequestingAReference } from '../../types/TypeContextRequestingAReference'
 import { Tenant } from '@/shared/types/strapi-types'
+import { TypeContextWithFormInput } from '../../types/TypesSteps'
 
 vi.mock('../../services/ServiceCreateTenant', () => ({
   ServiceCreateTenant: vi.fn(),
@@ -30,7 +30,7 @@ describe('StepGetTenant', () => {
         firstname: 'Antoine',
         lastname: 'G',
       },
-    } as TypeContextRequestingAReference
+    } as TypeContextWithFormInput
 
     await new StepGetTenant().execute(context)
 
