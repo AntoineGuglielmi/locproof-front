@@ -1,4 +1,4 @@
-import { strapiClient } from '@/lib/strapi'
+import { strapiClient } from '@/shared/lib/strapi'
 import { TenantVerification } from '@/shared/types/strapi-types'
 
 const COLLECTION_NAME = 'tenant-verifications'

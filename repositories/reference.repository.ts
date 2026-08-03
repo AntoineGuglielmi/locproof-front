@@ -1,4 +1,4 @@
-import { strapiClient } from '@/lib/strapi'
+import { strapiClient } from '@/shared/lib/strapi'
 import { Reference, Rental } from '@/shared/types/strapi-types'
 
 export const referenceRepository = {
