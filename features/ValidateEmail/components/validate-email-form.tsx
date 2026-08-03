@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@/shared/components/shadcn/ui/button'
+import { Input } from '@/shared/components/shadcn/ui/input'
 import { ActionValidateEmail } from '../actions/ActionValidateEmail'
 
 export default function ValidateEmailForm() {

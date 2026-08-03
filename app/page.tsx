@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/shadcn/ui/button'
 import AppLayout from '@/shared/components/layout/app-layout'
 import Link from 'next/link'
 import MotionDiv from '@/shared/components/layout/motion-div'
