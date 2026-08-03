@@ -13,19 +13,15 @@ export const ServiceCreateTenant = async ({
   const existingTenant = await tenantRepository.checkIfTenantExists(email)
 
   if (!existingTenant) {
-    return (
-      await tenantRepository.create({
-        email,
-        firstname,
-        lastname,
-      })
-    ).data
-  }
-
-  return (
-    await tenantRepository.update(existingTenant.documentId, {
+    return await tenantRepository.create({
+      email,
       firstname,
       lastname,
     })
-  ).data
+  }
+
+  return await tenantRepository.update(existingTenant.documentId, {
+    firstname,
+    lastname,
+  })
 }
