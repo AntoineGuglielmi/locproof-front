@@ -3,7 +3,7 @@ import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import List from '@/shared/components/list/List'
-import { Rental, Tenant, TenantVerification } from '@/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 

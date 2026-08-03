@@ -1,6 +1,6 @@
 'use server'
 
-import { Tenant } from '@/types/strapi-types'
+import { Tenant } from '@/shared/types/strapi-types'
 import { UseCaseValidateEmail } from '../useCase/UseCaseValidateEmail'
 import { TypeContextValidateEmail } from '../types/TypeContextValidateEmail'
 

@@ -1,5 +1,5 @@
 import { strapiClient } from '@/lib/strapi'
-import { Rental, Tenant } from '@/types/strapi-types'
+import { Rental, Tenant } from '@/shared/types/strapi-types'
 
 const COLLECTION_NAME = 'rentals'
 

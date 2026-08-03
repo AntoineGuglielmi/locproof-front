@@ -1,8 +1,8 @@
 import { dateShort } from '@/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeRentalReference, TypeSynthesis } from '@/types/profile-synthesis'
-import { Reference, Rental, Tenant } from '@/types/strapi-types'
+import { Reference, Rental, Tenant } from '../types/strapi-types'
+import { TypeRentalReference, TypeSynthesis } from '../types/profile-synthesis'
 
 export class EntityTenantSynthesis {
   private _tenant: Tenant

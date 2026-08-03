@@ -3,9 +3,9 @@ import { tenantVerificationRepository } from '@/repositories/tenant-verification
 import { tenantRepository } from '@/repositories/tenant.repository'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { TenantVerification } from '@/types/strapi-types'
 import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
 import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
+import { TenantVerification } from '@/shared/types/strapi-types'
 
 type CreateRentalPageProps = {
   params: Promise<{

@@ -1,5 +1,5 @@
 import { tenantRepository } from '@/repositories/tenant.repository'
-import { Tenant } from '@/types/strapi-types'
+import { Tenant } from '@/shared/types/strapi-types'
 
 export const ServiceCreateTenant = async ({
   email,

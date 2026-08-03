@@ -1,4 +1,4 @@
-import { Tenant } from '@/types/strapi-types'
+import { Tenant } from '@/shared/types/strapi-types'
 
 export class EntityTenant {
   private _email: Tenant['email']

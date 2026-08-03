@@ -1,4 +1,4 @@
-import { TenantVerification } from '@/types/strapi-types'
+import { TenantVerification } from '@/shared/types/strapi-types'
 
 export class EntityTenantVerification {
   private _email: TenantVerification['email']

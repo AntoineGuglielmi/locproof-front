@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 // The previous lines should trigger a `A `require()` style import is forbidden.` warning/error. It should be ok.
 
-const outputPath = path.join(process.cwd(), 'types', 'strapi-types.ts')
+const outputPath = path.join(process.cwd(), 'shared/types', 'strapi-types.ts')
 
 async function main() {
   const res = await fetch('http://localhost:1337/api/get-types')

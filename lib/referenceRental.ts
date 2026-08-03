@@ -1,4 +1,4 @@
-import { Reference, Rental } from '@/types/strapi-types'
+import { Reference, Rental } from '@/shared/types/strapi-types'
 
 export const mergeReferenceRental = ({
   reference,
