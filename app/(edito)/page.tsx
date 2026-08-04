@@ -4,6 +4,7 @@ import AppLayout from '@/shared/components/layout/app-layout'
 import Link from 'next/link'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
+import PageSubTitle from '@/shared/components/headings/page-sub-title'
 
 export const metadata = {
   title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
@@ -56,9 +57,9 @@ export default function HomePage() {
 
           <PageMainTitle>Louer en confiance, des deux côtés</PageMainTitle>
 
-          <p className="text-xl text-gray-700 mb-4">
+          <PageSubTitle className="text-xl text-gray-700 mb-4">
             Locataires et bailleurs gagnent en visibilité et en sérénité
-          </p>
+          </PageSubTitle>
 
           <p className="text-gray-500 mb-10 max-w-2xl mx-auto text-balance">
             Les locataires valorisent leur sérieux. Les bailleurs prennent des
