@@ -26,15 +26,17 @@ export default function ValidateEmailForm() {
   })
 
   async function onSubmit(values: ValidateEmailFormValues) {
-    try {
-      await ActionValidateEmail(values)
+    const result = await ActionValidateEmail(values)
 
-      setSubmittedEmail(values.email)
-    } catch {
+    if (!result.success) {
       form.setError('root', {
-        message: 'Une erreur est survenue. Veuillez réessayer.',
+        message: result.error,
       })
+
+      return
     }
+
+    setSubmittedEmail(values.email)
   }
 
   if (submittedEmail) {
