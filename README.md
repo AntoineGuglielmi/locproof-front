@@ -15,6 +15,14 @@ The result is a trustworthy, shareable profile that helps tenants demonstrate th
 
 ---
 
+> 🚧 **Current status**
+>
+> LocProof is currently in its validation phase. The application is functional,
+> but the current priority is to validate the concept with real estate professionals
+> before investing in larger features.
+
+---
+
 ## Why LocProof?
 
 Finding a rental property is often stressful for both parties.
