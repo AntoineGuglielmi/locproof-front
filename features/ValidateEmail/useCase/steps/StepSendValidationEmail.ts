@@ -16,13 +16,19 @@ export class StepSendValidationEmail extends Step<TypeContextWithEmailAndTenantV
     const subject = 'Validez votre adresse email'
     const react = EmailValidationEmail({ href })
 
-    if (process.env.SEND_VALIDATION_EMAIL) {
-      await sendEmailViaResend({
-        from,
-        to,
-        subject,
-        react,
-      })
+    if (process.env.NEXT_PUBLIC_SEND_EMAILS) {
+      try {
+        await sendEmailViaResend({
+          from,
+          to,
+          subject,
+          react,
+        })
+      } catch (error) {
+        throw new Error("Impossible d'envoyer l'email de validation", {
+          cause: error,
+        })
+      }
     }
   }
 }

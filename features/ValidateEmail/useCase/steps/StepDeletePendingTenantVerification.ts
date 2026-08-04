@@ -4,8 +4,12 @@ import { TypeContextWithEmail } from '../../types/TypesSteps'
 
 export class StepDeletePendingTenantVerification extends Step<TypeContextWithEmail> {
   async execute(context: TypeContextWithEmail): Promise<void> {
-    const { email } = context
-
-    await tenantVerificationRepository.deletePendingByEmail(email)
+    try {
+      await tenantVerificationRepository.deletePendingByEmail(context.email)
+    } catch (error) {
+      throw new Error('Impossible de supprimer la vérification existante', {
+        cause: error,
+      })
+    }
   }
 }
