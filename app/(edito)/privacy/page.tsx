@@ -1,3 +1,5 @@
+import PageMainTitle from '@/shared/components/headings/page-main-title'
+import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
@@ -44,14 +46,12 @@ export default function PrivacyPage() {
             🔐 Protection des données
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-            Politique de confidentialité
-          </h1>
+          <PageMainTitle>Politique de confidentialité</PageMainTitle>
 
-          <p className="text-xl text-gray-700 mb-4">
+          <PageSubTitle className="text-xl text-gray-700 mb-4">
             Vos données restent utilisées uniquement dans le cadre des
             recommandations locatives proposées par LocProof.
-          </p>
+          </PageSubTitle>
 
           <p className="text-gray-500 max-w-2xl mx-auto">
             Transparence, sécurité et respect de la vie privée font partie des

@@ -1,4 +1,5 @@
 import ValidateEmailForm from '@/features/ValidateEmail/components/validate-email-form'
+import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 
@@ -48,9 +49,9 @@ export default function CreateMePage({}: CreateMePageProps) {
               🔒 Vérification sécurisée
             </span>
 
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <PageMainTitle version="small">
               Demandez une recommandation
-            </h1>
+            </PageMainTitle>
 
             <p className="text-gray-600 mb-8 text-balance">
               En quelques minutes, invitez un ancien bailleur à confirmer votre

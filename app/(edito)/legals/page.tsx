@@ -1,3 +1,5 @@
+import PageMainTitle from '@/shared/components/headings/page-main-title'
+import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
@@ -42,14 +44,12 @@ export default function LegalPage() {
             ⚖️ Informations légales
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-            Mentions légales
-          </h1>
+          <PageMainTitle>Mentions légales</PageMainTitle>
 
-          <p className="text-xl text-gray-700 mb-4">
+          <PageSubTitle className="text-xl text-gray-700 mb-4">
             Les informations relatives à l’éditeur, à l’hébergement et au
             fonctionnement de LocProof.
-          </p>
+          </PageSubTitle>
 
           <p className="text-gray-500 max-w-2xl mx-auto">
             Cette page est fournie conformément à la législation française en
