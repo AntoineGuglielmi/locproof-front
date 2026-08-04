@@ -64,32 +64,21 @@ Instead, visitors only see a synthesized view of verified recommendations and ag
 
 ---
 
-## Project status
+## Project Status
 
-**Current stage:** MVP
+LocProof is currently in the **validation phase**.
 
-### Implemented
+The MVP is functional and allows tenants to request verified recommendations from previous landlords.
 
-- Tenant recommendation requests
-- Landlord recommendation workflow
-- Secure email invitations
-- Public tenant profiles
-- Recommendation summaries
-- Modern frontend architecture
-- Business use case testing
+The current objective is to validate the concept with real estate professionals and gather feedback before investing in more advanced features.
 
-### In progress
+Current areas of work include:
 
-- Authentication
-- Recommendation management
-- Dashboard improvements
-
-### Planned
-
-- Fraud prevention mechanisms
-- Agency dashboards
-- Professional integrations
-- Advanced reputation scoring
+- improving the existing user experience
+- refining the recommendation workflow
+- strengthening the project architecture and test coverage
+- collecting feedback from real estate professionals
+- validating product-market fit
 
 ---
 
@@ -223,17 +212,23 @@ npm run types    # Generate Strapi TypeScript types
 
 ---
 
-## Vision
+## What's next?
 
-LocProof aims to become the trusted reputation layer for renting.
+The current focus is not to add as many features as possible.
 
-Instead of repeatedly proving only administrative eligibility, tenants should be able to carry a verified rental reputation throughout their housing journey.
+Instead, the priority is to confirm that the recommendation workflow solves a real problem for both tenants and landlords.
 
-The long-term vision includes integrations with:
+If the concept proves valuable, future developments may include:
 
-- real estate agencies
-- property management software
-- professional platforms
-- institutional partners
+- stronger landlord verification
+- tools for real estate professionals
+- fraud prevention mechanisms
+- integrations with property management software
 
-to make trusted rental history a standard component of every rental application.
+---
+
+## About this repository
+
+Although LocProof is currently in its validation phase, the project is developed with a strong focus on software quality.
+
+The objective is to experiment with the product while building a maintainable and well-tested codebase that can evolve if the concept is validated.
