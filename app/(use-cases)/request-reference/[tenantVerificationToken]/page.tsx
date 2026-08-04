@@ -6,6 +6,7 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
 import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
 import { TenantVerification } from '@/shared/types/strapi-types'
+import PageMainTitle from '@/shared/components/headings/page-main-title'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -58,9 +59,9 @@ export default async function CreateRentalPage({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">
+            <PageMainTitle version="small">
               Lien de vérification invalide ou expiré
-            </h1>
+            </PageMainTitle>
             <p className="text-gray-600">
               Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
               demander un nouveau lien de vérification et réessayer.
@@ -84,9 +85,9 @@ export default async function CreateRentalPage({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">
+            <PageMainTitle version="small">
               Lien de vérification invalide ou expiré
-            </h1>
+            </PageMainTitle>
             <p className="text-gray-600">
               Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
               demander un nouveau lien de vérification et réessayer.
@@ -106,9 +107,9 @@ export default async function CreateRentalPage({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">
+            <PageMainTitle version="small">
               Lien de vérification déjà utilisé
-            </h1>
+            </PageMainTitle>
             <p className="text-gray-600">
               Ce lien de vérification a déjà été utilisé pour créer une
               location. Si vous pensez qu'il s'agit d'une erreur, veuillez
@@ -129,9 +130,9 @@ export default async function CreateRentalPage({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">
+            <PageMainTitle version="small">
               Lien de vérification déjà utilisé
-            </h1>
+            </PageMainTitle>
             <p className="text-gray-600">
               Ce lien de vérification a déjà été utilisé pour créer une
               location. Si vous pensez qu'il s'agit d'une erreur, veuillez
@@ -165,9 +166,9 @@ export default async function CreateRentalPage({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold mb-4">
+          <PageMainTitle version="small">
             Invitez votre ancien bailleur
-          </h1>
+          </PageMainTitle>
           <p className="text-gray-600 text-balance">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
