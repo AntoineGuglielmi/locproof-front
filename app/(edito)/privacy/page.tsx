@@ -1,3 +1,4 @@
+import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
@@ -44,9 +45,7 @@ export default function PrivacyPage() {
             🔐 Protection des données
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-            Politique de confidentialité
-          </h1>
+          <PageMainTitle>Politique de confidentialité</PageMainTitle>
 
           <p className="text-xl text-gray-700 mb-4">
             Vos données restent utilisées uniquement dans le cadre des

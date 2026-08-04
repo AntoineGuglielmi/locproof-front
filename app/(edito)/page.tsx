@@ -3,6 +3,7 @@ import { Button } from '@/shared/components/shadcn/ui/button'
 import AppLayout from '@/shared/components/layout/app-layout'
 import Link from 'next/link'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import PageMainTitle from '@/shared/components/headings/page-main-title'
 
 export const metadata = {
   title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
@@ -53,9 +54,7 @@ export default function HomePage() {
             🔒 Recommandations vérifiées
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-balance">
-            Louer en confiance, des deux côtés
-          </h1>
+          <PageMainTitle>Louer en confiance, des deux côtés</PageMainTitle>
 
           <p className="text-xl text-gray-700 mb-4">
             Locataires et bailleurs gagnent en visibilité et en sérénité

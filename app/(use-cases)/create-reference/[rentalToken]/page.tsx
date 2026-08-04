@@ -4,6 +4,7 @@ import { rentalRepository } from '@/repositories/rental.repository'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import CreateReferenceForm from '@/features/CreateReference/components/create-reference-form'
+import PageMainTitle from '@/shared/components/headings/page-main-title'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -52,7 +53,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">Location introuvable</h1>
+            <PageMainTitle version="small">Location introuvable</PageMainTitle>
             <p className="text-gray-600">
               Le lien que vous avez utilisé est invalide. Veuillez vérifier
               votre email et réessayer.
@@ -72,7 +73,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold mb-4">Location déjà validée</h1>
+            <PageMainTitle version="small">Location déjà validée</PageMainTitle>
             <p className="text-gray-600">
               Cette location a déjà été validée. Si vous pensez qu'il s'agit
               d'une erreur, veuillez contacter notre support.
@@ -98,7 +99,9 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold mb-4">Confirmer cette location</h1>
+          <PageMainTitle version="small">
+            Confirmer cette location
+          </PageMainTitle>
           <p className="text-gray-600">
             Cela vous prendra moins de 30 secondes
           </p>
