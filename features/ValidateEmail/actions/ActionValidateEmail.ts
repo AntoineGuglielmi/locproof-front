@@ -1,20 +1,38 @@
 'use server'
 
-import { Tenant } from '@/shared/types/strapi-types'
 import { UseCaseValidateEmail } from '../useCase/UseCaseValidateEmail'
-import { TypeContextValidateEmail } from '../types/TypeContextValidateEmail'
+import { validateEmailSchema } from '../schemas/validate-email-schema'
+import { TypeActionResult } from '@/shared/types/TypeActionResult'
 
-export const ActionValidateEmail = async ({
-  email,
-}: {
-  email: Tenant['email']
-}): Promise<void> => {
-  const contextValidateEmail: TypeContextValidateEmail = {
-    email,
-    tenantVerificationToken: null,
+export async function ActionValidateEmail(
+  input: unknown,
+): Promise<TypeActionResult> {
+  const securedDataFromInput = validateEmailSchema.safeParse(input)
+
+  if (!securedDataFromInput.success) {
+    return {
+      success: false,
+      error: 'Email invalide',
+    }
   }
 
-  const useCaseValidateEmail = new UseCaseValidateEmail(contextValidateEmail)
+  try {
+    const { email } = securedDataFromInput.data
 
-  useCaseValidateEmail.execute()
+    const useCase = new UseCaseValidateEmail({
+      email,
+      tenantVerificationToken: null,
+    })
+
+    await useCase.execute()
+
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Une erreur est survenue',
+    }
+  }
 }
