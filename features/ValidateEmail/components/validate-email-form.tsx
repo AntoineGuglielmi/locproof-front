@@ -14,6 +14,14 @@ import {
 
 import { ActionValidateEmail } from '../actions/ActionValidateEmail'
 import ValidateEmailSuccess from './validate-email-success'
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from '@/shared/components/shadcn/ui/field'
+import MotionDiv from '@/shared/components/layout/motion-div'
+import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 
 export default function ValidateEmailForm() {
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null)
@@ -44,45 +52,39 @@ export default function ValidateEmailForm() {
   }
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border">
+    <MotionDiv
+      layout
+      transition={{
+        layout: {
+          duration: 0.2,
+        },
+      }}
+      className="bg-white p-6 rounded-2xl shadow-sm border"
+    >
       <form
         className="space-y-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div>
-          <label
-            htmlFor="email"
-            className="text-sm font-medium text-gray-700"
-          >
-            Votre email
-          </label>
+        <FieldGroup>
+          <Field data-invalid={!!form.formState.errors.email}>
+            <FieldLabel htmlFor="email">Votre email</FieldLabel>
+            <Input
+              id="email"
+              type="email"
+              placeholder="votre@email.com"
+              className="mt-2"
+              aria-invalid={form.formState.errors.email ? true : undefined}
+              {...form.register('email')}
+            />
+            <FieldDescription>
+              Nous l’utilisons uniquement pour vérifier que la demande vient
+              bien de vous. Aucun compte à créer.
+            </FieldDescription>
+            <AnimatedFieldError error={form.formState.errors.email} />
+          </Field>
+        </FieldGroup>
 
-          <Input
-            id="email"
-            type="email"
-            placeholder="votre@email.com"
-            className="mt-2"
-            {...form.register('email')}
-          />
-
-          {form.formState.errors.email && (
-            <p className="text-sm text-red-600 mt-2">
-              {form.formState.errors.email.message}
-            </p>
-          )}
-
-          <p className="text-xs text-gray-500 mt-2">
-            Nous l’utilisons uniquement pour vérifier que la demande vient bien
-            de vous. Aucun compte à créer.
-          </p>
-        </div>
-
-        {form.formState.errors.root && (
-          <p className="text-sm text-red-600 text-center">
-            {form.formState.errors.root.message}
-          </p>
-        )}
-
+        <AnimatedFieldError error={form.formState.errors.root} />
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
@@ -93,6 +95,6 @@ export default function ValidateEmailForm() {
             : 'Recevoir mon lien sécurisé'}
         </Button>
       </form>
-    </div>
+    </MotionDiv>
   )
 }
