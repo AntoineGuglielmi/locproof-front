@@ -7,7 +7,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-svh">
       <Header />
-      {process.env.NODE_ENV === 'development' && <Debug />}
+      {process.env.DEBUG && <Debug />}
       <main className="py-8 flex-1">
         <Container>{children}</Container>
       </main>
