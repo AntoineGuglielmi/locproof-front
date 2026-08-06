@@ -2,6 +2,7 @@ import ValidateEmailForm from '@/features/ValidateEmail/components/validate-emai
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import TextBody from '@/shared/components/text/text-body'
 
 type CreateMePageProps = {
   params: Promise<void>
@@ -53,10 +54,10 @@ export default function CreateMePage({}: CreateMePageProps) {
               Demandez une recommandation
             </PageMainTitle>
 
-            <p className="text-gray-600 mb-8 text-balance">
+            <TextBody className="mb-8 text-balance">
               En quelques minutes, invitez un ancien bailleur à confirmer votre
-              sérieux en tant que locataire.{' '}
-            </p>
+              sérieux en tant que locataire.
+            </TextBody>
           </div>
 
           <ValidateEmailForm />
