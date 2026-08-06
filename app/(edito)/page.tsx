@@ -62,7 +62,7 @@ export default function HomePage() {
             Locataires et bailleurs gagnent en visibilité et en sérénité
           </PageSubTitle>
 
-          <TextBody className="mb-10 max-w-2xl mx-auto">
+          <TextBody className="mb-10 max-w-2xl mx-auto text-balance">
             Les locataires valorisent leur sérieux. Les bailleurs prennent des
             décisions plus éclairées grâce à des retours vérifiés.
           </TextBody>

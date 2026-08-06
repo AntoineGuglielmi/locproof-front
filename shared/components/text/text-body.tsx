@@ -7,7 +7,7 @@ type TextBodyProps = {
   children?: React.ReactNode
 }
 
-const BodyVariants = cva('TextBody text-gray-500 text-balance', {
+const BodyVariants = cva('TextBody text-gray-500 leading-relaxed', {
   variants: {
     variant: {
       default: '',

@@ -7,6 +7,7 @@ import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerifica
 import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
 import { TenantVerification } from '@/shared/types/strapi-types'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -169,10 +170,10 @@ export default async function CreateRentalPage({
           <PageMainTitle version="small">
             Invitez votre ancien bailleur
           </PageMainTitle>
-          <p className="text-gray-600 text-balance">
+          <TextBody className="text-balance">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
-          </p>
+          </TextBody>
         </MotionDiv>
       </section>
 

@@ -2,6 +2,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import TextBody from '@/shared/components/text/text-body'
 import Link from 'next/link'
 
 export const metadata = {
@@ -53,10 +54,10 @@ export default function PrivacyPage() {
             recommandations locatives proposées par LocProof.
           </PageSubTitle>
 
-          <p className="text-gray-500 max-w-2xl mx-auto">
+          <TextBody className="max-w-2xl mx-auto">
             Transparence, sécurité et respect de la vie privée font partie des
             fondations du projet.
-          </p>
+          </TextBody>
         </MotionDiv>
       </section>
 
@@ -114,7 +115,7 @@ export default function PrivacyPage() {
             >
               <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
 
-              <p className="text-gray-600 leading-relaxed">{section.content}</p>
+              <TextBody>{section.content}</TextBody>
             </MotionDiv>
           ))}
         </div>
@@ -129,10 +130,10 @@ export default function PrivacyPage() {
             Une question concernant vos données ?
           </h2>
 
-          <p className="text-gray-700 leading-relaxed">
+          <TextBody>
             Vous pouvez nous contacter à tout moment pour toute question liée à
             vos données personnelles, à leur utilisation ou à leur suppression.
-          </p>
+          </TextBody>
 
           <Link
             href="mailto:contact@locproof.fr"
