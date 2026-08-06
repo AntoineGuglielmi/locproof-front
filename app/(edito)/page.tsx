@@ -5,6 +5,7 @@ import Link from 'next/link'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
+import TextBody from '@/shared/components/text/text-body'
 
 export const metadata = {
   title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
@@ -61,10 +62,10 @@ export default function HomePage() {
             Locataires et bailleurs gagnent en visibilité et en sérénité
           </PageSubTitle>
 
-          <p className="text-gray-500 mb-10 max-w-2xl mx-auto text-balance">
+          <TextBody className="mb-10 max-w-2xl mx-auto">
             Les locataires valorisent leur sérieux. Les bailleurs prennent des
             décisions plus éclairées grâce à des retours vérifiés.
-          </p>
+          </TextBody>
 
           <div className="flex justify-center gap-4 flex-col sm:flex-row">
             <Button
