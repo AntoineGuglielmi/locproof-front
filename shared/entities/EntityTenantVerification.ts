@@ -6,12 +6,12 @@ export class EntityTenantVerification {
   private _tenantVerificationToken: TenantVerification['tenantVerificationToken']
   private _state: TenantVerification['state']
 
-  constructor({
-    email,
-    expiresAt,
-    tenantVerificationToken,
-    state,
-  }: TenantVerification) {
+  constructor(tenantVerification: TenantVerification | null) {
+    if (tenantVerification === null) {
+      return
+    }
+    const { email, expiresAt, tenantVerificationToken, state } =
+      tenantVerification
     this._email = email
     this._expiresAt = expiresAt
     this._tenantVerificationToken = tenantVerificationToken
