@@ -170,14 +170,15 @@ export default async function CreateRentalPage({
           <PageMainTitle version="small">
             Invitez votre ancien bailleur
           </PageMainTitle>
-          <TextBody className="text-balance">
+
+          <TextBody className="text-balance mb-8">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
           </TextBody>
+
+          <RequestingAReferenceForm {...createRentalFormProps} />
         </MotionDiv>
       </section>
-
-      <RequestingAReferenceForm {...createRentalFormProps} />
     </AppLayout>
   )
 }

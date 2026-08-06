@@ -56,6 +56,7 @@ export default function ValidateEmailForm() {
             duration: 0.2,
           },
         }}
+        className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
       >
         <ValidateEmailSuccess email={submittedEmail} />
       </MotionDiv>
@@ -70,7 +71,7 @@ export default function ValidateEmailForm() {
           duration: 0.2,
         },
       }}
-      className="bg-white p-6 rounded-2xl shadow-sm border"
+      className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
     >
       <form
         className="space-y-4"
@@ -96,6 +97,7 @@ export default function ValidateEmailForm() {
         </FieldGroup>
 
         <AnimatedFieldError error={form.formState.errors.root} />
+
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
