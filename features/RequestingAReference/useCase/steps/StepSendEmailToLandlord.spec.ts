@@ -9,6 +9,7 @@ vi.mock('@/features/Emails/lib/resend', () => ({
 describe('StepSendEmailToLandlord', () => {
   it('sends an email to the landlord', async () => {
     process.env.NEXT_PUBLIC_APP_URL = 'http://localhost:3000'
+    process.env.SEND_LANDLORD_EMAIL = 'true'
 
     vi.mocked(sendEmailViaResend).mockResolvedValue(undefined)
 

@@ -7,8 +7,14 @@ export class StepValidateTenantVerification extends Step<TypeContextWithTenantVe
     const { documentId: tenantVerificationDocumentId } =
       context.tenantVerification
 
-    await tenantVerificationRepository.markAsValidated(
-      tenantVerificationDocumentId,
-    )
+    try {
+      await tenantVerificationRepository.markAsValidated(
+        tenantVerificationDocumentId,
+      )
+    } catch (error) {
+      throw new Error('Impossible de valider la vérification', {
+        cause: error,
+      })
+    }
   }
 }

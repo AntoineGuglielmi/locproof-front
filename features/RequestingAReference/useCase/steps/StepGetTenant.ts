@@ -6,10 +6,19 @@ export class StepGetTenant extends Step<TypeContextWithFormInput> {
   async execute(context: TypeContextWithFormInput): Promise<void> {
     const { email, firstname, lastname } = context.formInput
 
-    context.tenant = await ServiceCreateTenant({
-      email,
-      firstname,
-      lastname,
-    })
+    try {
+      context.tenant = await ServiceCreateTenant({
+        email,
+        firstname,
+        lastname,
+      })
+    } catch (error) {
+      throw new Error(
+        "Impossible de récupérer le locataire à l'origine de la demande",
+        {
+          cause: error,
+        },
+      )
+    }
   }
 }

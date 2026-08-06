@@ -34,6 +34,8 @@ describe('UseCaseRequestingAReference', () => {
   })
 
   it('completes a reference request workflow', async () => {
+    process.env.SEND_LANDLORD_EMAIL = 'true'
+
     const tenant = {
       documentId: 'tenant-123',
       email: 'tenant@test.com',

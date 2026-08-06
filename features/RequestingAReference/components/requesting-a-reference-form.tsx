@@ -52,12 +52,12 @@ export default function RequestingAReferenceForm(props: {
 
   async function onSubmit(values: RequestingAReferenceFormValues) {
     const result = await ActionRequestingAReference(values)
-    // if (!result.success) {
-    //   form.setError('root', {
-    //     message: result.error,
-    //   })
-    //   return
-    // }
+    if (!result.success) {
+      form.setError('root', {
+        message: result.error,
+      })
+      return
+    }
     setFormSubmitted(true)
   }
 
