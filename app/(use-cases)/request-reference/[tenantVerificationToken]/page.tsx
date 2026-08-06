@@ -8,6 +8,7 @@ import RequestingAReferenceForm from '@/features/RequestingAReference/components
 import { TenantVerification } from '@/shared/types/strapi-types'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
+import PageErrorState from '@/shared/components/layout/page-error-state'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -51,50 +52,22 @@ export default async function CreateRentalPage({
     await tenantVerificationRepository.findTenantVerificationByToken(
       tenantVerificationToken!,
     )
-  if (!tenantVerification) {
-    return (
-      <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification invalide ou expiré
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
-              demander un nouveau lien de vérification et réessayer.
-            </p>
-          </MotionDiv>
-        </section>
-      </AppLayout>
-    )
-  }
 
   const tenantVerificationEntity = new EntityTenantVerification(
     tenantVerification,
   )
 
-  if (!tenantVerificationEntity || tenantVerificationEntity.isExpired()) {
+  if (
+    !tenantVerification ||
+    !tenantVerificationEntity ||
+    tenantVerificationEntity.isExpired()
+  ) {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification invalide ou expiré
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
-              demander un nouveau lien de vérification et réessayer.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Lien de vérification invalide ou expiré"
+          description="Le lien que vous avez utilisé est invalide ou a expiré. Veuillez demander un nouveau lien de vérification et réessayer."
+        />
       </AppLayout>
     )
   }
@@ -102,45 +75,10 @@ export default async function CreateRentalPage({
   if (tenantVerificationEntity.isValidated()) {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification déjà utilisé
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Ce lien de vérification a déjà été utilisé pour créer une
-              location. Si vous pensez qu'il s'agit d'une erreur, veuillez
-              contacter notre support.
-            </p>
-          </MotionDiv>
-        </section>
-      </AppLayout>
-    )
-  }
-
-  if (tenantVerificationEntity.state === 'validated') {
-    return (
-      <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification déjà utilisé
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Ce lien de vérification a déjà été utilisé pour créer une
-              location. Si vous pensez qu'il s'agit d'une erreur, veuillez
-              contacter notre support.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Lien de vérification déjà utilisé"
+          description="Ce lien de vérification a déjà été utilisé pour créer une location. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter notre support."
+        />
       </AppLayout>
     )
   }
@@ -151,9 +89,11 @@ export default async function CreateRentalPage({
     firstname: '',
     lastname: '',
   }
+
   const tenant = await tenantRepository.findByEmail(
     tenantVerificationEntity.email!,
   )
+
   if (tenant) {
     createRentalFormProps.firstname = tenant.firstname!
     createRentalFormProps.lastname = tenant.lastname!
