@@ -17,7 +17,7 @@ export class StepSendValidationEmail extends Step<TypeContextWithEmailAndTenantV
     const react = EmailValidationEmail({ href })
 
     try {
-      if (process.env.SEND_LANDLORD_EMAIL === 'true') {
+      if (process.env.SEND_VALIDATION_EMAIL === 'true') {
         await sendEmailViaResend({
           from,
           to,

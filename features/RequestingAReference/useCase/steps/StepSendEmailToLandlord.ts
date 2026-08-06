@@ -16,8 +16,14 @@ export class StepSendEmailToLandlord extends Step<TypeContextWithFormuInputAndRe
       'Vous avez reçu une demande de recommandation de la part de votre ancien locataire'
     const react = AnswerAReferenceRequestEmail({ href })
 
-    if (process.env.SEND_LANDLORD_EMAIL === 'true') {
-      await sendEmailViaResend({ from, to, subject, react })
+    try {
+      if (process.env.SEND_LANDLORD_EMAIL === 'true') {
+        await sendEmailViaResend({ from, to, subject, react })
+      }
+    } catch (error) {
+      throw new Error("Impossible d'envoyer l'email au propriétaire", {
+        cause: error,
+      })
     }
   }
 }

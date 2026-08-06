@@ -21,6 +21,8 @@ describe('UseCaseValidateEmail', () => {
   })
 
   it('completes a validate email workflow', async () => {
+    process.env.SEND_VALIDATION_EMAIL = 'true'
+
     const context: TypeContextValidateEmail = {
       email: 'hello@example.com',
       tenantVerificationToken: null,
