@@ -5,6 +5,7 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import CreateReferenceForm from '@/features/CreateReference/components/create-reference-form'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -102,9 +103,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
           <PageMainTitle version="small">
             Confirmer cette location
           </PageMainTitle>
-          <p className="text-gray-600">
-            Cela vous prendra moins de 30 secondes
-          </p>
+          <TextBody>Cela vous prendra moins de 30 secondes</TextBody>
         </MotionDiv>
       </section>
 

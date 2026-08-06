@@ -2,6 +2,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import TextBody from '@/shared/components/text/text-body'
 import Link from 'next/link'
 
 export const metadata = {
@@ -51,10 +52,10 @@ export default function LegalPage() {
             fonctionnement de LocProof.
           </PageSubTitle>
 
-          <p className="text-gray-500 max-w-2xl mx-auto">
+          <TextBody className="max-w-2xl mx-auto">
             Cette page est fournie conformément à la législation française en
             vigueur.
-          </p>
+          </TextBody>
         </MotionDiv>
       </section>
 
@@ -112,7 +113,7 @@ export default function LegalPage() {
             >
               <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
 
-              <p className="text-gray-600 leading-relaxed">{section.content}</p>
+              <TextBody>{section.content}</TextBody>
             </MotionDiv>
           ))}
         </div>
@@ -127,10 +128,10 @@ export default function LegalPage() {
             Besoin d’informations complémentaires ?
           </h2>
 
-          <p className="text-gray-700 leading-relaxed">
+          <TextBody>
             Vous pouvez nous contacter pour toute question relative au service,
             au fonctionnement de la plateforme ou à vos données personnelles.
-          </p>
+          </TextBody>
 
           <Link
             href="mailto:contact@locproof.fr"
