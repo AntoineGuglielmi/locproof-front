@@ -48,7 +48,18 @@ export default function ValidateEmailForm() {
   }
 
   if (submittedEmail) {
-    return <ValidateEmailSuccess email={submittedEmail} />
+    return (
+      <MotionDiv
+        layout
+        transition={{
+          layout: {
+            duration: 0.2,
+          },
+        }}
+      >
+        <ValidateEmailSuccess email={submittedEmail} />
+      </MotionDiv>
+    )
   }
 
   return (
