@@ -4,14 +4,19 @@ import { AnimatePresence } from 'framer-motion'
 
 import { FieldError } from '@/shared/components/shadcn/ui/field'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import { cn } from '@/shared/lib/className'
 
 type AnimatedFieldErrorProps = {
+  className?: string
   error?: {
     message?: string
   }
 }
 
-export default function AnimatedFieldError({ error }: AnimatedFieldErrorProps) {
+export default function AnimatedFieldError({
+  error,
+  className,
+}: AnimatedFieldErrorProps) {
   return (
     <AnimatePresence initial={false}>
       {error?.message && (
@@ -22,7 +27,7 @@ export default function AnimatedFieldError({ error }: AnimatedFieldErrorProps) {
           transition={{ duration: 0.18 }}
         >
           <FieldError
-            className="bg-red-50 py-4 border border-red-200 rounded-lg text-center"
+            className={cn('text-left text-[0.65rem]', className)}
             errors={[error]}
           />
         </MotionDiv>
