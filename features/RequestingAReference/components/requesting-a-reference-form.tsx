@@ -34,8 +34,10 @@ export default function RequestingAReferenceForm(props: {
       email,
       firstname,
       lastname,
-      address: '',
-      cityPublic: '',
+      address: {
+        label: '',
+        city: '',
+      },
       startDate: undefined,
       endDate: undefined,
       landlordEmail: '',

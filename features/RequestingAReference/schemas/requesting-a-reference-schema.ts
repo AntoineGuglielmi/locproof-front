@@ -5,8 +5,19 @@ export const requestingAReferenceSchema = z
     email: z.email(),
     firstname: z.string().min(3, 'Le prénom est obligatoire'),
     lastname: z.string().min(3, 'Le nom est obligatoire'),
-    address: z.string().min(1, "L'adresse est obligatoire"),
-    cityPublic: z.string(),
+    address: z
+      .object(
+        {
+          label: z.string(),
+          city: z.string(),
+        },
+        {
+          error: 'Veuillez sélectionner une adresse',
+        },
+      )
+      .refine(({ label, city }) => Boolean(label && city), {
+        message: 'Veuillez sélectionner une adresse',
+      }),
     startDate: z.date({
       error: 'Vous devez renseinger une date de début de location',
     }),
