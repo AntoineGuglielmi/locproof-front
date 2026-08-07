@@ -1,14 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
-import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { tenantRepository } from '@/repositories/tenant.repository'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
 import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
 import { TenantVerification } from '@/shared/types/strapi-types'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
 import PageErrorState from '@/shared/components/layout/page-error-state'
+import { ServiceGetPageContext } from '@/features/RequestingAReference/services/ServiceGetPageContext'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -48,20 +45,12 @@ export default async function CreateRentalPage({
   params,
 }: CreateRentalPageProps) {
   const { tenantVerificationToken } = await params
-  const tenantVerification =
-    await tenantVerificationRepository.findTenantVerificationByToken(
-      tenantVerificationToken!,
-    )
 
-  const tenantVerificationEntity = new EntityTenantVerification(
-    tenantVerification,
-  )
+  const pageContext = await ServiceGetPageContext(tenantVerificationToken)
 
-  if (
-    !tenantVerification ||
-    !tenantVerificationEntity ||
-    tenantVerificationEntity.isExpired()
-  ) {
+  const { status } = pageContext
+
+  if (status === 'expired' || status === 'not-found') {
     return (
       <AppLayout>
         <PageErrorState
@@ -72,7 +61,7 @@ export default async function CreateRentalPage({
     )
   }
 
-  if (tenantVerificationEntity.isValidated()) {
+  if (status === 'validated') {
     return (
       <AppLayout>
         <PageErrorState
@@ -83,20 +72,13 @@ export default async function CreateRentalPage({
     )
   }
 
-  const createRentalFormProps = {
+  const { tenant, tenantVerificationEntity } = pageContext
+
+  const requestingAReferenceFormProps = {
     tenantVerificationToken,
-    email: tenantVerificationEntity.email!,
-    firstname: '',
-    lastname: '',
-  }
-
-  const tenant = await tenantRepository.findByEmail(
-    tenantVerificationEntity.email!,
-  )
-
-  if (tenant) {
-    createRentalFormProps.firstname = tenant.firstname!
-    createRentalFormProps.lastname = tenant.lastname!
+    email: tenantVerificationEntity.email,
+    firstname: tenant?.firstname ?? '',
+    lastname: tenant?.lastname ?? '',
   }
 
   return (
@@ -116,7 +98,7 @@ export default async function CreateRentalPage({
             expérience locative. Cela ne lui prendra que quelques minutes.
           </TextBody>
 
-          <RequestingAReferenceForm {...createRentalFormProps} />
+          <RequestingAReferenceForm {...requestingAReferenceFormProps} />
         </MotionDiv>
       </section>
     </AppLayout>
