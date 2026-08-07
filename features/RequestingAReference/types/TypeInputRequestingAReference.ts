@@ -6,8 +6,8 @@ export type TypeInputRequestingAReference = {
   firstname: Tenant['firstname']
   lastname: Tenant['lastname']
   address: TypeAddressValue
-  startDate: Rental['startDate']
-  endDate: Rental['endDate']
+  startDate?: Rental['startDate']
+  endDate?: Rental['endDate']
   landlordEmail: Rental['landlordEmail']
   tenantVerificationToken: TenantVerification['tenantVerificationToken']
 }
