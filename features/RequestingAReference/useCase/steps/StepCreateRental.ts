@@ -5,8 +5,12 @@ import { TypeContextWithFormInputAndTenant } from '../../types/TypesSteps'
 export class StepCreateRental extends Step<TypeContextWithFormInputAndTenant> {
   async execute(context: TypeContextWithFormInputAndTenant): Promise<void> {
     const tenantDocumentId = context.tenant.documentId
-    const { address, startDate, endDate, landlordEmail, cityPublic } =
-      context.formInput
+    const {
+      address: { city: cityPublic, label: address },
+      startDate,
+      endDate,
+      landlordEmail,
+    } = context.formInput
 
     const rentalToken = crypto.randomUUID()
 

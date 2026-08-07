@@ -7,7 +7,6 @@ import {
   FieldLegend,
   FieldSet,
 } from '@/shared/components/shadcn/ui/field'
-import { Input } from '@/shared/components/shadcn/ui/input'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
 import { DatePicker } from '@/shared/components/form/date-picker'
@@ -27,22 +26,20 @@ export default function RentalInformationFields({
           <FieldLabel htmlFor="address">Adresse</FieldLabel>
 
           <Controller
-            control={form.control}
             name="address"
+            control={form.control}
             render={({ field }) => (
               <AddressAutocomplete
-                placeholder="Commencez à taper l'adresse du bien"
+                id="address"
+                value={field.value}
                 onChange={field.onChange}
+                placeholder="Commencez à taper l'adresse du bien"
+                aria-invalid={!!form.formState.errors.address}
               />
             )}
           />
-          <AnimatedFieldError error={form.formState.errors.address} />
 
-          <Input
-            type="hidden"
-            aria-invalid={form.formState.errors.cityPublic ? true : undefined}
-            {...form.register('cityPublic')}
-          />
+          <AnimatedFieldError error={form.formState.errors.address} />
         </Field>
 
         <div className="grid grid-cols-2 gap-4">
