@@ -18,6 +18,41 @@ type RentalInformationFields = {
 export default function RentalInformationFields({
   form,
 }: RentalInformationFields) {
+  const updateDate = (key: 'startDate' | 'endDate', date?: Date) => {
+    if (!date) {
+      form.setValue(key, undefined, {
+        shouldValidate: true,
+        shouldDirty: true,
+      })
+      return
+    }
+
+    const values = {
+      startDate: form.getValues('startDate'),
+      endDate: form.getValues('endDate'),
+      [key]: date,
+    }
+
+    form.setValue(key, date, {
+      shouldValidate: true,
+      shouldDirty: true,
+    })
+
+    if (key === 'startDate' && (!values.endDate || date > values.endDate)) {
+      form.setValue('endDate', date, {
+        shouldValidate: true,
+        shouldDirty: true,
+      })
+    }
+
+    if (key === 'endDate' && (!values.startDate || date < values.startDate)) {
+      form.setValue('startDate', date, {
+        shouldValidate: true,
+        shouldDirty: true,
+      })
+    }
+  }
+
   return (
     <FieldSet className="w-full">
       <FieldLegend className="text-left">Le logement concerné</FieldLegend>
@@ -44,7 +79,7 @@ export default function RentalInformationFields({
 
         <div className="grid grid-cols-2 gap-4">
           <Field data-invalid={!!form.formState.errors.startDate}>
-            <FieldLabel htmlFor="firstname">
+            <FieldLabel htmlFor="startDate">
               Date de début de location
             </FieldLabel>
 
@@ -53,25 +88,29 @@ export default function RentalInformationFields({
               name="startDate"
               render={({ field }) => (
                 <DatePicker
+                  id="startDate"
                   placeholder="Sélectionnez une date"
                   value={field.value}
-                  onChange={field.onChange}
+                  onChange={(date) => updateDate('startDate', date)}
+                  aria-invalid={!!form.formState.errors.startDate}
                 />
               )}
             />
             <AnimatedFieldError error={form.formState.errors.startDate} />
           </Field>
           <Field data-invalid={!!form.formState.errors.endDate}>
-            <FieldLabel htmlFor="lastname">Date de fin de location</FieldLabel>
+            <FieldLabel htmlFor="endDate">Date de fin de location</FieldLabel>
 
             <Controller
               control={form.control}
               name="endDate"
               render={({ field }) => (
                 <DatePicker
+                  id="endDate"
                   placeholder="Sélectionnez une date"
                   value={field.value}
-                  onChange={field.onChange}
+                  onChange={(date) => updateDate('endDate', date)}
+                  aria-invalid={!!form.formState.errors.endDate}
                 />
               )}
             />
