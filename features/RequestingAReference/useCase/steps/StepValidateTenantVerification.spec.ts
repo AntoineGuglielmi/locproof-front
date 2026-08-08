@@ -26,4 +26,20 @@ describe('StepValidateTenantVerification', () => {
       'verification-123',
     )
   })
+
+  it('throws an error when validation fails', async () => {
+    vi.mocked(tenantVerificationRepository.markAsValidated).mockRejectedValue(
+      new Error('Database error'),
+    )
+
+    const context = {
+      tenantVerification: {
+        documentId: 'verification-123',
+      },
+    } as TypeContextWithTenantVerification
+
+    await expect(
+      new StepValidateTenantVerification().execute(context),
+    ).rejects.toThrow('Impossible de valider la vérification')
+  })
 })

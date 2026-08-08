@@ -24,11 +24,13 @@ describe('StepCreateRental', () => {
       },
 
       formInput: {
-        address: '35 Rue Pelleport 33800 Bordeaux',
+        address: {
+          label: '35 Rue Pelleport 33800 Bordeaux',
+          city: 'Bordeaux',
+        },
         startDate: '2026-07-31',
         endDate: '2026-08-29',
         landlordEmail: 'contact.antoine.guglielmi@gmail.com',
-        cityPublic: 'Bordeaux',
       },
     } as TypeContextWithFormInputAndTenant
 
@@ -48,5 +50,30 @@ describe('StepCreateRental', () => {
     )
 
     expect(context.rental).toEqual(rental)
+  })
+
+  it('throws an error when rental creation fails', async () => {
+    vi.mocked(rentalRepository.create).mockRejectedValue(
+      new Error('Database error'),
+    )
+
+    const context = {
+      tenant: {
+        documentId: 'tenant-123',
+      },
+      formInput: {
+        address: {
+          label: '35 Rue Pelleport 33800 Bordeaux',
+          city: 'Bordeaux',
+        },
+        startDate: new Date('2026-07-31'),
+        endDate: new Date('2026-08-29'),
+        landlordEmail: 'landlord@test.com',
+      },
+    } as TypeContextWithFormInputAndTenant
+
+    await expect(new StepCreateRental().execute(context)).rejects.toThrow(
+      'Impossible de créer la location',
+    )
   })
 })

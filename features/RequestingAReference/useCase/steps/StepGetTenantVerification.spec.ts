@@ -34,4 +34,22 @@ describe('StepGetTenantVerification', () => {
 
     expect(context.tenantVerification).toEqual(tenantVerification)
   })
+
+  it('throws an error when tenant verification cannot be retrieved', async () => {
+    vi.mocked(
+      tenantVerificationRepository.findTenantVerificationByToken,
+    ).mockRejectedValue(new Error('Database error'))
+
+    const context = {
+      formInput: {
+        tenantVerificationToken: 'abc-token',
+      },
+    } as TypeContextWithFormInput
+
+    await expect(
+      new StepGetTenantVerification().execute(context),
+    ).rejects.toThrow(
+      'Impossible de récupérer le token de la vérification existante',
+    )
+  })
 })
