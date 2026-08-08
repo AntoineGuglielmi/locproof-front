@@ -103,20 +103,22 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
           <PageMainTitle version="small">
             Confirmer cette location
           </PageMainTitle>
-          <TextBody>Cela vous prendra moins de 30 secondes</TextBody>
+          <TextBody className="text-balance mb-8">
+            Cela vous prendra moins de 30 secondes
+          </TextBody>
+
+          <CreateReferenceForm
+            {...{
+              address,
+              startDate,
+              endDate,
+              firstname,
+              lastname,
+              rentalDocumentId,
+            }}
+          />
         </MotionDiv>
       </section>
-
-      <CreateReferenceForm
-        {...{
-          address,
-          startDate,
-          endDate,
-          firstname,
-          lastname,
-          rentalDocumentId,
-        }}
-      />
 
       <p className="text-xs text-center text-gray-400 mt-6">
         Aucun compte requis • Réponse en moins d’une minute
