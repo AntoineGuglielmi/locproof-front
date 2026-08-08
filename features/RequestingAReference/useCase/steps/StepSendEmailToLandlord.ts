@@ -17,7 +17,11 @@ export class StepSendEmailToLandlord extends Step<TypeContextWithFormuInputAndRe
     const react = AnswerAReferenceRequestEmail({ href })
 
     try {
-      if (process.env.SEND_LANDLORD_EMAIL === 'true') {
+      const shouldSendEmail =
+        !['development', 'test'].includes(process.env.NODE_ENV) ||
+        process.env.SEND_LANDLORD_EMAIL === 'true'
+
+      if (shouldSendEmail) {
         await sendEmailViaResend({ from, to, subject, react })
       }
     } catch (error) {
