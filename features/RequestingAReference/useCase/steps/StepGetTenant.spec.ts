@@ -42,4 +42,22 @@ describe('StepGetTenant', () => {
 
     expect(context.tenant).toEqual(tenant)
   })
+
+  it('throws an error when tenant creation fails', async () => {
+    vi.mocked(ServiceCreateTenant).mockRejectedValue(
+      new Error('Database error'),
+    )
+
+    const context = {
+      formInput: {
+        email: 'test@test.com',
+        firstname: 'Antoine',
+        lastname: 'G',
+      },
+    } as TypeContextWithFormInput
+
+    await expect(new StepGetTenant().execute(context)).rejects.toThrow(
+      "Impossible de récupérer le locataire à l'origine de la demande",
+    )
+  })
 })

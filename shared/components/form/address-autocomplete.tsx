@@ -2,70 +2,103 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Input } from '@/shared/components/shadcn/ui/input'
+import { TypeAddressValue } from '@/shared/types/TypeAddressValue'
+
+type AddressAutocompleteProps = {
+  id?: string
+  value?: TypeAddressValue
+  onChange: (value?: TypeAddressValue) => void
+  placeholder?: string
+  'aria-invalid'?: boolean
+}
+
+type AddressApiFeature = {
+  properties: {
+    label: string
+    city: string
+  }
+}
 
 export function AddressAutocomplete({
-  placeholder = 'Adresse du logement',
+  id,
+  value,
   onChange,
-}: {
-  placeholder?: string
-  onChange?: (label: string, city: string) => void
-}) {
-  const [query, setQuery] = useState('')
-  const [results, setResults] = useState<any[]>([])
-  const debounceTimeout = useRef<number | null>(null)
+  placeholder,
+  'aria-invalid': ariaInvalid,
+}: AddressAutocompleteProps) {
+  const [query, setQuery] = useState(value?.label ?? '')
+  const [results, setResults] = useState<AddressApiFeature[]>([])
+
+  const timeout = useRef<number | null>(null)
 
   useEffect(() => {
     return () => {
-      if (debounceTimeout.current) {
-        window.clearTimeout(debounceTimeout.current)
+      if (timeout.current) {
+        clearTimeout(timeout.current)
       }
     }
   }, [])
 
-  const handleChange = (value: string) => {
-    setQuery(value)
+  function handleChange(input: string) {
+    setQuery(input)
 
-    if (debounceTimeout.current) {
-      window.clearTimeout(debounceTimeout.current)
+    // Tant qu'une adresse n'est pas sélectionnée,
+    // la valeur métier est invalide
+    onChange(undefined)
+
+    if (timeout.current) {
+      clearTimeout(timeout.current)
     }
 
-    if (value.length <= 3) {
+    if (input.length < 3) {
       setResults([])
       return
     }
 
-    debounceTimeout.current = window.setTimeout(async () => {
-      const res = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${value}&limit=5`,
+    timeout.current = window.setTimeout(async () => {
+      const response = await fetch(
+        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(input)}&limit=5`,
       )
-      const data = await res.json()
+
+      const data = await response.json()
 
       setResults(data.features)
     }, 300)
   }
 
+  function selectAddress(properties: AddressApiFeature['properties']) {
+    const address = {
+      label: properties.label,
+      city: properties.city,
+    }
+
+    setQuery(address.label)
+    setResults([])
+
+    onChange(address)
+  }
+
   return (
     <div className="relative">
       <Input
+        id={id}
         value={query}
-        onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
+        aria-invalid={ariaInvalid}
+        onChange={(event) => handleChange(event.target.value)}
       />
 
-      {results && results.length > 0 && (
-        <div className="absolute z-10 w-full bg-white border rounded-xl shadow mt-1">
-          {results.map(({ properties: { label, city } }, i) => (
-            <div
-              key={i}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                setQuery(label)
-                onChange?.(label, city)
-                setResults([])
-              }}
+      {results.length > 0 && (
+        <div className="absolute z-10 mt-1 w-full rounded-xl border bg-white shadow">
+          {results.map(({ properties }, index) => (
+            <button
+              type="button"
+              key={index}
+              className="block w-full p-2 text-left hover:bg-gray-100"
+              onClick={() => selectAddress(properties)}
             >
-              {label}
-            </div>
+              {properties.label}
+            </button>
           ))}
         </div>
       )}

@@ -1,63 +1,138 @@
 'use client'
 
-import { Button } from '@/shared/components/shadcn/ui/button'
+import { useState } from 'react'
+import { CalendarIcon } from 'lucide-react'
+
 import { Calendar } from '@/shared/components/shadcn/ui/calendar'
-import { Field } from '@/shared/components/shadcn/ui/field'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/shared/components/shadcn/ui/input-group'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/shared/components/shadcn/ui/popover'
-import { useEffect, useState } from 'react'
+
+function formatDate(date?: Date) {
+  if (!date) return ''
+
+  return date.toLocaleDateString('fr-FR')
+}
+
+function parseDate(value: string): Date | undefined {
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+
+  if (!match) return undefined
+
+  const [, day, month, year] = match
+
+  const date = new Date(Number(year), Number(month) - 1, Number(day))
+
+  if (
+    date.getFullYear() !== Number(year) ||
+    date.getMonth() !== Number(month) - 1 ||
+    date.getDate() !== Number(day)
+  ) {
+    return undefined
+  }
+
+  return date
+}
+
+function formatInputValue(value: string) {
+  const digits = value.replace(/\D/g, '').slice(0, 8)
+
+  if (digits.length <= 2) {
+    return digits
+  }
+
+  if (digits.length <= 4) {
+    return `${digits.slice(0, 2)}/${digits.slice(2)}`
+  }
+
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`
+}
+
+type DatePickerProps = {
+  id?: string
+  value?: Date
+  onChange: (date?: Date) => void
+  placeholder?: string
+  'aria-invalid'?: boolean
+}
 
 export function DatePicker({
-  placeholder = 'Select date',
-  onChange,
+  id,
   value,
-}: {
-  placeholder?: string
-  onChange?: (date: Date) => void
-  value?: Date
-}) {
+  onChange,
+  placeholder = 'JJ/MM/AAAA',
+  'aria-invalid': ariaInvalid,
+}: DatePickerProps) {
   const [open, setOpen] = useState(false)
-  const [date, setDate] = useState<Date | undefined>(value)
+  const [inputValue, setInputValue] = useState(formatDate(value))
 
-  useEffect(() => {
-    setDate(value)
-  }, [value])
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const formattedValue = formatInputValue(event.target.value)
+
+    setInputValue(formattedValue)
+
+    const date = parseDate(formattedValue)
+
+    if (date) {
+      onChange(date)
+    } else if (formattedValue.length === 0) {
+      onChange(undefined)
+    }
+  }
+
+  function handleSelect(date?: Date) {
+    setInputValue(formatDate(date))
+    onChange(date)
+    setOpen(false)
+  }
 
   return (
-    <Field className="w-full">
-      <Popover
-        open={open}
-        onOpenChange={setOpen}
-      >
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            id="date"
-            className="justify-start font-normal"
-          >
-            {date ? date.toLocaleDateString() : placeholder}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          className="w-auto overflow-hidden p-0"
-          align="start"
+    <InputGroup>
+      <InputGroupInput
+        id={id}
+        value={inputValue}
+        placeholder={placeholder}
+        aria-invalid={ariaInvalid}
+        onChange={handleInputChange}
+      />
+
+      <InputGroupAddon align="inline-end">
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
         >
-          <Calendar
-            mode="single"
-            selected={date}
-            defaultMonth={date}
-            captionLayout="dropdown"
-            onSelect={(date) => {
-              setDate(date)
-              setOpen(false)
-              onChange?.(date!)
-            }}
-          />
-        </PopoverContent>
-      </Popover>
-    </Field>
+          <PopoverTrigger asChild>
+            <InputGroupButton
+              type="button"
+              variant="ghost"
+              size="icon-xs"
+              aria-label="Sélectionner une date"
+            >
+              <CalendarIcon />
+              <span className="sr-only">Sélectionner une date</span>
+            </InputGroupButton>
+          </PopoverTrigger>
+
+          <PopoverContent
+            className="w-auto overflow-hidden p-0"
+            align="end"
+          >
+            <Calendar
+              mode="single"
+              selected={value}
+              onSelect={handleSelect}
+            />
+          </PopoverContent>
+        </Popover>
+      </InputGroupAddon>
+    </InputGroup>
   )
 }

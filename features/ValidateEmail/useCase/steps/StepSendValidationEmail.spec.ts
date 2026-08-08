@@ -11,7 +11,7 @@ describe('StepSendValidationEmail', () => {
   })
 
   it('sends validation email when emails are enabled', async () => {
-    process.env.NEXT_PUBLIC_SEND_EMAILS = 'true'
+    process.env.SEND_VALIDATION_EMAIL = 'true'
 
     await new StepSendValidationEmail().execute({
       email: 'hello@example.com',

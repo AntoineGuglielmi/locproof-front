@@ -1,13 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
-import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { tenantRepository } from '@/repositories/tenant.repository'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { EntityTenantVerification } from '@/shared/entities/EntityTenantVerification'
 import RequestingAReferenceForm from '@/features/RequestingAReference/components/requesting-a-reference-form'
 import { TenantVerification } from '@/shared/types/strapi-types'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
+import PageErrorState from '@/shared/components/layout/page-error-state'
+import { ServiceGetPageContext } from '@/features/RequestingAReference/services/ServiceGetPageContext'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -47,116 +45,40 @@ export default async function CreateRentalPage({
   params,
 }: CreateRentalPageProps) {
   const { tenantVerificationToken } = await params
-  const tenantVerification =
-    await tenantVerificationRepository.findTenantVerificationByToken(
-      tenantVerificationToken!,
-    )
-  if (!tenantVerification) {
+
+  const pageContext = await ServiceGetPageContext(tenantVerificationToken)
+
+  const { status } = pageContext
+
+  if (status === 'expired' || status === 'not-found') {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification invalide ou expiré
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
-              demander un nouveau lien de vérification et réessayer.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Lien de vérification invalide ou expiré"
+          description="Le lien que vous avez utilisé est invalide ou a expiré. Veuillez demander un nouveau lien de vérification et réessayer."
+        />
       </AppLayout>
     )
   }
 
-  const tenantVerificationEntity = new EntityTenantVerification(
-    tenantVerification,
-  )
-
-  if (!tenantVerificationEntity || tenantVerificationEntity.isExpired()) {
+  if (status === 'validated') {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification invalide ou expiré
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Le lien que vous avez utilisé est invalide ou a expiré. Veuillez
-              demander un nouveau lien de vérification et réessayer.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Lien de vérification déjà utilisé"
+          description="Ce lien de vérification a déjà été utilisé pour créer une location. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter notre support."
+        />
       </AppLayout>
     )
   }
 
-  if (tenantVerificationEntity.isValidated()) {
-    return (
-      <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification déjà utilisé
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Ce lien de vérification a déjà été utilisé pour créer une
-              location. Si vous pensez qu'il s'agit d'une erreur, veuillez
-              contacter notre support.
-            </p>
-          </MotionDiv>
-        </section>
-      </AppLayout>
-    )
-  }
+  const { tenant, tenantVerificationEntity } = pageContext
 
-  if (tenantVerificationEntity.state === 'validated') {
-    return (
-      <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">
-              Lien de vérification déjà utilisé
-            </PageMainTitle>
-            <p className="text-gray-600">
-              Ce lien de vérification a déjà été utilisé pour créer une
-              location. Si vous pensez qu'il s'agit d'une erreur, veuillez
-              contacter notre support.
-            </p>
-          </MotionDiv>
-        </section>
-      </AppLayout>
-    )
-  }
-
-  const createRentalFormProps = {
+  const requestingAReferenceFormProps = {
     tenantVerificationToken,
-    email: tenantVerificationEntity.email!,
-    firstname: '',
-    lastname: '',
-  }
-  const tenant = await tenantRepository.findByEmail(
-    tenantVerificationEntity.email!,
-  )
-  if (tenant) {
-    createRentalFormProps.firstname = tenant.firstname!
-    createRentalFormProps.lastname = tenant.lastname!
+    email: tenantVerificationEntity.email,
+    firstname: tenant?.firstname ?? '',
+    lastname: tenant?.lastname ?? '',
   }
 
   return (
@@ -170,14 +92,15 @@ export default async function CreateRentalPage({
           <PageMainTitle version="small">
             Invitez votre ancien bailleur
           </PageMainTitle>
-          <TextBody className="text-balance">
+
+          <TextBody className="text-balance mb-8">
             Nous allons lui envoyer un lien simple pour confirmer votre
             expérience locative. Cela ne lui prendra que quelques minutes.
           </TextBody>
+
+          <RequestingAReferenceForm {...requestingAReferenceFormProps} />
         </MotionDiv>
       </section>
-
-      <RequestingAReferenceForm {...createRentalFormProps} />
     </AppLayout>
   )
 }
