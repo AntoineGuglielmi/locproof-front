@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { Button } from '@/shared/components/shadcn/ui/button'
@@ -28,6 +27,7 @@ import { createReferenceSchema } from '../schemas/create-reference-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormValues'
+import CreateReferenceFormSuccess from './create-reference-form-success'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -97,15 +97,14 @@ export default function CreateReferenceForm({
 
   if (formSubmitted) {
     return (
-      <p>Formulaire soumis avec succès</p>
-      // <MotionDiv
-      //   initial={{ opacity: 0, y: 20 }}
-      //   animate={{ opacity: 1, y: 0 }}
-      //   transition={{ delay: 0.2 }}
-      //   className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
-      // >
-      //   <RequestingAReferenceFormSuccess email={email!} />
-      // </MotionDiv>
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
+      >
+        <CreateReferenceFormSuccess />
+      </MotionDiv>
     )
   }
 
@@ -280,14 +279,6 @@ export default function CreateReferenceForm({
             ? 'Enregistrement...'
             : 'Envoyer mon retour'}
         </Button>
-
-        {formSubmitted && (
-          <p className="text-green-600 text-center mt-4 text-balance">
-            Merci pour votre recommandation ! Si vous avez des commentaires ou
-            des questions, n'hésitez pas à nous contacter. Vous pouvez fermer
-            cette page en toute sécurité.
-          </p>
-        )}
       </form>
     </MotionDiv>
   )
