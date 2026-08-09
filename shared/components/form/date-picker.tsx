@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CalendarIcon } from 'lucide-react'
 
 import { Calendar } from '@/shared/components/shadcn/ui/calendar'
@@ -73,6 +73,13 @@ export function DatePicker({
 }: DatePickerProps) {
   const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState(formatDate(value))
+
+  // Synchronizes the text representation when the controlled value
+  // changes from outside the component.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInputValue(formatDate(value))
+  }, [value])
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const formattedValue = formatInputValue(event.target.value)

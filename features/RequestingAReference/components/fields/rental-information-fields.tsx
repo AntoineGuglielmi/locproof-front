@@ -19,38 +19,26 @@ export default function RentalInformationFields({
   form,
 }: RentalInformationFields) {
   const updateDate = (key: 'startDate' | 'endDate', date?: Date) => {
-    if (!date) {
-      form.setValue(key, undefined, {
-        shouldValidate: true,
-        shouldDirty: true,
-      })
-      return
-    }
-
-    const values = {
-      startDate: form.getValues('startDate'),
-      endDate: form.getValues('endDate'),
-      [key]: date,
-    }
+    const otherKey = key === 'startDate' ? 'endDate' : 'startDate'
+    const otherDate = form.getValues(otherKey)
 
     form.setValue(key, date, {
-      shouldValidate: true,
+      shouldValidate: false,
       shouldDirty: true,
     })
 
-    if (key === 'startDate' && (!values.endDate || date > values.endDate)) {
-      form.setValue('endDate', date, {
-        shouldValidate: true,
+    if (!otherDate || (key === 'startDate' && date && date > otherDate)) {
+      form.setValue(otherKey, date, {
+        shouldValidate: false,
         shouldDirty: true,
       })
     }
 
-    if (key === 'endDate' && (!values.startDate || date < values.startDate)) {
-      form.setValue('startDate', date, {
-        shouldValidate: true,
-        shouldDirty: true,
-      })
+    if (!date) {
+      return
     }
+
+    form.trigger(['startDate', 'endDate'])
   }
 
   return (
