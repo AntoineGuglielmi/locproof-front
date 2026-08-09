@@ -1,11 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
 import AppLayout from '@/shared/components/layout/app-layout'
-import { rentalRepository } from '@/repositories/rental.repository'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { tenantRepository } from '@/repositories/tenant.repository'
 import CreateReferenceForm from '@/features/CreateReference/components/create-reference-form'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
+import { ServiceGetPageContext } from '@/features/CreateReference/services/ServiceGetPageContext'
+import PageErrorState from '@/shared/components/layout/page-error-state'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -43,54 +42,63 @@ export const metadata = {
 
 export default async function ValidatePage({ params }: ValidatePageProps) {
   const { rentalToken } = await params
-  const rental = await rentalRepository.findByRentalToken(rentalToken)
 
-  if (!rental) {
+  const pageContext = await ServiceGetPageContext(rentalToken)
+
+  const { status } = pageContext
+
+  if (status === 'not-found') {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">Location introuvable</PageMainTitle>
-            <p className="text-gray-600">
-              Le lien que vous avez utilisé est invalide. Veuillez vérifier
-              votre email et réessayer.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Location introuvable"
+          description="Le lien que vous avez utilisé est invalide. Veuillez vérifier
+              votre email et réessayer."
+        />
       </AppLayout>
     )
   }
 
-  if (rental.state === 'validated') {
+  if (status === 'validated') {
     return (
       <AppLayout>
-        <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <PageMainTitle version="small">Location déjà validée</PageMainTitle>
-            <p className="text-gray-600">
-              Cette location a déjà été validée. Si vous pensez qu'il s'agit
-              d'une erreur, veuillez contacter notre support.
-            </p>
-          </MotionDiv>
-        </section>
+        <PageErrorState
+          title="Location déjà validée"
+          description="Cette location a déjà été validée. Si vous pensez qu'il s'agit
+              d'une erreur, veuillez contacter notre support."
+        />
       </AppLayout>
     )
   }
 
-  const tenant = await tenantRepository.findBydDocumentId(
-    rental.tenantDocumentId,
-  )
+  if (status === 'expired') {
+    return (
+      <AppLayout>
+        <PageErrorState
+          title="Lien expiré"
+          description="Ce lien de validation n'est plus valide. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter notre support."
+        />
+      </AppLayout>
+    )
+  }
+
+  if (status === 'tenant-not-found') {
+    return (
+      <AppLayout>
+        <PageErrorState
+          title="Locataire introuvable"
+          description="Le locataire à l'origine de la demande est introuvable. Si vous pensez qu'il s'agit
+              d'une erreur, veuillez contacter notre support."
+        />
+      </AppLayout>
+    )
+  }
+
+  const { tenant, rental } = pageContext
+
   const { address, startDate, endDate, documentId: rentalDocumentId } = rental
 
-  const { firstname, lastname } = tenant!
+  const { firstname, lastname } = tenant
 
   return (
     <AppLayout>
