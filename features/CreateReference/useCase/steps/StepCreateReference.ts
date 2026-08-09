@@ -23,9 +23,6 @@ export class StepCreateReference extends Step<TypeContextWithFormInput> {
         rentalDocumentId,
       })
     } catch (error) {
-      console.log({
-        error,
-      })
       throw new Error('Impossible de créer la référence', {
         cause: error,
       })
