@@ -8,10 +8,10 @@ import { StepSendEmailToTenant } from './steps/StepSendEmailToTenant'
 
 export class UseCaseCreateReference extends UseCase<TypeContextCreateReference> {
   steps = [
-    StepCreateReference,
-    StepValidateRental,
     StepRetrieveRental,
     StepRetrieveTenant,
+    StepCreateReference,
+    StepValidateRental,
     StepSendEmailToTenant,
   ]
 }
