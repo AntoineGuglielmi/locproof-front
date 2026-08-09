@@ -176,7 +176,7 @@ export default function CreateReferenceForm({
                   )}
 
                   <RadioGroup
-                    value={field.value}
+                    value={field.value ?? ''}
                     onValueChange={field.onChange}
                   >
                     <Field
