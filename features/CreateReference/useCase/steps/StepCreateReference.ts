@@ -13,13 +13,22 @@ export class StepCreateReference extends Step<TypeContextWithFormInput> {
       rentalDocumentId,
     } = context.formInput
 
-    await referenceRepository.create({
-      paidOnTime,
-      wellMaintained,
-      communication,
-      recommended,
-      comment,
-      rentalDocumentId,
-    })
+    try {
+      await referenceRepository.create({
+        paidOnTime,
+        wellMaintained,
+        communication,
+        recommended,
+        comment,
+        rentalDocumentId,
+      })
+    } catch (error) {
+      console.log({
+        error,
+      })
+      throw new Error('Impossible de créer la référence', {
+        cause: error,
+      })
+    }
   }
 }

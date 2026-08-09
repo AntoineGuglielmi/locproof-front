@@ -1,22 +1,43 @@
 'use server'
 
-import { TypeInputCreateReference } from '../types/TypeInputCreateReference'
 import { TypeContextCreateReference } from '../types/TypeContextCreateReference'
 import { UseCaseCreateReference } from '../useCase/UseCaseCreateReference'
 import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormValues'
+import { createReferenceSchema } from '../schemas/create-reference-schema'
 
 export async function ActionCreateReference(
-  formInput: TypeCreateReferenceFormValues,
+  input: TypeCreateReferenceFormValues,
 ) {
-  const contextCreateReference: TypeContextCreateReference = {
-    formInput,
-    rental: null,
-    tenant: null,
+  const securedDataFromInput = createReferenceSchema.safeParse(input)
+
+  if (!securedDataFromInput.success) {
+    return {
+      success: false,
+      error:
+        'Une erreur est survenue lors de la validation des données du formulaire',
+    }
   }
 
-  const useCaseCreateReference = new UseCaseCreateReference(
-    contextCreateReference,
-  )
+  try {
+    const formInput = securedDataFromInput.data
 
-  useCaseCreateReference.execute()
+    const contextCreateReference: TypeContextCreateReference = {
+      formInput,
+      rental: null,
+      tenant: null,
+    }
+
+    const useCase = new UseCaseCreateReference(contextCreateReference)
+
+    await useCase.execute()
+
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Une erreur est survenue',
+    }
+  }
 }

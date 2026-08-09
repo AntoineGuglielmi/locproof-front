@@ -86,6 +86,12 @@ export default function CreateReferenceForm({
 
   const onSubmit = async (values: TypeCreateReferenceFormValues) => {
     const result = await ActionCreateReference(values)
+    if (!result.success) {
+      form.setError('root', {
+        message: result.error,
+      })
+      return
+    }
     setFormSubmitted(true)
   }
 
@@ -262,6 +268,8 @@ export default function CreateReferenceForm({
             .
           </p>
         </div>
+
+        <AnimatedFieldError error={form.formState.errors.root} />
 
         <Button
           type="submit"
