@@ -6,6 +6,18 @@ export class StepRetrieveRental extends Step<TypeContextWithFormInput> {
   async execute(context: TypeContextWithFormInput): Promise<void> {
     const { rentalDocumentId } = context.formInput
 
-    context.rental = await rentalRepository.findByDocumentId(rentalDocumentId)
+    try {
+      const rental = await rentalRepository.findByDocumentId(rentalDocumentId)
+
+      if (!rental) {
+        throw new Error('Location introuvable')
+      }
+
+      context.rental = rental
+    } catch (error) {
+      throw new Error('Impossible de récupérer la location', {
+        cause: error,
+      })
+    }
   }
 }

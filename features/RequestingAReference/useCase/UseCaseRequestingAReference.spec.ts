@@ -36,22 +36,22 @@ describe('UseCaseRequestingAReference', () => {
   it('completes a reference request workflow', async () => {
     process.env.SEND_LANDLORD_EMAIL = 'true'
 
-    const tenant = {
+    const tenant: Tenant = {
       documentId: 'tenant-123',
       email: 'tenant@test.com',
       firstname: 'Antoine',
       lastname: 'G',
-    } as Tenant
+    }
 
-    const tenantVerification = {
+    const tenantVerification: TenantVerification = {
       documentId: 'verification-123',
-      token: 'verification-token',
-    } as TenantVerification
+      tenantVerificationToken: 'verification-token',
+    }
 
-    const rental = {
+    const rental: Rental = {
       documentId: 'rental-123',
       rentalToken: 'rental-token',
-    } as Rental
+    }
 
     vi.mocked(ServiceCreateTenant).mockResolvedValue(tenant)
 
@@ -70,11 +70,13 @@ describe('UseCaseRequestingAReference', () => {
         email: 'tenant@test.com',
         firstname: 'Antoine',
         lastname: 'G',
-        address: '35 Rue Pelleport 33800 Bordeaux',
+        address: {
+          label: '35 Rue Pelleport 33800 Bordeaux',
+          city: 'Bordeaux',
+        },
         startDate: '2026-07-31',
         endDate: '2026-08-29',
         landlordEmail: 'landlord@test.com',
-        cityPublic: 'Bordeaux',
         tenantVerificationToken: 'verification-token',
       },
     }

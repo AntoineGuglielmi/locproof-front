@@ -8,6 +8,18 @@ export class StepRetrieveTenant extends Step<TypeContextWithRental> {
       rental: { tenantDocumentId },
     } = context
 
-    context.tenant = await tenantRepository.findBydDocumentId(tenantDocumentId)
+    try {
+      const tenant = await tenantRepository.findBydDocumentId(tenantDocumentId)
+
+      if (!tenant) {
+        throw new Error('Locataire introuvable')
+      }
+
+      context.tenant = tenant
+    } catch (error) {
+      throw new Error('Impossible de récupérer le locataire', {
+        cause: error,
+      })
+    }
   }
 }
