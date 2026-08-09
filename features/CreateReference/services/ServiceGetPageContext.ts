@@ -17,15 +17,15 @@ export const ServiceGetPageContext = async (
 
   const rentalEntity = new EntityRental(rental)
 
-  if (rentalEntity.isExpired()) {
-    return {
-      status: 'expired',
-    }
-  }
-
   if (rentalEntity.isValidated()) {
     return {
       status: 'validated',
+    }
+  }
+
+  if (rentalEntity.isExpired()) {
+    return {
+      status: 'expired',
     }
   }
 
