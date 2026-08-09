@@ -51,10 +51,10 @@ export default function CreateReferenceForm({
   const form = useForm<TypeCreateReferenceFormValues>({
     resolver: zodResolver(createReferenceSchema),
     defaultValues: {
-      paidOnTime: null,
-      wellMaintained: null,
-      communication: null,
-      recommended: null,
+      paidOnTime: undefined,
+      wellMaintained: undefined,
+      communication: undefined,
+      recommended: undefined,
       comment: '',
       rentalDocumentId,
     },
