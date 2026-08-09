@@ -1,3 +1,4 @@
+import { formatDateForStrapi } from '@/shared/lib/date'
 import { strapiClient } from '@/shared/lib/strapi'
 import { Rental, Tenant } from '@/shared/types/strapi-types'
 
@@ -14,7 +15,11 @@ export const rentalRepository = {
     rentalToken: Rental['rentalToken']
     cityPublic: Rental['cityPublic']
   }): Promise<Rental> {
-    const res = await strapiClient.collection(COLLECTION_NAME).create(data)
+    const res = await strapiClient.collection(COLLECTION_NAME).create({
+      ...data,
+      startDate: formatDateForStrapi(data.startDate!),
+      endDate: formatDateForStrapi(data.endDate!),
+    })
     return res.data
   },
 
