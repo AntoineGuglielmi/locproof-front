@@ -17,12 +17,19 @@ export class StepSendEmailToTenant extends Step<TypeContextWithTenant> {
       const subject = 'Votre recommandation a été rédigée !'
       const react = NewReferenceEmail({ href })
 
-      await sendEmailViaResend({
-        from,
-        to,
-        subject,
-        react,
-      })
+      try {
+        const shouldSendEmail =
+          !['development', 'test'].includes(process.env.NODE_ENV) ||
+          process.env.SEND_TENANT_EMAIL === 'true'
+
+        if (shouldSendEmail) {
+          await sendEmailViaResend({ from, to, subject, react })
+        }
+      } catch (error) {
+        throw new Error("Impossible d'envoyer l'email au locataire", {
+          cause: error,
+        })
+      }
     }
   }
 }

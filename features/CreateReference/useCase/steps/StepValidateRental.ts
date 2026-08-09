@@ -6,6 +6,12 @@ export class StepValidateRental extends Step<TypeContextWithFormInput> {
   async execute(context: TypeContextWithFormInput): Promise<void> {
     const { rentalDocumentId } = context.formInput
 
-    await rentalRepository.markAsValidated(rentalDocumentId)
+    try {
+      await rentalRepository.markAsValidated(rentalDocumentId)
+    } catch (error) {
+      throw new Error('Impossible de valider la location', {
+        cause: error,
+      })
+    }
   }
 }
