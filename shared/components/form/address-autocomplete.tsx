@@ -39,30 +39,37 @@ export function AddressAutocomplete({
     }
   }, [])
 
-  function handleChange(input: string) {
+  const handleChange = (input: string) => {
     setQuery(input)
 
     // Tant qu'une adresse n'est pas sélectionnée,
-    // la valeur métier est invalide
+    // la valeur métier est invalide.
     onChange(undefined)
 
     if (timeout.current) {
       clearTimeout(timeout.current)
     }
 
-    if (input.length < 3) {
+    const query = input.trim()
+
+    if (query.length < 3) {
       setResults([])
       return
     }
 
     timeout.current = window.setTimeout(async () => {
       const response = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(input)}&limit=5`,
+        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`,
       )
 
       const data = await response.json()
 
-      setResults(data.features)
+      if (!response.ok) {
+        setResults([])
+        return
+      }
+
+      setResults(data.features ?? [])
     }, 300)
   }
 
