@@ -11,6 +11,7 @@ import {
   Wrench,
 } from 'lucide-react'
 import { ucfirst } from '@/lib/string'
+import Tag from '@/shared/components/text/tag'
 
 type ReferenceItemProps = {
   className?: string
@@ -83,10 +84,13 @@ export default function ReferenceItem({
           </div>
         </div>
 
-        <div className="inline-flex w-fit items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700">
-          <ShieldCheck className="size-3.5" />
+        <Tag
+          size="small"
+          type="success"
+          Icon={ShieldCheck}
+        >
           Référence vérifiée
-        </div>
+        </Tag>
       </div>
 
       {/* CRITERIA */}

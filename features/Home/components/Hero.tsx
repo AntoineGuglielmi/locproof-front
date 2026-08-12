@@ -6,6 +6,7 @@ import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import TextBody from '@/shared/components/text/text-body'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
+import Tag from '@/shared/components/text/tag'
 
 type HeroProps = {
   className?: string
@@ -34,13 +35,7 @@ export default function Hero({ className, variant }: HeroProps) {
         transition={{ duration: 0.6 }}
         className="text-center"
       >
-        <span className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 text-sm font-medium">
-          <span
-            aria-hidden="true"
-            className="size-2 rounded-full bg-indigo-500"
-          />
-          Référence locative
-        </span>
+        <Tag className="mb-6">Référence locative</Tag>
 
         <PageMainTitle>
           La référence locative qui valorise votre expérience.

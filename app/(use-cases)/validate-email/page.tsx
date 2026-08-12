@@ -3,6 +3,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import { Narrow } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import Tag from '@/shared/components/text/tag'
 import TextBody from '@/shared/components/text/text-body'
 
 type CreateMePageProps = {
@@ -46,9 +47,7 @@ export default function CreateMePage({}: CreateMePageProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block mb-4 px-4 py-1 text-sm bg-indigo-100 text-indigo-700 rounded-full">
-            🔒 Vérification sécurisée
-          </span>
+          <Tag className="mb-4">Vérification sécurisée</Tag>
 
           <PageMainTitle version="small">
             Demandez une recommandation
