@@ -1,5 +1,6 @@
 import { Feature, Grid } from './grid'
 import NavLink from '../navigation/nav-link'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -8,7 +9,12 @@ export default function Footer() {
         <Feature>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
-              <p className="font-semibold text-gray-900">LocProof</p>
+              <Link
+                href="/"
+                className="font-semibold text-gray-900"
+              >
+                LocProof
+              </Link>
               <p className="mt-1 text-sm text-gray-500">
                 La référence locative qui valorise votre expérience.
               </p>
