@@ -12,7 +12,7 @@ export default function PageErrorState({
   description,
 }: PageErrorStateProps) {
   return (
-    <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
+    <section className="text-center pt-16 pb-10">
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
-import { FullWidth } from '@/shared/components/layout/grid'
+import { Breakout, FullWidth } from '@/shared/components/layout/grid'
 
 type HowItWorksProps = {
   className?: string
@@ -56,7 +56,6 @@ export default function HowItWorks({ className, variant }: HowItWorksProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="max-w-2xl"
       >
         <SectionLabel>Le principe</SectionLabel>
 
@@ -69,7 +68,7 @@ export default function HowItWorks({ className, variant }: HowItWorksProps) {
         </p>
       </MotionDiv>
 
-      <div className="mt-14 grid md:grid-cols-3 gap-8">
+      <Breakout className="mt-14 grid md:grid-cols-3 gap-8">
         <Step
           number="01"
           title="Le locataire fait une demande"
@@ -87,7 +86,7 @@ export default function HowItWorks({ className, variant }: HowItWorksProps) {
           title="La référence est restituée"
           description="Le locataire dispose d'une référence exploitable qu'il peut présenter dans le cadre de ses futures recherches de logement."
         />
-      </div>
+      </Breakout>
     </FullWidth>
   )
 }
