@@ -6,6 +6,8 @@ import List from '@/shared/components/list/List'
 import ReferenceItem from './reference-item'
 import { TypeSynthesis } from '@/shared/types/profile-synthesis'
 import Link from 'next/link'
+import Button from '@/shared/components/form/button'
+import { ArrowRight } from 'lucide-react'
 
 type ReferencesProps = {
   className?: string
@@ -63,13 +65,18 @@ export default function References({
               Aucune référence n'est encore disponible.
             </p>
 
-            <Link
-              href="/validate-email"
-              className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-700"
+            <Button
+              // variant="outline"
+              className="mt-4"
             >
-              Demander une première référence
-              <span aria-hidden>→</span>
-            </Link>
+              <Link
+                href="/validate-email"
+                className="inline-flex items-center gap-1"
+              >
+                Demander une première référence
+                <ArrowRight />
+              </Link>
+            </Button>
           </div>
         )}
       </MotionDiv>
