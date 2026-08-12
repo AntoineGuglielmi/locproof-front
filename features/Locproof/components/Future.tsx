@@ -47,11 +47,11 @@ export default function Future({ className, variant }: FutureProps) {
       >
         <SectionLabel>Les suites envisagées</SectionLabel>
 
-        <h2 className="mt-3 max-w-3xl text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
           Construire LocProof étape par étape.
         </h2>
 
-        <p className="mt-6 max-w-3xl text-gray-600 leading-relaxed">
+        <p className="mt-6 text-gray-600 leading-relaxed">
           Si les retours du terrain confirment l'intérêt du concept, plusieurs
           évolutions pourront être envisagées.
         </p>
@@ -75,7 +75,7 @@ export default function Future({ className, variant }: FutureProps) {
           </FutureItem>
         </div>
 
-        <p className="mt-10 max-w-3xl text-lg font-medium leading-relaxed text-gray-900">
+        <p className="mt-10 text-lg font-medium leading-relaxed text-gray-900">
           L'objectif est de construire LocProof étape par étape, en validant
           chaque évolution auprès des utilisateurs concernés.
         </p>

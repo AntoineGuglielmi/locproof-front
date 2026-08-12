@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import { Feature, Grid } from './grid'
+import NavLink from '../navigation/nav-link'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -8,42 +9,22 @@ export default function Footer() {
         <Feature>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
-              <p className="font-semibold text-gray-900">LocProof</p>
+              <Link
+                href="/"
+                className="font-semibold text-gray-900"
+              >
+                LocProof
+              </Link>
               <p className="mt-1 text-sm text-gray-500">
                 La référence locative qui valorise votre expérience.
               </p>
             </div>
-            <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-sm text-gray-500">
-              <Link
-                href="/locproof"
-                className="transition-colors hover:text-gray-900"
-              >
-                À propos
-              </Link>
-              <Link
-                href="/example"
-                className="transition-colors hover:text-gray-900"
-              >
-                Exemple
-              </Link>
-              <Link
-                href="/privacy"
-                className="transition-colors hover:text-gray-900"
-              >
-                Confidentialité
-              </Link>
-              <Link
-                href="/legals"
-                className="transition-colors hover:text-gray-900"
-              >
-                Mentions légales
-              </Link>
-              <Link
-                href="mailto:contact@locproof.fr"
-                className="transition-colors hover:text-gray-900"
-              >
-                Contact
-              </Link>
+            <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+              <NavLink href="/locproof">À propos</NavLink>
+              <NavLink href="/example">Exemple</NavLink>
+              <NavLink href="/privacy">Confidentialité</NavLink>
+              <NavLink href="/legals">Mentions légales</NavLink>
+              <NavLink href="mailto:contact@locproof.fr">Contact</NavLink>
             </nav>
           </div>
         </Feature>

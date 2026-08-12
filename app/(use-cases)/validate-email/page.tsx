@@ -1,7 +1,9 @@
 import ValidateEmailForm from '@/features/ValidateEmail/components/validate-email-form'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
+import { Narrow } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import Tag from '@/shared/components/text/tag'
 import TextBody from '@/shared/components/text/text-body'
 
 type CreateMePageProps = {
@@ -39,26 +41,22 @@ export const metadata = {
 export default function CreateMePage({}: CreateMePageProps) {
   return (
     <AppLayout>
-      <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
+      <Narrow className="text-center pt-16 pb-10">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="text-center">
-            <span className="inline-block mb-4 px-4 py-1 text-sm bg-indigo-100 text-indigo-700 rounded-full">
-              🔒 Vérification sécurisée
-            </span>
+          <Tag className="mb-4">Vérification sécurisée</Tag>
 
-            <PageMainTitle version="small">
-              Demandez une recommandation
-            </PageMainTitle>
+          <PageMainTitle version="small">
+            Demandez une recommandation
+          </PageMainTitle>
 
-            <TextBody className="mb-8 text-balance">
-              En quelques minutes, invitez un ancien bailleur à confirmer votre
-              sérieux en tant que locataire.
-            </TextBody>
-          </div>
+          <TextBody className="mb-8 text-balance">
+            En quelques minutes, invitez un ancien bailleur à confirmer votre
+            sérieux en tant que locataire.
+          </TextBody>
 
           <ValidateEmailForm />
 
@@ -66,7 +64,7 @@ export default function CreateMePage({}: CreateMePageProps) {
             Aucun compte requis • Lien sécurisé envoyé par email
           </p>
         </MotionDiv>
-      </section>
+      </Narrow>
     </AppLayout>
   )
 }

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/shared/components/shadcn/ui/button'
 import { Input } from '@/shared/components/shadcn/ui/input'
 
 import {
@@ -22,6 +21,7 @@ import {
 } from '@/shared/components/shadcn/ui/field'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
+import Button from '@/shared/components/form/button'
 
 export default function ValidateEmailForm() {
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null)
@@ -101,7 +101,6 @@ export default function ValidateEmailForm() {
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
-          className="w-full mt-4 rounded-full py-4 text-base bg-indigo-600 hover:bg-indigo-700"
         >
           {form.formState.isSubmitting
             ? 'Envoi en cours...'

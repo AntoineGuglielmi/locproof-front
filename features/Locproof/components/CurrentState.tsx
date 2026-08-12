@@ -4,6 +4,7 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
 import { FullWidth } from '@/shared/components/layout/grid'
+import Panel from '@/shared/components/text/panel'
 
 type CurrentStateProps = {
   className?: string
@@ -57,11 +58,11 @@ export default function CurrentState({
       >
         <SectionLabel>Où en est le projet ?</SectionLabel>
 
-        <h2 className="mt-3 max-w-3xl text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
           Un premier prototype permet déjà de tester l'idée.
         </h2>
 
-        <div className="mt-8 max-w-3xl space-y-5 text-gray-600 leading-relaxed">
+        <div className="mt-8 space-y-5 text-gray-600 leading-relaxed">
           <p>
             Un premier prototype est aujourd'hui opérationnel et permet de
             réaliser l'ensemble du parcours imaginé :
@@ -84,17 +85,14 @@ export default function CurrentState({
           </ProgressItem>
         </div>
 
-        <div className="mt-10 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-6">
-          <p className="text-sm font-semibold text-amber-900">
-            Un prototype, par définition, reste à renforcer.
-          </p>
-
-          <p className="mt-2 text-sm leading-relaxed text-amber-800">
-            Certains points doivent encore évoluer afin de garantir un niveau de
+        <Panel
+          className="mt-10"
+          type="warning"
+          title="Un prototype, par définition, reste à renforcer."
+          body="Certains points doivent encore évoluer afin de garantir un niveau de
             confiance suffisant pour un usage professionnel, notamment autour de
-            la vérification des informations transmises.
-          </p>
-        </div>
+            la vérification des informations transmises."
+        />
       </MotionDiv>
     </FullWidth>
   )

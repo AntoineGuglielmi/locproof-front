@@ -1,9 +1,17 @@
-/* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { TypeRentalReference } from '@/shared/types/profile-synthesis'
-import { ArrowRight, Calendar, Check, MapPin } from 'lucide-react'
+import {
+  Calendar,
+  Check,
+  MapPin,
+  MessageCircle,
+  ShieldCheck,
+  ThumbsUp,
+  Wrench,
+} from 'lucide-react'
 import { ucfirst } from '@/lib/string'
+import Tag from '@/shared/components/text/tag'
 
 type ReferenceItemProps = {
   className?: string
@@ -11,7 +19,7 @@ type ReferenceItemProps = {
 } & TypeRentalReference
 
 const ReferenceItemVariants = cva(
-  'ReferenceItem bg-white rounded-3xl p-6 shadow-md flex flex-col gap-4',
+  'ReferenceItem rounded-2xl border bg-white p-5 md:p-6',
   {
     variants: {},
     defaultVariants: {},
@@ -29,76 +37,98 @@ export default function ReferenceItem({
   communication,
   recommended,
 }: ReferenceItemProps) {
-  const scoresDisplay = [
+  const criteria = [
     {
-      name: 'paidOnTime',
+      value: paidOnTime,
       label: 'Loyers payés à temps',
+      icon: Check,
     },
     {
-      name: 'wellMaintained',
+      value: wellMaintained,
       label: 'Logement bien entretenu',
+      icon: Wrench,
     },
     {
-      name: 'communication',
+      value: communication,
       label: 'Communication fluide',
+      icon: MessageCircle,
     },
     {
-      name: 'recommended',
-      label: 'Recommandé',
+      value: recommended,
+      label: 'Locataire recommandé',
+      icon: ThumbsUp,
     },
-  ] as const
-
-  const reference = {
-    paidOnTime,
-    wellMaintained,
-    communication,
-    recommended,
-  }
+  ]
 
   return (
-    <div className={cn(ReferenceItemVariants({ className }))}>
-      <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
-        <div className="flex flex-col gap-1">
-          <div className="flex gap-2 items-center">
-            <MapPin
-              size={14}
-              className="text-indigo-500"
-            />{' '}
-            {cityPublic}
-          </div>
-          <div className="flex gap-2 items-center">
-            <Calendar
-              size={14}
-              className="text-indigo-500"
-            />{' '}
-            {ucfirst(startDate)} <ArrowRight size={14} /> {ucfirst(endDate)}
+    <article className={cn(ReferenceItemVariants({ className }))}>
+      {/* RENTAL CONTEXT */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+            Expérience locative
+          </p>
+
+          <div className="mt-2 flex flex-col gap-1.5 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <MapPin className="size-4 text-indigo-500" />
+              <span>{cityPublic}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Calendar className="size-4 text-indigo-500" />
+              <span>
+                {ucfirst(startDate)} → {ucfirst(endDate)}
+              </span>
+            </div>
           </div>
         </div>
+
+        <Tag
+          size="small"
+          type="success"
+          Icon={ShieldCheck}
+        >
+          Référence vérifiée
+        </Tag>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 text-gray-700 text-sm">
-        {scoresDisplay.map(({ name, label }) => {
-          return reference[name] === 'yes' ? (
-            <p
+      {/* CRITERIA */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5">
+        {criteria.map(({ value, label, icon: Icon }) => {
+          if (value !== 'yes') {
+            return null
+          }
+
+          return (
+            <div
               key={label}
-              className="flex gap-2 items-center"
+              className="flex items-center gap-2 text-sm text-gray-700"
             >
-              <Check size={16} />
-              {label}
-            </p>
-          ) : null
+              <span className="flex size-5 items-center justify-center rounded-full bg-green-50 text-green-600">
+                <Icon className="size-3.5" />
+              </span>
+
+              <span>{label}</span>
+            </div>
+          )
         })}
       </div>
 
+      {/* COMMENT */}
       {comment && (
-        <div className="bg-gray-50 p-4 rounded-2xl text-gray-700 italic">
-          "{comment}"
-        </div>
+        <blockquote className="mt-6 rounded-xl bg-gray-50 px-5 py-4 text-sm leading-relaxed text-gray-600">
+          <span className="text-gray-300 text-2xl leading-none">“</span>
+          <span className="ml-1">{comment}</span>
+          <span className="text-gray-300 text-2xl leading-none">”</span>
+        </blockquote>
       )}
 
-      <div className="text-xs text-gray-400">
-        Recommandation vérifiée par un bailleur
+      {/* FOOTER */}
+      <div className="mt-5 flex items-center gap-2 text-xs text-gray-400">
+        <ShieldCheck className="size-3.5" />
+        <span>Référence renseignée par un bailleur</span>
       </div>
-    </div>
+    </article>
   )
 }
