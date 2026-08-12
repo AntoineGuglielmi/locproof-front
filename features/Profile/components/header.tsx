@@ -3,6 +3,7 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { ShieldCheck } from 'lucide-react'
 import { Tenant } from '@/shared/types/strapi-types'
+import Tag from '@/shared/components/text/tag'
 
 type HeaderProps = {
   className?: string
@@ -47,10 +48,13 @@ export default function Header({ className, variant, tenant }: HeaderProps) {
                 </h1>
 
                 {tenant.verified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
-                    <ShieldCheck size={14} />
+                  <Tag
+                    size="small"
+                    type="success"
+                    Icon={ShieldCheck}
+                  >
                     Vérifié
-                  </span>
+                  </Tag>
                 )}
               </div>
 
