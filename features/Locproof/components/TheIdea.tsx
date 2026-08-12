@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
+import Panel from '@/shared/components/text/panel'
 
 type TheIdeaProps = {
   className?: string
@@ -62,15 +63,13 @@ export default function TheIdea({ className, variant }: TheIdeaProps) {
               </div>
             </div>
 
-            <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">
-              <p className="text-sm font-semibold text-gray-900">L'objectif</p>
-
-              <p className="mt-3 text-gray-600 leading-relaxed">
-                Ne pas remplacer les pièces habituelles d'un dossier de
+            <Panel
+              title="L'objectif"
+              body="Ne pas remplacer les pièces habituelles d'un dossier de
                 location, mais y ajouter une information qualitative qui fait
-                aujourd'hui défaut.
-              </p>
-            </div>
+                aujourd'hui défaut."
+              type="neutral"
+            />
           </div>
         </MotionDiv>
       </div>

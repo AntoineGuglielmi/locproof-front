@@ -4,6 +4,7 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import { ShieldCheck } from 'lucide-react'
 import { Tenant } from '@/shared/types/strapi-types'
 import Tag from '@/shared/components/text/tag'
+import Panel from '@/shared/components/text/panel'
 
 type HeaderProps = {
   className?: string
@@ -62,22 +63,12 @@ export default function Header({ className, variant, tenant }: HeaderProps) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4">
-            <div className="flex gap-3">
-              <ShieldCheck className="mt-0.5 size-5 shrink-0 text-indigo-600" />
-
-              <div>
-                <p className="font-medium text-gray-900">
-                  Une référence locative fondée sur l’expérience
-                </p>
-
-                <p className="mt-1 text-sm leading-relaxed text-gray-600">
-                  Les informations présentées sur ce profil proviennent de
-                  références renseignées directement par des bailleurs.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Panel
+            title="Une référence locative fondée sur l’expérience"
+            body="Les informations présentées sur ce profil proviennent de
+                  références renseignées directement par des bailleurs."
+            Icon={ShieldCheck}
+          />
         </div>
       </MotionDiv>
     </section>

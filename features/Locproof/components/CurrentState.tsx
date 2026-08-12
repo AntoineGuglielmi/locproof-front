@@ -4,6 +4,7 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
 import { FullWidth } from '@/shared/components/layout/grid'
+import Panel from '@/shared/components/text/panel'
 
 type CurrentStateProps = {
   className?: string
@@ -84,17 +85,14 @@ export default function CurrentState({
           </ProgressItem>
         </div>
 
-        <div className="mt-10 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-6">
-          <p className="text-sm font-semibold text-amber-900">
-            Un prototype, par définition, reste à renforcer.
-          </p>
-
-          <p className="mt-2 text-sm leading-relaxed text-amber-800">
-            Certains points doivent encore évoluer afin de garantir un niveau de
+        <Panel
+          className="mt-10"
+          type="warning"
+          title="Un prototype, par définition, reste à renforcer."
+          body="Certains points doivent encore évoluer afin de garantir un niveau de
             confiance suffisant pour un usage professionnel, notamment autour de
-            la vérification des informations transmises.
-          </p>
-        </div>
+            la vérification des informations transmises."
+        />
       </MotionDiv>
     </FullWidth>
   )
