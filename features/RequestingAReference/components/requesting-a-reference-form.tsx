@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/shared/components/shadcn/ui/button'
 import { Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { FieldSeparator } from '@/shared/components/shadcn/ui/field'
@@ -17,6 +16,7 @@ import RequestingAReferenceFormSuccess from './requesting-a-reference-form-succe
 import TenantInformationFields from './fields/tenant-information-fields'
 import RentalInformationFields from './fields/rental-information-fields'
 import LandlordInformationField from './fields/landlord-information-field'
+import Button from '@/shared/components/form/button'
 
 export default function RequestingAReferenceForm(props: {
   email: Tenant['email']
@@ -95,7 +95,6 @@ export default function RequestingAReferenceForm(props: {
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
-          className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]"
         >
           {form.formState.isSubmitting
             ? 'Envoi en cours...'
