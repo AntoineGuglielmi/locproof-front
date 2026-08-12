@@ -28,6 +28,7 @@ import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormValues'
 import CreateReferenceFormSuccess from './create-reference-form-success'
 import Button from '@/shared/components/form/button'
+import Panel from '@/shared/components/text/panel'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -248,25 +249,25 @@ export default function CreateReferenceForm({
           />
         </Field>
 
-        <div className="bg-indigo-50/20 border border-indigo-100/50 rounded-2xl p-4 text-xs text-indigo-700">
-          <p>
-            Vous confirmez avoir été le bailleur de ce logement durant cette
-            période.
-          </p>
-
-          <p className="mt-1">
-            Vos réponses resteront privées et seront utilisées uniquement pour
-            générer une recommandation locative synthétique, conformément à
-            notre{' '}
-            <Link
-              href="/privacy"
-              className="underline underline-offset-2"
-            >
-              politique de confidentialité
-            </Link>
-            .
-          </p>
-        </div>
+        <Panel
+          title="Vous confirmez avoir été le bailleur de ce logement durant cette
+            période."
+          body={
+            <>
+              Vos réponses resteront privées et seront utilisées uniquement pour
+              générer une recommandation locative synthétique, conformément à
+              notre{' '}
+              <Link
+                href="/privacy"
+                className="underline underline-offset-2"
+              >
+                politique de confidentialité
+              </Link>
+              .
+            </>
+          }
+          type="info"
+        />
 
         <AnimatedFieldError error={form.formState.errors.root} />
 
