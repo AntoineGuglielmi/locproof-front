@@ -5,6 +5,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
 import { ServiceGetPageContext } from '@/features/CreateReference/services/ServiceGetPageContext'
 import PageErrorState from '@/shared/components/layout/page-error-state'
+import { Narrow } from '@/shared/components/layout/grid'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -102,7 +103,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
 
   return (
     <AppLayout>
-      <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
+      <Narrow className="text-center pt-16 pb-10">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,12 +126,12 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
               rentalDocumentId,
             }}
           />
-        </MotionDiv>
-      </section>
 
-      <p className="text-xs text-center text-gray-400 mt-6">
-        Aucun compte requis • Réponse en moins d’une minute
-      </p>
+          <p className="text-xs text-center text-gray-400 mt-6">
+            Aucun compte requis • Réponse en moins d’une minute
+          </p>
+        </MotionDiv>
+      </Narrow>
     </AppLayout>
   )
 }
