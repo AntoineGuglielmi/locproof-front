@@ -1,7 +1,7 @@
 import Debug from '@/features/Debug/component/debug'
-import Container from './container'
 import Footer from './footer'
 import Header from './header'
+import { Grid } from './grid'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <Header />
       {process.env.DEBUG === '1' && <Debug />}
       <main className="py-8 flex-1">
-        <Container>{children}</Container>
+        <Grid>{children}</Grid>
       </main>
       <Footer />
     </div>
