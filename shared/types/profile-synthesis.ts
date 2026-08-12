@@ -21,4 +21,5 @@ export type TypeSynthesis = {
     recommended: number
     wellMaintained: number
   }
+  referencesCount: number
 }

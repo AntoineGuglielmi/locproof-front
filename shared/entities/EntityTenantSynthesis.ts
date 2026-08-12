@@ -14,6 +14,7 @@ export class EntityTenantSynthesis {
       recommended: 0,
       wellMaintained: 0,
     },
+    referencesCount: 0,
   }
 
   constructor(tenant: Tenant) {
@@ -43,11 +44,12 @@ export class EntityTenantSynthesis {
   }
 
   private async generateScores() {
-    const referencesNumber = this._synthesis.references.length
+    const referencesCount = this._synthesis.references.length
     Object.keys(this._synthesis.scores).map((key) => {
-      if (referencesNumber === 0) {
+      if (referencesCount === 0) {
         return 0
       }
+      this._synthesis.referencesCount = referencesCount
       const scoreKey = key as keyof typeof this._synthesis.scores
       this._synthesis.scores[scoreKey] =
         this._synthesis.references.reduce((number, reference) => {
@@ -55,7 +57,7 @@ export class EntityTenantSynthesis {
             number++
           }
           return number
-        }, 0) / referencesNumber
+        }, 0) / referencesCount
     })
   }
 
