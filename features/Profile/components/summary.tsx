@@ -112,7 +112,7 @@ export default function Summary({
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-2xl border bg-white px-6 py-8 text-center">
+          <div className="mt-6 rounded-2xl border border-dashed px-6 py-10 text-center">
             <p className="font-medium text-gray-900">
               Ce profil est en cours de constitution.
             </p>
