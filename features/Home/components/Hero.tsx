@@ -46,7 +46,7 @@ export default function Hero({ className, variant }: HeroProps) {
           faire valoir votre expérience en tant que locataire.
         </PageSubTitle>
 
-        <TextBody className="mt-6 max-w-2xl mx-auto text-balance text-gray-600">
+        <TextBody className="mt-6 text-balance text-gray-600">
           Demandez à vos anciens bailleurs de témoigner de votre location grâce
           à une référence simple, structurée et authentifiée.
         </TextBody>

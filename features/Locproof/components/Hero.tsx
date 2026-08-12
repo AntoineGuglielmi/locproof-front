@@ -30,7 +30,6 @@ export default function Hero({ className, variant }: HeroProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto"
       >
         <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
           À propos de LocProof
@@ -40,7 +39,7 @@ export default function Hero({ className, variant }: HeroProps) {
           Donner plus de valeur à l'expérience d'un bon locataire.
         </PageMainTitle>
 
-        <PageSubTitle className="mt-6 max-w-3xl text-xl md:text-2xl text-gray-700">
+        <PageSubTitle className="mt-6 text-xl md:text-2xl text-gray-700">
           LocProof est un projet visant à permettre aux locataires de faire
           valoir leur expérience locative grâce au témoignage de leur ancien ou
           actuel bailleur.

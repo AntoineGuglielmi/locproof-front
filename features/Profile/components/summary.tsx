@@ -112,12 +112,12 @@ export default function Summary({
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-2xl border border-dashed px-6 py-10 text-center">
+          <div className="mt-6 rounded-2xl border border-dashed px-6 py-10 text-center flex flex-col gap-2 items-center">
             <p className="font-medium text-gray-900">
               Ce profil est en cours de constitution.
             </p>
 
-            <p className="mt-2 text-sm leading-relaxed text-gray-500 max-w-lg mx-auto">
+            <p className="text-sm leading-relaxed text-gray-500 max-w-prose mx-auto text-balance">
               Les premières références vérifiées permettront de mieux documenter
               l’expérience locative de ce profil.
             </p>

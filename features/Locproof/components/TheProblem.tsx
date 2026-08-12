@@ -44,12 +44,12 @@ export default function TheProblem({ className, variant }: TheProblemProps) {
       >
         <SectionLabel>Le constat</SectionLabel>
 
-        <h2 className="mt-3 max-w-3xl text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
           Un dossier permet d'évaluer une situation. Pas forcément une
           expérience.
         </h2>
 
-        <div className="mt-8 max-w-3xl space-y-5 text-gray-600 leading-relaxed">
+        <div className="mt-8 space-y-5 text-gray-600 leading-relaxed">
           <p>
             Lorsqu'un locataire constitue un dossier de location, il peut
             fournir de nombreux justificatifs : revenus, contrat de travail,
@@ -69,7 +69,7 @@ export default function TheProblem({ className, variant }: TheProblemProps) {
           </p>
         </div>
 
-        <div className="mt-10 grid sm:grid-cols-2 gap-4 max-w-4xl">
+        <div className="mt-10 grid sm:grid-cols-2 gap-4">
           <Question>Les loyers étaient-ils payés régulièrement ?</Question>
 
           <Question>Le logement a-t-il été entretenu correctement ?</Question>
@@ -83,7 +83,7 @@ export default function TheProblem({ className, variant }: TheProblemProps) {
           </Question>
         </div>
 
-        <p className="mt-10 max-w-3xl text-lg font-medium text-gray-900">
+        <p className="mt-10 text-lg font-medium text-gray-900">
           Cette information existe, mais elle est rarement accessible ou
           formalisée.
         </p>
