@@ -4,8 +4,8 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import TextBody from '@/shared/components/text/text-body'
-import { Button } from '@/shared/components/shadcn/ui/button'
 import Link from 'next/link'
+import Button from '@/shared/components/form/button'
 
 type HeroProps = {
   className?: string
@@ -57,17 +57,13 @@ export default function Hero({ className, variant }: HeroProps) {
         </TextBody>
 
         <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-          <Button
-            asChild
-            className="px-8 py-6 text-base rounded-xl bg-indigo-600 hover:bg-indigo-700"
-          >
+          <Button>
             <Link href="/validate-email">Obtenir ma référence</Link>
           </Button>
 
           <Button
             asChild
             variant="outline"
-            className="px-8 py-6 text-base rounded-xl"
           >
             <Link href="/locproof">Découvrir LocProof</Link>
           </Button>
