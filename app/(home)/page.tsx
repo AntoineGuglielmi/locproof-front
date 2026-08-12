@@ -1,31 +1,28 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Button } from '@/shared/components/shadcn/ui/button'
 import AppLayout from '@/shared/components/layout/app-layout'
-import Link from 'next/link'
-import MotionDiv from '@/shared/components/layout/motion-div'
-import PageMainTitle from '@/shared/components/headings/page-main-title'
-import PageSubTitle from '@/shared/components/headings/page-sub-title'
-import TextBody from '@/shared/components/text/text-body'
+import Hero from '@/features/Home/components/Hero'
+import TheProbleme from '@/features/Home/components/TheProbleme'
+import HowItWorks from '@/features/Home/components/HowItWorks'
+import ProfilePreview from '@/features/Home/components/ProfilePreview'
+import Positioning from '@/features/Home/components/Positioning'
+import CallToAction from '@/features/Home/components/CallToAction'
 
 export const metadata = {
-  title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
+  title: 'LocProof — La référence locative qui valorise votre expérience',
   description:
-    'LocProof aide les locataires à valoriser leur sérieux grâce à des recommandations vérifiées par leurs anciens bailleurs. Les propriétaires prennent des décisions plus éclairées et louent en confiance.',
+    'LocProof permet aux locataires de faire valoir leur expérience locative grâce à une référence vérifiée par leur ancien bailleur.',
   keywords: [
-    'location immobilière',
-    'locataire sérieux',
-    'recommandation bailleur',
-    'dossier locataire',
-    'avis bailleur',
-    'location appartement',
-    'propriétaire bailleur',
-    'référence locataire',
     'LocProof',
+    'référence locative',
+    'référence locataire',
+    'dossier locataire',
+    'location immobilière',
+    'locataire',
+    'bailleur',
   ],
   openGraph: {
-    title: 'LocProof — Louer en confiance, des deux côtés',
+    title: 'LocProof — La référence locative qui valorise votre expérience',
     description:
-      'Les locataires valorisent leur sérieux. Les bailleurs prennent des décisions plus éclairées grâce à des retours vérifiés.',
+      'Votre dossier présente votre situation. LocProof permet également de faire valoir votre expérience en tant que locataire.',
     url: 'https://locproof.fr',
     siteName: 'LocProof',
     locale: 'fr_FR',
@@ -33,9 +30,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LocProof — Recommandations vérifiées entre locataires et bailleurs',
+    title: 'LocProof — La référence locative qui valorise votre expérience',
     description:
-      'Valorisez votre sérieux locatif grâce à des recommandations vérifiées.',
+      'Faites valoir votre expérience de locataire grâce à une référence de votre ancien bailleur.',
   },
   alternates: {
     canonical: 'https://locproof.fr',
@@ -46,147 +43,22 @@ export default function HomePage() {
   return (
     <AppLayout>
       {/* HERO */}
-      <section className="text-center px-6 py-20 max-w-4xl mx-auto">
-        <MotionDiv
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-block mb-4 px-4 py-1 text-sm bg-indigo-100 text-indigo-700 rounded-full">
-            🔒 Recommandations vérifiées
-          </span>
+      <Hero />
 
-          <PageMainTitle>Louer en confiance, des deux côtés</PageMainTitle>
+      {/* THE PROBLEM */}
+      <TheProbleme />
 
-          <PageSubTitle className="text-xl text-gray-700 mb-4">
-            Locataires et bailleurs gagnent en visibilité et en sérénité
-          </PageSubTitle>
-
-          <TextBody className="mb-10 max-w-2xl mx-auto text-balance">
-            Les locataires valorisent leur sérieux. Les bailleurs prennent des
-            décisions plus éclairées grâce à des retours vérifiés.
-          </TextBody>
-
-          <div className="flex justify-center gap-4 flex-col sm:flex-row">
-            <Button
-              asChild
-              className="px-8 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
-            >
-              <Link href="/validate-email">Je suis locataire</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="px-8 py-4 text-lg rounded-2xl"
-            >
-              <a href="/example">Je suis bailleur</a>
-            </Button>
-          </div>
-        </MotionDiv>
-      </section>
-
-      {/* SOCIAL PROOF */}
-      <section className="py-12 text-center text-gray-500 text-sm">
-        Pensé pour simplifier la relation entre locataires et bailleurs
-      </section>
-
-      {/* FEATURES */}
-      <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
-        {[
-          {
-            title: 'Simple',
-            desc: 'Créez un dossier en quelques minutes, sans friction',
-          },
-          {
-            title: 'Fiable',
-            desc: 'Des recommandations validées directement par les bailleurs',
-          },
-          {
-            title: 'Utile',
-            desc: 'Un signal concret pour mieux évaluer un profil locataire',
-          },
-        ].map((item, i) => (
-          <MotionDiv
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="p-6 rounded-2xl bg-white shadow-sm"
-          >
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600 text-sm">{item.desc}</p>
-          </MotionDiv>
-        ))}
-      </section>
-
-      {/* MICRO STORY */}
-      <section className="bg-white py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="p-8 rounded-2xl border bg-gray-50">
-            <p className="text-gray-700 leading-relaxed">
-              "J’ai loué mon bien à quelqu’un avec un dossier impeccable… et ça
-              s’est très mal passé. Avec le recul, un simple retour d’un ancien
-              bailleur aurait pu faire la différence."
-            </p>
-            <p className="mt-4 text-sm text-gray-500">
-              — Expérience réelle de bailleur
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* HOW IT WORKS */}
+      <HowItWorks />
 
       {/* PROFILE PREVIEW */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-semibold">
-            À quoi ressemble un profil ?
-          </h2>
-          <p className="mt-4 text-gray-600">
-            Un aperçu simple pour comprendre rapidement un locataire.
-          </p>
+      <ProfilePreview />
 
-          <div className="mt-12 p-6 bg-white rounded-2xl border shadow-sm text-left max-w-2xl mx-auto">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="font-semibold">Martin Dupont</p>
-                <p className="text-sm text-gray-500">Locataire</p>
-              </div>
-              <span className="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full">
-                1 recommandation
-              </span>
-            </div>
-
-            <div className="mt-6 border-t pt-4">
-              <p className="text-sm text-gray-500">Ancien bailleur</p>
-              <p className="font-medium mt-1">Location 2022 - 2024</p>
-
-              <ul className="mt-3 text-gray-700 space-y-1">
-                <li>✔ Loyers payés régulièrement</li>
-                <li>✔ Logement bien entretenu</li>
-                <li>✔ Communication fluide</li>
-              </ul>
-
-              <p className="mt-4 text-gray-600 italic">
-                “Locataire sérieux et respectueux, aucun problème durant la
-                location.”
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* POSITIONING */}
+      <Positioning />
 
       {/* CTA */}
-      <section className="text-center py-20">
-        <h2 className="text-3xl font-bold mb-6">
-          Prêt à faire la différence ?
-        </h2>
-        <Button
-          asChild
-          className="px-10 py-5 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700"
-        >
-          <Link href="/validate-email">Créer mon dossier LocProof</Link>
-        </Button>
-      </section>
+      <CallToAction />
     </AppLayout>
   )
 }
