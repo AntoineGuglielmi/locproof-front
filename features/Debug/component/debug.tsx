@@ -35,9 +35,7 @@ export default async function Debug({ className }: DebugProps) {
     items: tenantVerifications.filter((tenver) => tenver.state === 'pending'),
     getKey: (item) => item.documentId!,
     renderItem: (tenver) => (
-      <Link
-        href={`${process.env.NEXT_PUBLIC_APP_URL}/request-reference/${tenver.tenantVerificationToken}`}
-      >
+      <Link href={`/request-reference/${tenver.tenantVerificationToken}`}>
         /request-reference/{tenver.tenantVerificationToken} by{' '}
         <span className="font-bold">{tenver.email}</span>
       </Link>
@@ -53,9 +51,7 @@ export default async function Debug({ className }: DebugProps) {
         rental.tenantDocumentId,
       )
       return (
-        <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/create-reference/${rental.rentalToken}`}
-        >
+        <Link href={`/create-reference/${rental.rentalToken}`}>
           /create-reference/{rental.rentalToken} by{' '}
           <span className="font-bold">{tenant?.email}</span>
         </Link>
@@ -69,9 +65,7 @@ export default async function Debug({ className }: DebugProps) {
     getKey: (item) => item.documentId!,
     renderItem: async (tenant) => {
       return (
-        <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenant.slug}`}
-        >
+        <Link href={`/profile/${tenant.slug}`}>
           /profile/{tenant.slug} by{' '}
           <span className="font-bold">{tenant?.email}</span>
         </Link>

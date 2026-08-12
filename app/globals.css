@@ -131,3 +131,105 @@
     @apply font-sans;
   }
 }
+
+.content-grid {
+  --padding-inline: clamp(1.5rem, 4vw, 2rem);
+
+  --narrow-max-width: 50ch;
+  --content-max-width: 70ch;
+  --breakout-max-width: 1200px;
+  --feature-max-width: 1400px;
+
+  /*
+   * Actual widths of each zone.
+   *
+   * They shrink with the viewport instead of overflowing it.
+   */
+  --content-width: min(
+    var(--content-max-width),
+    100% - (var(--padding-inline) * 2)
+  );
+
+  --narrow-width: min(var(--narrow-max-width), var(--content-width));
+
+  --breakout-width: min(
+    var(--breakout-max-width),
+    100% - (var(--padding-inline) * 2)
+  );
+
+  --feature-width: min(
+    var(--feature-max-width),
+    100% - (var(--padding-inline) * 2)
+  );
+
+  /*
+   * Space between each nested zone.
+   */
+  --narrow-size: max(
+    0px,
+    calc((var(--content-width) - var(--narrow-width)) / 2)
+  );
+
+  --breakout-size: max(
+    0px,
+    calc((var(--breakout-width) - var(--content-width)) / 2)
+  );
+
+  --feature-size: max(
+    0px,
+    calc((var(--feature-width) - var(--breakout-width)) / 2)
+  );
+
+  display: grid;
+
+  grid-template-columns:
+    [full-start]
+    minmax(var(--padding-inline), 1fr)
+    [feature-start]
+    var(--feature-size)
+    [breakout-start]
+    var(--breakout-size)
+    [content-start]
+    var(--narrow-size)
+    [narrow-start]
+    var(--narrow-width)
+    [narrow-end]
+    var(--narrow-size)
+    [content-end]
+    var(--breakout-size)
+    [breakout-end]
+    var(--feature-size)
+    [feature-end]
+    minmax(var(--padding-inline), 1fr)
+    [full-end];
+}
+
+/*
+ * Direct children live in content by default.
+ */
+.content-grid > :not(.narrow, .breakout, .feature, .full-width),
+.full-width > :not(.narrow, .breakout, .feature, .full-width) {
+  grid-column: content;
+}
+
+.content-grid > .narrow,
+.full-width > .narrow {
+  grid-column: narrow;
+}
+
+.content-grid > .breakout,
+.full-width > .breakout {
+  grid-column: breakout;
+}
+
+.content-grid > .feature,
+.full-width > .feature {
+  grid-column: feature;
+}
+
+.content-grid > .full-width {
+  grid-column: full;
+
+  display: grid;
+  grid-template-columns: inherit;
+}
