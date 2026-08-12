@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/shared/components/shadcn/ui/button'
 import { dateShort } from '@/shared/lib/date'
 import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
@@ -28,6 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormValues'
 import CreateReferenceFormSuccess from './create-reference-form-success'
+import Button from '@/shared/components/form/button'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -273,7 +273,6 @@ export default function CreateReferenceForm({
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
-          className="mt-4 py-4 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 transition-transform hover:scale-[1.02]"
         >
           {form.formState.isSubmitting
             ? 'Enregistrement...'
