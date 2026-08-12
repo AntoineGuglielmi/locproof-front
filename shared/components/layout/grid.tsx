@@ -7,7 +7,7 @@ type GridProps = HTMLAttributes<HTMLDivElement>
 export function Grid({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('content-grid', className)}
+      className={cn('Grid', className)}
       {...props}
     />
   )
@@ -16,7 +16,7 @@ export function Grid({ className, ...props }: GridProps) {
 export function Narrow({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('narrow', className)}
+      className={cn('Narrow', className)}
       {...props}
     />
   )
@@ -25,7 +25,7 @@ export function Narrow({ className, ...props }: GridProps) {
 export function Breakout({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('breakout', className)}
+      className={cn('Breakout', className)}
       {...props}
     />
   )
@@ -34,7 +34,7 @@ export function Breakout({ className, ...props }: GridProps) {
 export function Feature({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('feature', className)}
+      className={cn('Feature', className)}
       {...props}
     />
   )
@@ -43,7 +43,7 @@ export function Feature({ className, ...props }: GridProps) {
 export function FullWidth({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('full-width', className)}
+      className={cn('FullWidth', className)}
       {...props}
     />
   )
