@@ -13,7 +13,7 @@ type CurrentStateProps = {
 }
 
 const CurrentStateVariants = cva(
-  'CurrentState border-y bg-white px-6 py-20 md:py-28',
+  'CurrentState border-y bg-white py-20 md:py-28',
   {
     variants: {
       variant: {

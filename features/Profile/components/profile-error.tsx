@@ -11,7 +11,7 @@ type ProfileErrorProps = {
   children?: React.ReactNode
 }
 
-const ProfileErrorVariants = cva('ProfileError text-center px-6 pt-16 pb-10 ', {
+const ProfileErrorVariants = cva('ProfileError text-center pt-16 pb-10 ', {
   variants: {
     variant: {
       default: '',

@@ -11,7 +11,7 @@ type FutureProps = {
   children?: React.ReactNode
 }
 
-const FutureVariants = cva('Future border-y bg-gray-50 px-6 py-20 md:py-28', {
+const FutureVariants = cva('Future border-y bg-gray-50 py-20 md:py-28', {
   variants: {
     variant: {
       default: '',
