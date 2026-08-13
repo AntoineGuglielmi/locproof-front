@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { Breakout, FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { TypeHowItWorksStep } from '../types/TypeHowItWorksStep'
 import List from '@/shared/components/list/List'
 import HowItWorksItem from './how-it-works-item'
 import SectionLabel from '@/shared/components/headings/section-label'
+import Section from '@/shared/components/layout/section'
 
 type HomItWorksProps = {
   className?: string
@@ -14,7 +14,7 @@ type HomItWorksProps = {
   children?: React.ReactNode
 }
 
-const HomItWorksVariants = cva('HowItWorks py-20 md:py-28', {
+const HomItWorksVariants = cva('HowItWorks FullWidth gap-y-14', {
   variants: {
     variant: {
       default: '',
@@ -49,7 +49,10 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
   ]
 
   return (
-    <FullWidth className={cn(HomItWorksVariants({ variant, className }))}>
+    <Section
+      size="standard"
+      className={cn(HomItWorksVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -66,15 +69,12 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
           l'expérience réelle de votre bailleur.
         </p>
       </MotionDiv>
-
-      <Breakout className="mt-14">
-        <List
-          items={steps}
-          getKey={(item) => item.number}
-          renderItem={HowItWorksItem}
-          className="grid md:grid-cols-3 gap-8"
-        />
-      </Breakout>
-    </FullWidth>
+      <List
+        items={steps}
+        getKey={(item) => item.number}
+        renderItem={HowItWorksItem}
+        className="grid md:grid-cols-3 gap-8 Breakout"
+      />
+    </Section>
   )
 }

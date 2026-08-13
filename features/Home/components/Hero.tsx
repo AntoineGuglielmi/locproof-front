@@ -7,6 +7,7 @@ import TextBody from '@/shared/components/text/text-body'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
 import Tag from '@/shared/components/text/tag'
+import Section from '@/shared/components/layout/section'
 
 type HeroProps = {
   className?: string
@@ -14,7 +15,7 @@ type HeroProps = {
   children?: React.ReactNode
 }
 
-const HeroVariants = cva('Hero pt-16 pb-24 md:pt-24 md:pb-32', {
+const HeroVariants = cva('Hero text-center', {
   variants: {
     variant: {
       default: '',
@@ -28,12 +29,15 @@ const HeroVariants = cva('Hero pt-16 pb-24 md:pt-24 md:pb-32', {
 
 export default function Hero({ className, variant }: HeroProps) {
   return (
-    <section className={cn(HeroVariants({ variant, className }))}>
+    <Section
+      which="bottomOnly"
+      size="large"
+      className={cn(HeroVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center"
       >
         <Tag className="mb-6">Référence locative</Tag>
 
@@ -64,6 +68,6 @@ export default function Hero({ className, variant }: HeroProps) {
           </Button>
         </div>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }

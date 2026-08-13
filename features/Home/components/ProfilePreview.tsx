@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
+import Section from '@/shared/components/layout/section'
 
 type ProfilePreviewProps = {
   className?: string
@@ -13,7 +13,7 @@ type ProfilePreviewProps = {
 }
 
 const ProfilePreviewVariants = cva(
-  'ProfilePreview bg-gray-50 border-y py-20 md:py-28',
+  'ProfilePreview FullWidth bg-gray-50 border-y',
   {
     variants: {
       variant: {
@@ -48,7 +48,10 @@ export default function ProfilePreview({
   variant,
 }: ProfilePreviewProps) {
   return (
-    <FullWidth className={cn(ProfilePreviewVariants({ variant, className }))}>
+    <Section
+      size="standard"
+      className={cn(ProfilePreviewVariants({ variant, className }))}
+    >
       <div className="grid md:grid-cols-[0.9fr_1.1fr] gap-12 md:gap-20 items-center">
         <MotionDiv
           initial={{ opacity: 0, x: -20 }}
@@ -116,6 +119,6 @@ export default function ProfilePreview({
           </div>
         </MotionDiv>
       </div>
-    </FullWidth>
+    </Section>
   )
 }

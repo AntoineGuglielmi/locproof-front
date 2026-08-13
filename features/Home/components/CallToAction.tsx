@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { Narrow } from '@/shared/components/layout/grid'
 import CTASection from '@/shared/components/layout/CTASection'
+import Section from '@/shared/components/layout/section'
 
 type CallToActionProps = {
   className?: string
@@ -9,7 +9,7 @@ type CallToActionProps = {
   children?: React.ReactNode
 }
 
-const CallToActionVariants = cva('CallToAction mb-20 md:mb-34', {
+const CallToActionVariants = cva('CallToAction Narrow py-0', {
   variants: {
     variant: {
       default: '',
@@ -26,7 +26,10 @@ export default function CallToAction({
   variant,
 }: CallToActionProps) {
   return (
-    <Narrow className={cn(CallToActionVariants({ variant, className }))}>
+    <Section
+      size="none"
+      className={cn(CallToActionVariants({ variant, className }))}
+    >
       <CTASection
         title="Votre expérience de locataire mérite aussi d'être prise en compte."
         body="Demandez une référence à votre ancien bailleur et ajoutez une nouvelle
@@ -34,6 +37,6 @@ export default function CallToAction({
         buttonHref="/validate-email"
         buttonLabel="Obtenir ma référence"
       />
-    </Narrow>
+    </Section>
   )
 }
