@@ -14,7 +14,7 @@ import { ucfirst } from '@/lib/string'
 import Tag from '@/shared/components/text/tag'
 import List from '@/shared/components/list/List'
 import CriterionItem from './criterion-item'
-import { TypeReferenceCriterion } from '../types/TypeReferenceCriterion'
+import { TypeReferenceCriterion } from '../../types/TypeReferenceCriterion'
 
 type ReferenceItemProps = {
   className?: string

@@ -9,9 +9,9 @@ import {
   Wrench,
 } from 'lucide-react'
 import { TypeSynthesis } from '@/shared/types/profile-synthesis'
-import { TypeScores } from '../types/TypeScores'
+import { TypeScores } from '@/features/Profile/types/TypeScores'
 import List from '@/shared/components/list/List'
-import SummaryScoreItem from './summary-score-item'
+import SummaryScoreItem from '@/features/Profile/components/items/summary-score-item'
 
 type SummaryProps = {
   className?: string
