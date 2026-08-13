@@ -1,12 +1,13 @@
 'use client'
 
+import { cn } from '@/shared/lib/className'
 import { motion, MotionProps } from 'framer-motion'
 import { HTMLAttributes, forwardRef } from 'react'
 
 type MotionDivProps = MotionProps & HTMLAttributes<HTMLDivElement>
 
 const MotionDiv = forwardRef<HTMLDivElement, MotionDivProps>(function MotionDiv(
-  { transition, ...props },
+  { transition, className, ...props },
   ref,
 ) {
   return (
@@ -17,6 +18,7 @@ const MotionDiv = forwardRef<HTMLDivElement, MotionDivProps>(function MotionDiv(
         ease: 'easeOut',
         ...transition,
       }}
+      className={cn('MotionDiv', className)}
       {...props}
     />
   )
