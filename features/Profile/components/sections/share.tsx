@@ -2,8 +2,8 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import CopyProfileLink from './copy-profile-link'
 import { Breakout } from '@/shared/components/layout/grid'
+import CopyProfileLink from '@/features/Profile/components/items/copy-profile-link'
 
 type ShareProps = {
   className?: string
