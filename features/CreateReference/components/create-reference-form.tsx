@@ -12,10 +12,6 @@ import {
   FieldLegend,
   FieldSet,
 } from '@/shared/components/shadcn/ui/field'
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from '@/shared/components/shadcn/ui/radio-group'
 import Link from 'next/link'
 import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 import { ActionCreateReference } from '../actions/ActionCreateReference'
@@ -29,6 +25,8 @@ import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormV
 import CreateReferenceFormSuccess from './create-reference-form-success'
 import Button from '@/shared/components/form/button'
 import Panel from '@/shared/components/text/panel'
+import List from '@/shared/components/list/List'
+import RadioGroupItem from './radio-group-item'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -151,97 +149,12 @@ export default function CreateReferenceForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-8"
       >
-        {questions.map(({ legend, name, description }) => {
-          const idYes = `${name}-yes`
-          const idNo = `${name}-no`
-          const idSkip = `${name}-skip`
-
-          return (
-            <Controller
-              key={name}
-              control={form.control}
-              name={name}
-              render={({ field, fieldState }) => (
-                <FieldSet
-                  className="w-full text-gray-800"
-                  name={name}
-                >
-                  <FieldLegend
-                    className={`text-left ${!!form.formState.errors[name] ? 'text-destructive' : ''}`}
-                    variant="label"
-                    data-invalid={!!form.formState.errors[name]}
-                  >
-                    {legend} ?
-                  </FieldLegend>
-
-                  {description && (
-                    <FieldDescription>{description}</FieldDescription>
-                  )}
-
-                  <RadioGroup
-                    value={field.value ?? ''}
-                    onValueChange={field.onChange}
-                  >
-                    <Field
-                      orientation="horizontal"
-                      className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
-                    >
-                      <RadioGroupItem
-                        value="yes"
-                        id={idYes}
-                        className="cursor-pointer"
-                      />
-                      <FieldLabel
-                        htmlFor={idYes}
-                        className="font-normal cursor-pointer"
-                      >
-                        Oui
-                      </FieldLabel>
-                    </Field>
-
-                    <Field
-                      orientation="horizontal"
-                      className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
-                    >
-                      <RadioGroupItem
-                        value="no"
-                        id={idNo}
-                        className="cursor-pointer"
-                      />
-                      <FieldLabel
-                        htmlFor={idNo}
-                        className="font-normal cursor-pointer"
-                      >
-                        Non
-                      </FieldLabel>
-                    </Field>
-
-                    <Field
-                      orientation="horizontal"
-                      className="cursor-pointer rounded-md px-2 py-1 bg-gray-50"
-                    >
-                      <RadioGroupItem
-                        value="skip"
-                        id={idSkip}
-                        className="cursor-pointer"
-                      />
-                      <FieldLabel
-                        htmlFor={idSkip}
-                        className="font-normal text-muted-foreground cursor-pointer"
-                      >
-                        Je ne souhaite pas répondre
-                      </FieldLabel>
-                    </Field>
-                  </RadioGroup>
-
-                  {fieldState.error && (
-                    <AnimatedFieldError error={fieldState.error} />
-                  )}
-                </FieldSet>
-              )}
-            />
-          )
-        })}
+        <List
+          items={questions}
+          renderItem={RadioGroupItem}
+          getKey={(item) => item.name}
+          itemExtraProps={{ form }}
+        />
 
         <Field data-invalid={!!form.formState.errors.comment}>
           <FieldLabel>Commentaire (optionnel)</FieldLabel>

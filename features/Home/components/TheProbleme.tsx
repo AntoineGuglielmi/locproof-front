@@ -3,6 +3,8 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import List from '@/shared/components/list/List'
+import CriterionItem from './criterion-item'
 
 type TheProblemeProps = {
   className?: string
@@ -27,10 +29,10 @@ const TheProblemeVariants = cva(
 
 export default function TheProbleme({ className, variant }: TheProblemeProps) {
   const criteria = [
-    'Paiement régulier des loyers',
-    'Entretien du logement',
-    'Qualité des échanges',
-    'Recommandation du locataire',
+    { criterion: 'Paiement régulier des loyers' },
+    { criterion: 'Entretien du logement' },
+    { criterion: 'Qualité des échanges' },
+    { criterion: 'Recommandation du locataire' },
   ]
 
   return (
@@ -66,29 +68,12 @@ export default function TheProbleme({ className, variant }: TheProblemeProps) {
           </p>
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 gap-4">
-          {criteria.map((criterion, index) => (
-            <MotionDiv
-              key={criterion}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              className="flex items-center gap-3 rounded-xl border bg-gray-50 px-5 py-4"
-            >
-              <span
-                aria-hidden="true"
-                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700"
-              >
-                ✓
-              </span>
-
-              <span className="text-sm font-medium text-gray-700">
-                {criterion}
-              </span>
-            </MotionDiv>
-          ))}
-        </div>
+        <List
+          items={criteria}
+          renderItem={CriterionItem}
+          getKey={(item) => item.criterion}
+          className="mt-12 grid sm:grid-cols-2 gap-4"
+        />
       </MotionDiv>
     </FullWidth>
   )

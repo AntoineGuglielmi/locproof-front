@@ -12,6 +12,9 @@ import {
 } from 'lucide-react'
 import { ucfirst } from '@/lib/string'
 import Tag from '@/shared/components/text/tag'
+import List from '@/shared/components/list/List'
+import CriterionItem from './criterion-item'
+import { TypeReferenceCriterion } from '../types/TypeReferenceCriterion'
 
 type ReferenceItemProps = {
   className?: string
@@ -37,7 +40,7 @@ export default function ReferenceItem({
   communication,
   recommended,
 }: ReferenceItemProps) {
-  const criteria = [
+  const criteria: Array<TypeReferenceCriterion> = [
     {
       value: paidOnTime,
       label: 'Loyers payés à temps',
@@ -94,26 +97,12 @@ export default function ReferenceItem({
       </div>
 
       {/* CRITERIA */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5">
-        {criteria.map(({ value, label, icon: Icon }) => {
-          if (value !== 'yes') {
-            return null
-          }
-
-          return (
-            <div
-              key={label}
-              className="flex items-center gap-2 text-sm text-gray-700"
-            >
-              <span className="flex size-5 items-center justify-center rounded-full bg-green-50 text-green-600">
-                <Icon className="size-3.5" />
-              </span>
-
-              <span>{label}</span>
-            </div>
-          )
-        })}
-      </div>
+      <List
+        items={criteria}
+        renderItem={CriterionItem}
+        getKey={(item) => item.label}
+        className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5"
+      />
 
       {/* COMMENT */}
       {comment && (
