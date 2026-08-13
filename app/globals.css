@@ -133,7 +133,7 @@
 }
 
 .Grid {
-  --padding-inline: clamp(1.5rem, 4vw, 2rem);
+  --padding-inline: clamp(2rem, 4vw, 2rem);
 
   --narrow-max-width: 50ch;
   --content-max-width: 70ch;
