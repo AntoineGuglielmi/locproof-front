@@ -4,6 +4,7 @@ import MotionDiv from './motion-div'
 import TextBody from '../text/text-body'
 import Button from '../form/button'
 import Link from 'next/link'
+import { ComponentProps } from 'react'
 
 type CTASectionProps = {
   className?: string
@@ -15,6 +16,7 @@ type CTASectionProps = {
   buttonLabel: string
   buttonHref: string
   subBody?: string
+  buttonTarget?: ComponentProps<'a'>['target']
 }
 
 const CTASectionVariants = cva(
@@ -41,6 +43,7 @@ export default function CTASection({
   subBody,
   title,
   label,
+  buttonTarget = '_self',
 }: CTASectionProps) {
   return (
     <MotionDiv
@@ -68,7 +71,12 @@ export default function CTASection({
           variant="outlineDarker"
           className="mt-3"
         >
-          <Link href={buttonHref}>{buttonLabel}</Link>
+          <Link
+            target={buttonTarget}
+            href={buttonHref}
+          >
+            {buttonLabel}
+          </Link>
         </Button>
         {subBody && <p className="mt-4 text-sm text-gray-400">{subBody}</p>}
       </div>
