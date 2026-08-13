@@ -117,8 +117,10 @@ export default function CreateReferenceForm({
       className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
     >
       <div className="text-sm text-gray-600 leading-relaxed text-balance">
-        {firstname} {lastname} vous a demandé de confirmer une ancienne location
-        via LocProof.
+        <strong className="text-indigo-700">
+          {firstname} {lastname}
+        </strong>{' '}
+        vous a demandé de confirmer une ancienne location via LocProof.
       </div>
 
       <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
