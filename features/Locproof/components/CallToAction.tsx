@@ -33,9 +33,10 @@ export default function CallToAction({
         body="LocProof est actuellement en phase de validation auprès des
           professionnels du secteur. Votre retour peut contribuer directement à
           orienter la suite du projet."
-        buttonHref="/survey"
+        buttonHref="https://docs.google.com/forms/d/e/1FAIpQLSd-43UfevSepLzSHNNo4UEpqtRmIP9PYthkoIggwzMMeHWrxw/viewform?usp=header"
         buttonLabel="Participer à l'étude terrain"
         subBody="Le questionnaire prend environ 3 à 5 minutes."
+        buttonTarget="_blank"
       />
     </Narrow>
   )
