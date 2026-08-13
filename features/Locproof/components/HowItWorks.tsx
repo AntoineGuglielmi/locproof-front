@@ -12,7 +12,7 @@ type HowItWorksProps = {
 }
 
 const HowItWorksVariants = cva(
-  'HowItWorks border-y bg-gray-50 px-6 py-20 md:py-28',
+  'HowItWorks border-y bg-gray-50 py-20 md:py-28',
   {
     variants: {
       variant: {
