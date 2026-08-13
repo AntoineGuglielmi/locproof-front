@@ -3,6 +3,10 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { Breakout, FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import { TypeHowItWorksStep } from '../types/TypeHowItWorksStep'
+import List from '@/shared/components/list/List'
+import HowItWorksItem from './how-it-works-item'
+import SectionLabel from '@/shared/components/headings/section-label'
 
 type HomItWorksProps = {
   className?: string
@@ -23,7 +27,7 @@ const HomItWorksVariants = cva('HowItWorks py-20 md:py-28', {
 })
 
 export default function HowItWorks({ className, variant }: HomItWorksProps) {
-  const steps = [
+  const steps: Array<TypeHowItWorksStep> = [
     {
       number: '01',
       title: 'Vous demandez une référence',
@@ -53,9 +57,7 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-          Comment ça marche ?
-        </p>
+        <SectionLabel>Comment ça marche ?</SectionLabel>
         <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
           Une démarche simple, des deux côtés.
         </h2>
@@ -65,29 +67,13 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
         </p>
       </MotionDiv>
 
-      <Breakout className="mt-14 grid md:grid-cols-3 gap-8">
-        {steps.map((step, index) => (
-          <MotionDiv
-            key={step.number}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="relative"
-          >
-            <div className="text-5xl font-semibold tracking-tight text-indigo-100">
-              {step.number}
-            </div>
-
-            <h3 className="mt-4 text-xl font-semibold text-gray-900">
-              {step.title}
-            </h3>
-
-            <p className="mt-3 text-gray-600 leading-relaxed">
-              {step.description}
-            </p>
-          </MotionDiv>
-        ))}
+      <Breakout className="mt-14">
+        <List
+          items={steps}
+          getKey={(item) => item.number}
+          renderItem={HowItWorksItem}
+          className="grid md:grid-cols-3 gap-8"
+        />
       </Breakout>
     </FullWidth>
   )
