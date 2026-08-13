@@ -6,7 +6,7 @@ import {
 } from '@/features/Example/data/example-profile'
 import Panel from '@/shared/components/text/panel'
 import CTASection from '@/shared/components/layout/CTASection'
-import { Breakout, Narrow } from '@/shared/components/layout/grid'
+import { Narrow } from '@/shared/components/layout/grid'
 
 type ExamplePageProps = {
   params: Promise<void>
