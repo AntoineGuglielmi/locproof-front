@@ -14,7 +14,7 @@ const customButtonVariants = cva('Button rounded-xl whitespace-normal h-auto', {
 
     size: {
       default: 'px-4 py-3 text-base',
-      sm: 'rounded-lg px-2 py-0.5',
+      sm: 'rounded-lg px-2.5 py-0.5',
     },
   },
 
