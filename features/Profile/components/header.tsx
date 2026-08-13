@@ -35,7 +35,7 @@ export default function Header({ className, variant, tenant }: HeaderProps) {
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-            <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+            <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-indigo-100/75 text-indigo-600">
               <span className="text-2xl font-semibold">
                 {tenant.firstname?.charAt(0)}
                 {tenant.lastname?.charAt(0)}
