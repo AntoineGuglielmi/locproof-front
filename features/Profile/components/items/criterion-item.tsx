@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { TypeReferenceCriterion } from '../types/TypeReferenceCriterion'
+import { TypeReferenceCriterion } from '@/features/Profile/types/TypeReferenceCriterion'
 
 type CriterionItemProps = {
   className?: string
