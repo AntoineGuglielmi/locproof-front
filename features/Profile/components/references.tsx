@@ -65,10 +65,7 @@ export default function References({
               Aucune référence n'est encore disponible.
             </p>
 
-            <Button
-              // variant="outline"
-              className="mt-4"
-            >
+            <Button className="mt-4">
               <Link
                 href="/validate-email"
                 className="inline-flex items-center gap-1"

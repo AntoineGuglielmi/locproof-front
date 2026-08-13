@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { Button as ShadcnButton } from '../shadcn/ui/button'
 
-const customButtonVariants = cva('Button rounded-xl', {
+const customButtonVariants = cva('Button rounded-xl whitespace-normal h-auto', {
   variants: {
     variant: {
       default: 'bg-indigo-600 hover:bg-indigo-700',
@@ -13,8 +13,8 @@ const customButtonVariants = cva('Button rounded-xl', {
     },
 
     size: {
-      default: 'px-8 py-6 text-base',
-      sm: 'rounded-lg',
+      default: 'px-4 py-3 text-base',
+      sm: 'rounded-lg px-2 py-0.5',
     },
   },
 
@@ -47,6 +47,7 @@ export default function Button({
   className,
   variant,
   size,
+  children,
   ...props
 }: ButtonProps) {
   const customVariant = variant ?? 'default'
@@ -67,6 +68,8 @@ export default function Button({
         }),
         className,
       )}
-    />
+    >
+      {children}
+    </ShadcnButton>
   )
 }
