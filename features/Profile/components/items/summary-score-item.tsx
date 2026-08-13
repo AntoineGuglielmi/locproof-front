@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { TypeScore } from '../types/TypeScore'
+import { TypeScore } from '@/features/Profile/types/TypeScore'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { percentage } from '@/lib/string'
 import { TypeSynthesis } from '@/shared/types/profile-synthesis'
