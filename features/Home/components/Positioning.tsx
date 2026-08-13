@@ -4,6 +4,7 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
+import Section from '@/shared/components/layout/section'
 
 type PositioningProps = {
   className?: string
@@ -11,7 +12,7 @@ type PositioningProps = {
   children?: React.ReactNode
 }
 
-const PositioningVariants = cva('Positioning py-20 md:py-28', {
+const PositioningVariants = cva('Positioning text-center', {
   variants: {
     variant: {
       default: '',
@@ -25,13 +26,15 @@ const PositioningVariants = cva('Positioning py-20 md:py-28', {
 
 export default function Positioning({ className, variant }: PositioningProps) {
   return (
-    <section className={cn(PositioningVariants({ variant, className }))}>
+    <Section
+      size="standard"
+      className={cn(PositioningVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center"
       >
         <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
           Une information complémentaire
@@ -58,6 +61,6 @@ export default function Positioning({ className, variant }: PositioningProps) {
           <Link href="/locproof">En savoir plus sur le projet</Link>
         </Button>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
