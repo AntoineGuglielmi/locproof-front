@@ -3,8 +3,8 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { Button } from '@/shared/components/shadcn/ui/button'
 import Link from 'next/link'
+import Button from '@/shared/components/form/button'
 
 type ProfilePreviewProps = {
   className?: string
@@ -73,7 +73,7 @@ export default function ProfilePreview({
           <Button
             asChild
             variant="outline"
-            className="mt-8 rounded-xl"
+            className="mt-8"
           >
             <Link href="/example">Voir un exemple de référence</Link>
           </Button>

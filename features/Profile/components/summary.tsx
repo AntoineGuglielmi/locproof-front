@@ -8,9 +8,10 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react'
-import { percentage } from '@/lib/string'
 import { TypeSynthesis } from '@/shared/types/profile-synthesis'
 import { TypeScores } from '../types/TypeScores'
+import List from '@/shared/components/list/List'
+import SummaryScoreItem from './summary-score-item'
 
 type SummaryProps = {
   className?: string
@@ -87,30 +88,13 @@ export default function Summary({
         </div>
 
         {referencesCount > 0 ? (
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {scoresArray.map(({ label, value, icon: Icon }, index) => (
-              <MotionDiv
-                key={label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + index * 0.05 }}
-                className="rounded-2xl border bg-white p-5 flex flex-col"
-              >
-                <Icon className="size-5 text-indigo-600" />
-
-                <p className="mt-4 text-sm text-gray-500">{label}</p>
-
-                <p className="mt-auto text-xl font-semibold text-gray-950">
-                  {percentage(value)}
-                </p>
-
-                <p className="text-xs text-gray-400">
-                  {referencesCount}{' '}
-                  {referencesCount > 1 ? 'références' : 'référence'}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
+          <List
+            items={scoresArray}
+            renderItem={SummaryScoreItem}
+            getKey={(item) => item.label}
+            itemExtraProps={{ referencesCount }}
+            className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3"
+          />
         ) : (
           <div className="mt-6 rounded-2xl border border-dashed px-6 py-10 text-center flex flex-col gap-2 items-center">
             <p className="font-medium text-gray-900">
