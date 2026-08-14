@@ -3,7 +3,11 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
-import { Breakout, FullWidth } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
+import { TypeStep } from '../types/TypeStep'
+import List from '@/shared/components/list/List'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type HowItWorksProps = {
   className?: string
@@ -11,46 +15,56 @@ type HowItWorksProps = {
   children?: React.ReactNode
 }
 
-const HowItWorksVariants = cva(
-  'HowItWorks border-y bg-gray-50 py-20 md:py-28',
-  {
-    variants: {
-      variant: {
-        default: '',
-        other: '',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const HowItWorksVariants = cva('HowItWorks FullWidth border-y bg-gray-50 ', {
+  variants: {
+    variant: {
+      default: '',
+      other: '',
     },
   },
-)
+  defaultVariants: {
+    variant: 'default',
+  },
+})
 
-function Step({
-  number,
-  title,
-  description,
-}: {
-  number: string
-  title: string
-  description: string
-}) {
+function Step({ number, title, description }: TypeStep) {
   return (
     <div>
-      <div className="text-5xl font-semibold tracking-tight text-indigo-100">
+      <div className="text-5xl mb-4 font-semibold tracking-tight text-indigo-100">
         {number}
       </div>
 
-      <h3 className="mt-4 text-xl font-semibold text-gray-900">{title}</h3>
+      <h3 className="mb-3 text-xl font-semibold text-gray-900">{title}</h3>
 
-      <p className="mt-3 text-gray-600 leading-relaxed">{description}</p>
+      <TextBody>{description}</TextBody>
     </div>
   )
 }
 
 export default function HowItWorks({ className, variant }: HowItWorksProps) {
+  const steps: Array<TypeStep> = [
+    {
+      number: '01',
+      title: 'Le locataire fait une demande',
+      description:
+        'Il renseigne les informations nécessaires et invite son ancien ou actuel bailleur à fournir une référence.',
+    },
+    {
+      number: '02',
+      title: 'Le bailleur répond',
+      description:
+        'Il reçoit une invitation par e-mail et répond à un questionnaire structuré portant sur son expérience de la location.',
+    },
+    {
+      number: '03',
+      title: 'La référence est restituée',
+      description:
+        "Le locataire dispose d'une référence exploitable qu'il peut présenter dans le cadre de ses futures recherches de logement.",
+    },
+  ]
+
   return (
-    <FullWidth className={cn(HowItWorksVariants({ variant, className }))}>
+    <Section className={cn(HowItWorksVariants({ variant, className }))}>
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -59,34 +73,21 @@ export default function HowItWorks({ className, variant }: HowItWorksProps) {
       >
         <SectionLabel>Le principe</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <SectionTitle>
           Une référence construite à partir de l'expérience du bailleur.
-        </h2>
+        </SectionTitle>
 
-        <p className="mt-5 text-gray-600 leading-relaxed">
+        <TextBody>
           Le parcours imaginé par LocProof tient en quelques étapes.
-        </p>
+        </TextBody>
       </MotionDiv>
 
-      <Breakout className="mt-14 grid md:grid-cols-3 gap-8">
-        <Step
-          number="01"
-          title="Le locataire fait une demande"
-          description="Il renseigne les informations nécessaires et invite son ancien ou actuel bailleur à fournir une référence."
-        />
-
-        <Step
-          number="02"
-          title="Le bailleur répond"
-          description="Il reçoit une invitation par e-mail et répond à un questionnaire structuré portant sur son expérience de la location."
-        />
-
-        <Step
-          number="03"
-          title="La référence est restituée"
-          description="Le locataire dispose d'une référence exploitable qu'il peut présenter dans le cadre de ses futures recherches de logement."
-        />
-      </Breakout>
-    </FullWidth>
+      <List
+        items={steps}
+        renderItem={Step}
+        getKey={(step) => step.number}
+        className="Breakout mt-14 grid md:grid-cols-3 gap-8"
+      />
+    </Section>
   )
 }

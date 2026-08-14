@@ -1,12 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { Breakout, FullWidth } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { TypeHowItWorksStep } from '../types/TypeHowItWorksStep'
 import List from '@/shared/components/list/List'
 import HowItWorksItem from './how-it-works-item'
 import SectionLabel from '@/shared/components/headings/section-label'
+import Section from '@/shared/components/layout/section'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type HomItWorksProps = {
   className?: string
@@ -14,7 +16,7 @@ type HomItWorksProps = {
   children?: React.ReactNode
 }
 
-const HomItWorksVariants = cva('HowItWorks py-20 md:py-28', {
+const HomItWorksVariants = cva('HowItWorks FullWidth gap-y-14', {
   variants: {
     variant: {
       default: '',
@@ -49,7 +51,10 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
   ]
 
   return (
-    <FullWidth className={cn(HomItWorksVariants({ variant, className }))}>
+    <Section
+      size="standard"
+      className={cn(HomItWorksVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -58,23 +63,21 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
         className="text-center"
       >
         <SectionLabel>Comment ça marche ?</SectionLabel>
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-          Une démarche simple, des deux côtés.
-        </h2>
-        <p className="mt-5 text-gray-600">
+
+        <SectionTitle>Une démarche simple, des deux côtés.</SectionTitle>
+
+        <TextBody>
           Quelques étapes suffisent pour obtenir une référence basée sur
           l'expérience réelle de votre bailleur.
-        </p>
+        </TextBody>
       </MotionDiv>
 
-      <Breakout className="mt-14">
-        <List
-          items={steps}
-          getKey={(item) => item.number}
-          renderItem={HowItWorksItem}
-          className="grid md:grid-cols-3 gap-8"
-        />
-      </Breakout>
-    </FullWidth>
+      <List
+        items={steps}
+        getKey={(item) => item.number}
+        renderItem={HowItWorksItem}
+        className="grid md:grid-cols-3 gap-8 Breakout"
+      />
+    </Section>
   )
 }

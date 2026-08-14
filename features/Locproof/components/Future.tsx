@@ -3,7 +3,11 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
-import { FullWidth } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
+import { TypeFuturItem } from '../types/TypeFuturItem'
+import List from '@/shared/components/list/List'
 
 type FutureProps = {
   className?: string
@@ -11,7 +15,7 @@ type FutureProps = {
   children?: React.ReactNode
 }
 
-const FutureVariants = cva('Future border-y bg-gray-50 py-20 md:py-28', {
+const FutureVariants = cva('Future FullWidth border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',
@@ -23,7 +27,7 @@ const FutureVariants = cva('Future border-y bg-gray-50 py-20 md:py-28', {
   },
 })
 
-function FutureItem({ children }: { children: React.ReactNode }) {
+function FutureItem({ futur }: TypeFuturItem) {
   return (
     <div className="flex items-start gap-3 rounded-xl border bg-white px-5 py-4">
       <span
@@ -31,14 +35,27 @@ function FutureItem({ children }: { children: React.ReactNode }) {
         className="mt-1 size-2 shrink-0 rounded-full bg-indigo-500"
       />
 
-      <span className="text-sm leading-relaxed text-gray-700">{children}</span>
+      <span className="text-sm leading-relaxed text-gray-700">{futur}</span>
     </div>
   )
 }
 
 export default function Future({ className, variant }: FutureProps) {
+  const futureItems: Array<TypeFuturItem> = [
+    { futur: "Renforcer la vérification de l'identité des bailleurs" },
+    { futur: 'Sécuriser davantage les échanges et les références' },
+    {
+      futur:
+        "Expérimenter la solution auprès de professionnels de l'immobilier",
+    },
+    {
+      futur:
+        'Faire évoluer progressivement le service selon les besoins identifiés',
+    },
+  ]
+
   return (
-    <FullWidth className={cn(FutureVariants({ variant, className }))}>
+    <Section className={cn(FutureVariants({ variant, className }))}>
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -47,39 +64,25 @@ export default function Future({ className, variant }: FutureProps) {
       >
         <SectionLabel>Les suites envisagées</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-          Construire LocProof étape par étape.
-        </h2>
+        <SectionTitle>Construire LocProof étape par étape.</SectionTitle>
 
-        <p className="mt-6 text-gray-600 leading-relaxed">
+        <TextBody>
           Si les retours du terrain confirment l'intérêt du concept, plusieurs
           évolutions pourront être envisagées.
-        </p>
+        </TextBody>
 
-        <div className="mt-10 grid md:grid-cols-2 gap-4">
-          <FutureItem>
-            Renforcer la vérification de l'identité des bailleurs
-          </FutureItem>
-
-          <FutureItem>
-            Sécuriser davantage les échanges et les références
-          </FutureItem>
-
-          <FutureItem>
-            Expérimenter la solution auprès de professionnels de l'immobilier
-          </FutureItem>
-
-          <FutureItem>
-            Faire évoluer progressivement le service selon les besoins
-            identifiés
-          </FutureItem>
-        </div>
+        <List
+          items={futureItems}
+          renderItem={FutureItem}
+          getKey={(_, index) => index}
+          className="mt-10 grid md:grid-cols-2 gap-4"
+        />
 
         <p className="mt-10 text-lg font-medium leading-relaxed text-gray-900">
           L'objectif est de construire LocProof étape par étape, en validant
           chaque évolution auprès des utilisateurs concernés.
         </p>
       </MotionDiv>
-    </FullWidth>
+    </Section>
   )
 }

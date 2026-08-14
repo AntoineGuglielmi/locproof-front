@@ -3,8 +3,12 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
-import { FullWidth } from '@/shared/components/layout/grid'
 import Panel from '@/shared/components/text/panel'
+import Section from '@/shared/components/layout/section'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
+import { TypeProgress } from '../types/TypeProgress'
+import List from '@/shared/components/list/List'
 
 type CurrentStateProps = {
   className?: string
@@ -12,22 +16,19 @@ type CurrentStateProps = {
   children?: React.ReactNode
 }
 
-const CurrentStateVariants = cva(
-  'CurrentState border-y bg-white py-20 md:py-28',
-  {
-    variants: {
-      variant: {
-        default: '',
-        other: '',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const CurrentStateVariants = cva('CurrentState FullWidth border-y bg-white', {
+  variants: {
+    variant: {
+      default: '',
+      other: '',
     },
   },
-)
+  defaultVariants: {
+    variant: 'default',
+  },
+})
 
-function ProgressItem({ children }: { children: React.ReactNode }) {
+function ProgressItem({ progress }: TypeProgress) {
   return (
     <div className="flex items-start gap-3 rounded-xl border bg-gray-50 px-5 py-4">
       <span
@@ -38,7 +39,7 @@ function ProgressItem({ children }: { children: React.ReactNode }) {
       </span>
 
       <span className="pt-0.5 text-sm font-medium leading-relaxed text-gray-700">
-        {children}
+        {progress}
       </span>
     </div>
   )
@@ -48,8 +49,15 @@ export default function CurrentState({
   className,
   variant,
 }: CurrentStateProps) {
+  const progressItems: Array<TypeProgress> = [
+    { progress: "Création d'une demande de référence par un locataire" },
+    { progress: 'Invitation du bailleur par e-mail' },
+    { progress: 'Réponse du bailleur via un questionnaire structuré' },
+    { progress: "Restitution d'une référence exploitable par le locataire" },
+  ]
+
   return (
-    <FullWidth className={cn(CurrentStateVariants({ variant, className }))}>
+    <Section className={cn(CurrentStateVariants({ variant, className }))}>
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -58,32 +66,21 @@ export default function CurrentState({
       >
         <SectionLabel>Où en est le projet ?</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <SectionTitle>
           Un premier prototype permet déjà de tester l'idée.
-        </h2>
+        </SectionTitle>
 
-        <div className="mt-8 space-y-5 text-gray-600 leading-relaxed">
-          <p>
-            Un premier prototype est aujourd'hui opérationnel et permet de
-            réaliser l'ensemble du parcours imaginé :
-          </p>
-        </div>
+        <TextBody>
+          Un premier prototype est aujourd'hui opérationnel et permet de
+          réaliser l'ensemble du parcours imaginé :
+        </TextBody>
 
-        <div className="mt-10 grid sm:grid-cols-2 gap-4">
-          <ProgressItem>
-            Création d'une demande de référence par un locataire
-          </ProgressItem>
-
-          <ProgressItem>Invitation du bailleur par e-mail</ProgressItem>
-
-          <ProgressItem>
-            Réponse du bailleur via un questionnaire structuré
-          </ProgressItem>
-
-          <ProgressItem>
-            Restitution d'une référence exploitable par le locataire
-          </ProgressItem>
-        </div>
+        <List
+          items={progressItems}
+          renderItem={ProgressItem}
+          getKey={(_, index) => index}
+          className="mt-10 grid sm:grid-cols-2 gap-4"
+        />
 
         <Panel
           className="mt-10"
@@ -94,6 +91,6 @@ export default function CurrentState({
             la vérification des informations transmises."
         />
       </MotionDiv>
-    </FullWidth>
+    </Section>
   )
 }

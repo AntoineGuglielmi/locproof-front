@@ -3,7 +3,10 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import SectionLabel from '@/shared/components/headings/section-label'
-import { FullWidth } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
+import SectionTitle from '@/shared/components/headings/section-title'
+import List from '@/shared/components/list/List'
+import TextBody from '@/shared/components/text/text-body'
 
 type TheProblemProps = {
   className?: string
@@ -11,7 +14,7 @@ type TheProblemProps = {
   children?: React.ReactNode
 }
 
-const TheProblemVariants = cva('TheProblem border-y bg-white py-20 md:py-24', {
+const TheProblemVariants = cva('TheProblem border-y bg-white FullWidth', {
   variants: {
     variant: {
       default: '',
@@ -23,19 +26,26 @@ const TheProblemVariants = cva('TheProblem border-y bg-white py-20 md:py-24', {
   },
 })
 
-function Question({ children }: { children: React.ReactNode }) {
+function Question({ question }: { question: string }) {
   return (
     <div className="rounded-xl border bg-gray-50 px-5 py-4">
       <p className="text-sm font-medium leading-relaxed text-gray-700">
-        {children}
+        {question}
       </p>
     </div>
   )
 }
 
 export default function TheProblem({ className, variant }: TheProblemProps) {
+  const questions = [
+    { question: 'Les loyers étaient-ils payés régulièrement ?' },
+    { question: 'Le logement a-t-il été entretenu correctement ?' },
+    { question: 'Les échanges étaient-ils respectueux et constructifs ?' },
+    { question: 'Recommanderiez-vous ce locataire à un autre bailleur ?' },
+  ]
+
   return (
-    <FullWidth className={cn(TheProblemVariants({ variant, className }))}>
+    <Section className={cn(TheProblemVariants({ variant, className }))}>
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -44,50 +54,43 @@ export default function TheProblem({ className, variant }: TheProblemProps) {
       >
         <SectionLabel>Le constat</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <SectionTitle>
           Un dossier permet d'évaluer une situation. Pas forcément une
           expérience.
-        </h2>
+        </SectionTitle>
 
-        <div className="mt-8 space-y-5 text-gray-600 leading-relaxed">
-          <p>
+        <div className="space-y-5">
+          <TextBody>
             Lorsqu'un locataire constitue un dossier de location, il peut
             fournir de nombreux justificatifs : revenus, contrat de travail,
             garant, avis d'imposition...
-          </p>
+          </TextBody>
 
-          <p>
+          <TextBody>
             Ces documents permettent au bailleur d'évaluer la situation
             financière et professionnelle du candidat. En revanche, ils ne
             permettent pas réellement de savoir comment celui-ci s'est comporté
             lors de ses précédentes locations.
-          </p>
+          </TextBody>
 
-          <p>
+          <TextBody>
             Pourtant, un précédent bailleur est souvent la personne la mieux
             placée pour répondre à des questions très concrètes :
-          </p>
+          </TextBody>
         </div>
 
-        <div className="mt-10 grid sm:grid-cols-2 gap-4">
-          <Question>Les loyers étaient-ils payés régulièrement ?</Question>
-
-          <Question>Le logement a-t-il été entretenu correctement ?</Question>
-
-          <Question>
-            Les échanges étaient-ils respectueux et constructifs ?
-          </Question>
-
-          <Question>
-            Recommanderiez-vous ce locataire à un autre bailleur ?
-          </Question>
-        </div>
+        <List
+          items={questions}
+          renderItem={Question}
+          getKey={(_, index) => index}
+          className="mt-10 grid sm:grid-cols-2 gap-4"
+        />
 
         <p className="mt-10 text-lg font-medium text-gray-900">
           Cette information existe, mais elle est rarement accessible ou
           formalisée.
         </p>
       </MotionDiv>
-    </FullWidth>
+    </Section>
   )
 }

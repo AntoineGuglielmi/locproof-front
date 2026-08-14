@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
-import { Narrow } from '@/shared/components/layout/grid'
 import CTASection from '@/shared/components/layout/CTASection'
+import Section from '@/shared/components/layout/section'
 
 type CallToActionProps = {
   className?: string
@@ -9,7 +9,7 @@ type CallToActionProps = {
   children?: React.ReactNode
 }
 
-const CallToActionVariants = cva('CallToAction my-20 md:my-34', {
+const CallToActionVariants = cva('CallToAction Narrow', {
   variants: {
     variant: {
       default: '',
@@ -26,7 +26,10 @@ export default function CallToAction({
   variant,
 }: CallToActionProps) {
   return (
-    <Narrow className={cn(CallToActionVariants({ variant, className }))}>
+    <Section
+      which="topOnly"
+      className={cn(CallToActionVariants({ variant, className }))}
+    >
       <CTASection
         label="Étude terrain"
         title="Professionnel de l'immobilier ?"
@@ -38,6 +41,6 @@ export default function CallToAction({
         subBody="Le questionnaire prend environ 3 à 5 minutes."
         buttonTarget="_blank"
       />
-    </Narrow>
+    </Section>
   )
 }

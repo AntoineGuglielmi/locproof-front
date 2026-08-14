@@ -4,6 +4,10 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
+import Section from '@/shared/components/layout/section'
+import SectionLabel from '@/shared/components/headings/section-label'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type PositioningProps = {
   className?: string
@@ -11,7 +15,7 @@ type PositioningProps = {
   children?: React.ReactNode
 }
 
-const PositioningVariants = cva('Positioning py-20 md:py-28', {
+const PositioningVariants = cva('Positioning text-center', {
   variants: {
     variant: {
       default: '',
@@ -25,30 +29,30 @@ const PositioningVariants = cva('Positioning py-20 md:py-28', {
 
 export default function Positioning({ className, variant }: PositioningProps) {
   return (
-    <section className={cn(PositioningVariants({ variant, className }))}>
+    <Section
+      size="standard"
+      className={cn(PositioningVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center"
       >
-        <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-          Une information complémentaire
-        </p>
+        <SectionLabel>Une information complémentaire</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <SectionTitle>
           Pas un nouveau dossier.
           <br />
           Une autre façon de se présenter.
-        </h2>
+        </SectionTitle>
 
-        <p className="mt-6 text-gray-600 leading-relaxed">
+        <TextBody>
           LocProof n'a pas vocation à remplacer les justificatifs habituels d'un
           dossier de location. L'objectif est d'y ajouter une information
           qualitative qui est aujourd'hui difficile à transmettre : l'expérience
           passée du locataire.
-        </p>
+        </TextBody>
 
         <Button
           asChild
@@ -58,6 +62,6 @@ export default function Positioning({ className, variant }: PositioningProps) {
           <Link href="/locproof">En savoir plus sur le projet</Link>
         </Button>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
