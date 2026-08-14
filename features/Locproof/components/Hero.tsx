@@ -4,6 +4,8 @@ import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
+import Section from '@/shared/components/layout/section'
+import SectionLabel from '@/shared/components/headings/section-label'
 
 type HeroProps = {
   className?: string
@@ -11,7 +13,7 @@ type HeroProps = {
   children?: React.ReactNode
 }
 
-const HeroVariants = cva('Hero pt-12 pb-20 md:pt-20 md:pb-28', {
+const HeroVariants = cva('Hero', {
   variants: {
     variant: {
       default: '',
@@ -25,15 +27,17 @@ const HeroVariants = cva('Hero pt-12 pb-20 md:pt-20 md:pb-28', {
 
 export default function Hero({ className, variant }: HeroProps) {
   return (
-    <section className={cn(HeroVariants({ variant, className }))}>
+    <Section
+      size="large"
+      which="bottomOnly"
+      className={cn(HeroVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-          À propos de LocProof
-        </p>
+        <SectionLabel>À propos de LocProof</SectionLabel>
 
         <PageMainTitle className="mt-4">
           Donner plus de valeur à l'expérience d'un bon locataire.
@@ -45,6 +49,6 @@ export default function Hero({ className, variant }: HeroProps) {
           actuel bailleur.
         </PageSubTitle>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
