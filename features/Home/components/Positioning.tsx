@@ -5,6 +5,9 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
 import Section from '@/shared/components/layout/section'
+import SectionLabel from '@/shared/components/headings/section-label'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type PositioningProps = {
   className?: string
@@ -36,22 +39,20 @@ export default function Positioning({ className, variant }: PositioningProps) {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-          Une information complémentaire
-        </p>
+        <SectionLabel>Une information complémentaire</SectionLabel>
 
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+        <SectionTitle>
           Pas un nouveau dossier.
           <br />
           Une autre façon de se présenter.
-        </h2>
+        </SectionTitle>
 
-        <p className="mt-6 text-gray-600 leading-relaxed">
+        <TextBody>
           LocProof n'a pas vocation à remplacer les justificatifs habituels d'un
           dossier de location. L'objectif est d'y ajouter une information
           qualitative qui est aujourd'hui difficile à transmettre : l'expérience
           passée du locataire.
-        </p>
+        </TextBody>
 
         <Button
           asChild

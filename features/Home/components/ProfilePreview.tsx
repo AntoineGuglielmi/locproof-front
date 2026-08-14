@@ -5,6 +5,9 @@ import MotionDiv from '@/shared/components/layout/motion-div'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
 import Section from '@/shared/components/layout/section'
+import SectionLabel from '@/shared/components/headings/section-label'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type ProfilePreviewProps = {
   className?: string
@@ -59,19 +62,15 @@ export default function ProfilePreview({
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-            Une référence concrète
-          </p>
+          <SectionLabel>Une référence concrète</SectionLabel>
 
-          <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-            Une information simple à comprendre.
-          </h2>
+          <SectionTitle>Une information simple à comprendre.</SectionTitle>
 
-          <p className="mt-5 text-gray-600 leading-relaxed">
+          <TextBody>
             La référence synthétise le retour du bailleur sur les principaux
             aspects de la location afin de donner une vision complémentaire du
             profil du locataire.
-          </p>
+          </TextBody>
 
           <Button
             asChild

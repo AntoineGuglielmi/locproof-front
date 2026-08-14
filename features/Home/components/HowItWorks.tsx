@@ -7,6 +7,8 @@ import List from '@/shared/components/list/List'
 import HowItWorksItem from './how-it-works-item'
 import SectionLabel from '@/shared/components/headings/section-label'
 import Section from '@/shared/components/layout/section'
+import SectionTitle from '@/shared/components/headings/section-title'
+import TextBody from '@/shared/components/text/text-body'
 
 type HomItWorksProps = {
   className?: string
@@ -61,14 +63,15 @@ export default function HowItWorks({ className, variant }: HomItWorksProps) {
         className="text-center"
       >
         <SectionLabel>Comment ça marche ?</SectionLabel>
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
-          Une démarche simple, des deux côtés.
-        </h2>
-        <p className="mt-5 text-gray-600">
+
+        <SectionTitle>Une démarche simple, des deux côtés.</SectionTitle>
+
+        <TextBody>
           Quelques étapes suffisent pour obtenir une référence basée sur
           l'expérience réelle de votre bailleur.
-        </p>
+        </TextBody>
       </MotionDiv>
+
       <List
         items={steps}
         getKey={(item) => item.number}
