@@ -1,30 +1,30 @@
-import PageMainTitle from '@/shared/components/headings/page-main-title'
-import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import AppLayout from '@/shared/components/layout/app-layout'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import PageMainTitle from '@/shared/components/headings/page-main-title'
+import PageSubTitle from '@/shared/components/headings/page-sub-title'
+import Section from '@/shared/components/layout/section'
+import SectionLabel from '@/shared/components/headings/section-label'
+import SectionTitle from '@/shared/components/headings/section-title'
 import TextBody from '@/shared/components/text/text-body'
+import Panel from '@/shared/components/text/panel'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Mentions légales | LocProof',
   description:
-    'Informations légales concernant l’éditeur, l’hébergement et le fonctionnement de LocProof.',
+    'Informations légales concernant LocProof, son éditeur, son hébergement et son fonctionnement.',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     title: 'Mentions légales | LocProof',
-    description: 'Informations légales et cadre juridique du service LocProof.',
+    description:
+      'Informations légales concernant LocProof, son éditeur et son fonctionnement.',
     url: 'https://locproof.fr/legals',
     siteName: 'LocProof',
     type: 'website',
     locale: 'fr_FR',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Mentions légales | LocProof',
-    description: 'Mentions légales et informations sur l’éditeur de LocProof.',
   },
   alternates: {
     canonical: 'https://locproof.fr/legals',
@@ -34,113 +34,183 @@ export const metadata = {
 export default function LegalPage() {
   return (
     <AppLayout>
-      {/* HERO */}
-      <section className="text-center px-6 py-20 max-w-4xl mx-auto">
+      <Section
+        size="large"
+        which="bottomOnly"
+      >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block mb-4 px-4 py-1 text-sm bg-indigo-100 text-indigo-700 rounded-full">
-            ⚖️ Informations légales
-          </span>
+          <SectionLabel>Informations légales</SectionLabel>
 
-          <PageMainTitle>Mentions légales</PageMainTitle>
+          <PageMainTitle className="mt-4">Mentions légales</PageMainTitle>
 
-          <PageSubTitle className="text-xl text-gray-700 mb-4">
+          <PageSubTitle className="mt-6 max-w-3xl text-xl md:text-2xl">
             Les informations relatives à l’éditeur, à l’hébergement et au
             fonctionnement de LocProof.
           </PageSubTitle>
-
-          <TextBody className="max-w-2xl mx-auto">
-            Cette page est fournie conformément à la législation française en
-            vigueur.
-          </TextBody>
         </MotionDiv>
-      </section>
+      </Section>
 
-      {/* CONTENT */}
-      <section className="max-w-4xl mx-auto px-6 pb-24">
-        <div className="space-y-8">
-          {[
-            {
-              title: '1. Éditeur du site',
-              content:
-                'LocProof est un projet indépendant édité par Antoine Guglielmi.',
-            },
-            {
-              title: '2. Contact',
-              content:
-                'Pour toute question concernant le site ou le service, vous pouvez nous contacter à l’adresse suivante : contact@locproof.fr',
-            },
-            {
-              title: '3. Hébergement',
-              content:
-                'Le site LocProof est hébergé par un prestataire d’hébergement situé au sein de l’Union européenne.',
-            },
-            {
-              title: '4. Objet du service',
-              content:
-                'LocProof propose une plateforme permettant aux locataires de solliciter des recommandations de leurs anciens bailleurs afin de valoriser leur sérieux dans le cadre de recherches de logement.',
-            },
-            {
-              title: '5. Responsabilité',
-              content:
-                'LocProof s’efforce de fournir un service accessible et des informations exactes, mais ne peut garantir l’absence totale d’erreurs, d’interruptions ou d’informations inexactes publiées par les utilisateurs.',
-            },
-            {
-              title: '6. Contenus publiés',
-              content:
-                'Les utilisateurs restent responsables des informations et recommandations qu’ils transmettent via la plateforme. LocProof se réserve le droit de supprimer tout contenu manifestement abusif, diffamatoire ou inapproprié.',
-            },
-            {
-              title: '7. Données personnelles',
-              content:
-                'Les données personnelles collectées dans le cadre du service sont traitées conformément à la politique de confidentialité disponible sur le site.',
-            },
-            {
-              title: '8. Propriété intellectuelle',
-              content:
-                'Les contenus, éléments graphiques, logos, textes et composants du site LocProof sont protégés par les règles applicables à la propriété intellectuelle.',
-            },
-          ].map((section, i) => (
-            <MotionDiv
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.03 }}
-              className="bg-white rounded-2xl border shadow-sm p-8"
-            >
-              <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
-
-              <TextBody>{section.content}</TextBody>
-            </MotionDiv>
-          ))}
-        </div>
-
-        {/* CONTACT */}
+      <Section
+        which="bottomOnly"
+        size="standard"
+      >
         <MotionDiv
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="mt-12 p-8 rounded-2xl bg-indigo-50 border border-indigo-100"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold mb-4">
-            Besoin d’informations complémentaires ?
-          </h2>
+          <SectionLabel>Éditeur</SectionLabel>
+
+          <SectionTitle>Qui édite LocProof ?</SectionTitle>
+
+          <div className="space-y-5">
+            <TextBody>
+              LocProof est un projet indépendant édité par Antoine Guglielmi.
+            </TextBody>
+
+            <TextBody>
+              Pour toute question concernant le site ou le service, vous pouvez
+              nous contacter à l’adresse suivante :
+            </TextBody>
+
+            <Link
+              href="mailto:contact@locproof.fr"
+              className="inline-block font-medium text-indigo-600 hover:text-indigo-700"
+            >
+              contact@locproof.fr
+            </Link>
+          </div>
+        </MotionDiv>
+      </Section>
+
+      <Section className="FullWidth border-y bg-white">
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionLabel>Hébergement</SectionLabel>
+
+          <SectionTitle>Où est hébergé le service ?</SectionTitle>
 
           <TextBody>
-            Vous pouvez nous contacter pour toute question relative au service,
-            au fonctionnement de la plateforme ou à vos données personnelles.
+            Le site et les services de LocProof sont hébergés par{' '}
+            <strong className="font-medium text-gray-900">02Switch</strong>,
+            dont le siège social est situé{' '}
+            <strong className="font-medium text-gray-900">
+              Chem. des Pardiaux, 63000 Clermont-Ferrand
+            </strong>
+            .
           </TextBody>
-
-          <Link
-            href="mailto:contact@locproof.fr"
-            className="mt-4 font-medium text-indigo-700 block"
-          >
-            contact@locproof.fr
-          </Link>
         </MotionDiv>
-      </section>
+      </Section>
+
+      <Section>
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionLabel>Le service</SectionLabel>
+
+          <SectionTitle>À quoi sert LocProof ?</SectionTitle>
+
+          <div className="space-y-5">
+            <TextBody>
+              LocProof permet aux locataires de solliciter une référence auprès
+              d’un ancien bailleur afin de valoriser leur expérience locative
+              dans le cadre de futures recherches de logement.
+            </TextBody>
+
+            <TextBody>
+              Le service permet notamment au bailleur de répondre à un
+              questionnaire portant sur différents aspects de la location, puis
+              au locataire de partager la référence obtenue.
+            </TextBody>
+          </div>
+        </MotionDiv>
+      </Section>
+
+      <Section className="FullWidth border-y bg-white">
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionLabel>Responsabilité</SectionLabel>
+
+          <SectionTitle>Utilisation du service</SectionTitle>
+
+          <div className="space-y-5">
+            <TextBody>
+              Les utilisateurs restent responsables des informations et contenus
+              qu’ils transmettent via LocProof.
+            </TextBody>
+
+            <TextBody>
+              LocProof s’efforce d’assurer le bon fonctionnement du service et
+              de maintenir des informations fiables. Toutefois, aucune
+              plateforme ne peut garantir l’absence totale d’erreurs,
+              d’interruption de service ou d’informations inexactes communiquées
+              par ses utilisateurs.
+            </TextBody>
+
+            <TextBody>
+              Les recommandations doivent rester factuelles, respectueuses et
+              directement liées à l’expérience locative concernée.
+            </TextBody>
+          </div>
+        </MotionDiv>
+      </Section>
+
+      <Section>
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionLabel>Propriété intellectuelle</SectionLabel>
+
+          <SectionTitle>Les contenus de LocProof</SectionTitle>
+
+          <TextBody>
+            Les textes, éléments graphiques, logos, interfaces, composants et
+            autres éléments constitutifs du site LocProof sont protégés par les
+            règles applicables en matière de propriété intellectuelle. Toute
+            reproduction ou utilisation non autorisée de ces éléments est
+            susceptible de constituer une atteinte aux droits de leur titulaire.
+          </TextBody>
+        </MotionDiv>
+      </Section>
+
+      <Section which="topOnly">
+        <Panel
+          title="Une question concernant LocProof ?"
+          body={
+            <>
+              Pour toute question concernant le fonctionnement du service ou les
+              informations présentes sur cette page, vous pouvez nous écrire à{' '}
+              <Link
+                href="mailto:contact@locproof.fr"
+                className="font-medium underline underline-offset-2"
+              >
+                contact@locproof.fr
+              </Link>
+              .
+            </>
+          }
+          type="info"
+        />
+      </Section>
     </AppLayout>
   )
 }
