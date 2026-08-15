@@ -48,10 +48,10 @@ export default function References({ className, variant }: ReferencesProps) {
 
           <TextBodyList
             items={[
-              { body: 'le paiement des loyers ;' },
-              { body: 'l’entretien du logement ;' },
-              { body: 'la qualité de la communication ;' },
-              { body: 'la recommandation du locataire.' },
+              { body: 'le paiement des loyers' },
+              { body: 'l’entretien du logement' },
+              { body: 'la qualité de la communication' },
+              { body: 'la recommandation du locataire' },
             ]}
           />
 
