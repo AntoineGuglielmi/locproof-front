@@ -19,10 +19,11 @@ import { TypeReferenceCriterion } from '../../types/TypeReferenceCriterion'
 type ReferenceItemProps = {
   className?: string
   children?: React.ReactNode
+  inHomePage?: boolean
 } & TypeRentalReference
 
 const ReferenceItemVariants = cva(
-  'ReferenceItem rounded-2xl border bg-white p-5 md:p-6',
+  'ReferenceItem @container rounded-2xl border bg-white p-5 md:p-6',
   {
     variants: {},
     defaultVariants: {},
@@ -39,6 +40,7 @@ export default function ReferenceItem({
   wellMaintained,
   communication,
   recommended,
+  inHomePage = false,
 }: ReferenceItemProps) {
   const criteria: Array<TypeReferenceCriterion> = [
     {
@@ -66,7 +68,9 @@ export default function ReferenceItem({
   return (
     <article className={cn(ReferenceItemVariants({ className }))}>
       {/* RENTAL CONTEXT */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div
+        className={`flex flex-col gap-3 ${inHomePage ? '@' : ''}sm:flex-row ${inHomePage ? '@' : ''}sm:items-center ${inHomePage ? '@' : ''}sm:justify-between`}
+      >
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
             Expérience locative
@@ -101,7 +105,7 @@ export default function ReferenceItem({
         items={criteria}
         renderItem={CriterionItem}
         getKey={(item) => item.label}
-        className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5"
+        className={`mt-6 grid grid-cols-1 ${inHomePage ? '@' : ''}sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5`}
       />
 
       {/* COMMENT */}
