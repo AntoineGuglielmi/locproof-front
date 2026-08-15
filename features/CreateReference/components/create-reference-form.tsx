@@ -21,6 +21,7 @@ import Button from '@/shared/components/form/button'
 import Panel from '@/shared/components/text/panel'
 import List from '@/shared/components/list/List'
 import RadioGroupItem from './radio-group-item'
+import TextBody from '@/shared/components/text/text-body'
 
 type ValidateFormProps = {
   address: Rental['address']
@@ -108,12 +109,12 @@ export default function CreateReferenceForm({
       transition={{ delay: 0.2 }}
       className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
     >
-      <div className="text-sm text-gray-600 leading-relaxed text-balance">
+      <TextBody className="text-balance">
         <strong className="text-indigo-700">
           {firstname} {lastname}
         </strong>{' '}
         vous a demandé de confirmer une ancienne location via LocProof.
-      </div>
+      </TextBody>
 
       <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700">
         <div className="flex flex-col gap-1">
@@ -135,8 +136,10 @@ export default function CreateReferenceForm({
       </div>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Vos réponses restent privées.
-        <br /> Le locataire verra uniquement une recommandation synthétique.
+        Vos réponses seront utilisées pour créer la référence locative du
+        locataire. Les informations personnelles nécessaires à votre
+        participation, comme votre adresse e-mail, ne sont pas affichées sur son
+        profil public.
       </p>
 
       <form
