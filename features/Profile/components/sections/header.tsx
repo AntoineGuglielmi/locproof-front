@@ -5,6 +5,7 @@ import { ShieldCheck } from 'lucide-react'
 import { Tenant } from '@/shared/types/strapi-types'
 import Tag from '@/shared/components/text/tag'
 import Panel from '@/shared/components/text/panel'
+import Section from '@/shared/components/layout/section'
 
 type HeaderProps = {
   className?: string
@@ -13,7 +14,7 @@ type HeaderProps = {
   tenant: Tenant
 }
 
-const HeaderVariants = cva('Header pt-12 pb-10 md:pt-16 md:pb-12', {
+const HeaderVariants = cva('Header', {
   variants: {
     variant: {
       default: '',
@@ -27,7 +28,10 @@ const HeaderVariants = cva('Header pt-12 pb-10 md:pt-16 md:pb-12', {
 
 export default function Header({ className, variant, tenant }: HeaderProps) {
   return (
-    <section className={cn(HeaderVariants({ variant, className }))}>
+    <Section
+      size="x-small"
+      className={cn(HeaderVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,6 +75,6 @@ export default function Header({ className, variant, tenant }: HeaderProps) {
           />
         </div>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
