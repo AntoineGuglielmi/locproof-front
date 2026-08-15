@@ -8,6 +8,8 @@ import Section from '@/shared/components/layout/section'
 import SectionLabel from '@/shared/components/headings/section-label'
 import SectionTitle from '@/shared/components/headings/section-title'
 import TextBody from '@/shared/components/text/text-body'
+import { exampleSynthesis } from '@/features/Example/data/example-profile'
+import ReferenceItem from '@/features/Profile/components/items/reference-item'
 
 type ProfilePreviewProps = {
   className?: string
@@ -50,6 +52,8 @@ export default function ProfilePreview({
   className,
   variant,
 }: ProfilePreviewProps) {
+  const exampleReference = exampleSynthesis.references[0]
+
   return (
     <Section
       size="standard"
@@ -86,36 +90,12 @@ export default function ProfilePreview({
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border bg-white p-6 shadow-sm"
         >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="font-semibold text-gray-900">Martin Dupont</p>
-
-              <p className="mt-1 text-sm text-gray-500">Référence locative</p>
-            </div>
-
-            <span className="inline-flex shrink-0 items-center rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700">
-              Référence vérifiée
-            </span>
-          </div>
-
-          <div className="mt-6 border-t pt-5">
-            <p className="text-sm text-gray-500">
-              Location de janvier 2022 à décembre 2024
-            </p>
-
-            <div className="mt-5 space-y-3">
-              <ReferenceRow label="Paiement des loyers" />
-              <ReferenceRow label="Entretien du logement" />
-              <ReferenceRow label="Communication" />
-            </div>
-
-            <blockquote className="mt-6 border-l-2 border-indigo-200 pl-4 text-sm italic leading-relaxed text-gray-600">
-              « Locataire sérieux et respectueux. La location s'est déroulée
-              sans difficulté. »
-            </blockquote>
-          </div>
+          <ReferenceItem
+            inHomePage
+            className="zoom-out-50"
+            {...exampleReference}
+          />
         </MotionDiv>
       </div>
     </Section>
