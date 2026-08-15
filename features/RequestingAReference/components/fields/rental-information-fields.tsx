@@ -1,0 +1,111 @@
+import { Controller, UseFormReturn } from 'react-hook-form'
+import { RequestingAReferenceFormValues } from '../../schemas/requesting-a-reference-schema'
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from '@/shared/components/shadcn/ui/field'
+import AnimatedFieldError from '@/shared/components/form/animated-field-error'
+import { AddressAutocomplete } from '@/shared/components/form/address-autocomplete'
+import { DatePicker } from '@/shared/components/form/date-picker'
+
+type RentalInformationFields = {
+  form: UseFormReturn<RequestingAReferenceFormValues>
+}
+
+export default function RentalInformationFields({
+  form,
+}: RentalInformationFields) {
+  const updateDate = (key: 'startDate' | 'endDate', date?: Date) => {
+    const otherKey = key === 'startDate' ? 'endDate' : 'startDate'
+    const otherDate = form.getValues(otherKey)
+
+    form.setValue(key, date, {
+      shouldValidate: false,
+      shouldDirty: true,
+    })
+
+    if (!otherDate || (key === 'startDate' && date && date > otherDate)) {
+      form.setValue(otherKey, date, {
+        shouldValidate: false,
+        shouldDirty: true,
+      })
+    }
+
+    if (!date) {
+      return
+    }
+
+    form.trigger(['startDate', 'endDate'])
+  }
+
+  return (
+    <FieldSet className="w-full">
+      <FieldLegend className="text-left">Le logement concerné</FieldLegend>
+      <FieldGroup>
+        <Field data-invalid={!!form.formState.errors.address}>
+          <FieldLabel htmlFor="address">Adresse</FieldLabel>
+
+          <Controller
+            name="address"
+            control={form.control}
+            render={({ field }) => (
+              <AddressAutocomplete
+                id="address"
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Commencez à taper l'adresse du bien"
+                aria-invalid={!!form.formState.errors.address}
+              />
+            )}
+          />
+
+          <AnimatedFieldError error={form.formState.errors.address} />
+        </Field>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Field data-invalid={!!form.formState.errors.startDate}>
+            <FieldLabel htmlFor="startDate">
+              Date de début de location
+            </FieldLabel>
+
+            <Controller
+              control={form.control}
+              name="startDate"
+              render={({ field }) => (
+                <DatePicker
+                  id="startDate"
+                  placeholder="Sélectionnez une date"
+                  value={field.value}
+                  onChange={(date) => updateDate('startDate', date)}
+                  aria-invalid={!!form.formState.errors.startDate}
+                />
+              )}
+            />
+            <AnimatedFieldError error={form.formState.errors.startDate} />
+          </Field>
+          <Field data-invalid={!!form.formState.errors.endDate}>
+            <FieldLabel htmlFor="endDate">Date de fin de location</FieldLabel>
+
+            <Controller
+              control={form.control}
+              name="endDate"
+              render={({ field }) => (
+                <DatePicker
+                  id="endDate"
+                  placeholder="Sélectionnez une date"
+                  value={field.value}
+                  onChange={(date) => updateDate('endDate', date)}
+                  aria-invalid={!!form.formState.errors.endDate}
+                />
+              )}
+            />
+            <AnimatedFieldError error={form.formState.errors.endDate} />
+          </Field>
+        </div>
+      </FieldGroup>
+    </FieldSet>
+  )
+}

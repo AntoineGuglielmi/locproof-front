@@ -1,8 +1,8 @@
-import { dateShort } from '@/lib/date'
+import { dateShort } from '@/shared/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeRentalReference, TypeSynthesis } from '@/types/profile-synthesis'
-import { Reference, Rental, Tenant } from '@/types/strapi-types'
+import { Reference, Rental, Tenant } from '../types/strapi-types'
+import { TypeRentalReference, TypeSynthesis } from '../types/profile-synthesis'
 
 export class EntityTenantSynthesis {
   private _tenant: Tenant
@@ -14,6 +14,7 @@ export class EntityTenantSynthesis {
       recommended: 0,
       wellMaintained: 0,
     },
+    referencesCount: 0,
   }
 
   constructor(tenant: Tenant) {
@@ -43,11 +44,12 @@ export class EntityTenantSynthesis {
   }
 
   private async generateScores() {
-    const referencesNumber = this._synthesis.references.length
+    const referencesCount = this._synthesis.references.length
     Object.keys(this._synthesis.scores).map((key) => {
-      if (referencesNumber === 0) {
+      if (referencesCount === 0) {
         return 0
       }
+      this._synthesis.referencesCount = referencesCount
       const scoreKey = key as keyof typeof this._synthesis.scores
       this._synthesis.scores[scoreKey] =
         this._synthesis.references.reduce((number, reference) => {
@@ -55,7 +57,7 @@ export class EntityTenantSynthesis {
             number++
           }
           return number
-        }, 0) / referencesNumber
+        }, 0) / referencesCount
     })
   }
 

@@ -1,6 +1,6 @@
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { Rental } from '@/types/strapi-types'
+import { Rental } from '@/shared/types/strapi-types'
 
 export const ServiceCheckRentalToken = async ({
   rentalToken,
@@ -27,5 +27,5 @@ export const ServiceCheckRentalToken = async ({
     return { ok: false, redirectTo: '/error/rental-already-validated' }
   }
 
-  return { ok: true, redirectTo: `/validate/${rentalToken}` }
+  return { ok: true, redirectTo: `/create-reference/${rentalToken}` }
 }

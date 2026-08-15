@@ -1,5 +1,5 @@
-import { strapiClient } from '@/lib/strapi'
-import { TenantVerification } from '@/types/strapi-types'
+import { strapiClient } from '@/shared/lib/strapi'
+import { TenantVerification } from '@/shared/types/strapi-types'
 
 const COLLECTION_NAME = 'tenant-verifications'
 
@@ -48,15 +48,21 @@ export const tenantVerificationRepository = {
     return (await strapiClient.collection(COLLECTION_NAME).find()).data
   },
 
-  async deletePendingByEmail(tenantEmail: TenantVerification['email']): Promise<void> {
-    const pendingVerificationsForTheEmail = (await strapiClient.collection(COLLECTION_NAME).find({
-      filters: {
-        email: tenantEmail,
-        state: 'pending',
-      }
-    })).data as Array<TenantVerification>
+  async deletePendingByEmail(
+    tenantEmail: TenantVerification['email'],
+  ): Promise<void> {
+    const pendingVerificationsForTheEmail = (
+      await strapiClient.collection(COLLECTION_NAME).find({
+        filters: {
+          email: tenantEmail,
+          state: 'pending',
+        },
+      })
+    ).data as Array<TenantVerification>
     for (const tenantVerification of pendingVerificationsForTheEmail) {
-      await strapiClient.collection(COLLECTION_NAME).delete(tenantVerification.documentId!)
+      await strapiClient
+        .collection(COLLECTION_NAME)
+        .delete(tenantVerification.documentId!)
     }
-  }
+  },
 }

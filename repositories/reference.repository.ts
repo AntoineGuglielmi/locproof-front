@@ -1,15 +1,8 @@
-import { strapiClient } from '@/lib/strapi'
-import { Reference, Rental } from '@/types/strapi-types'
+import { strapiClient } from '@/shared/lib/strapi'
+import { Reference, Rental } from '@/shared/types/strapi-types'
 
 export const referenceRepository = {
-  async create({
-    paidOnTime,
-    wellMaintained,
-    communication,
-    recommended,
-    comment,
-    rentalDocumentId,
-  }: {
+  async create(data: {
     paidOnTime: Reference['paidOnTime']
     wellMaintained: Reference['wellMaintained']
     communication: Reference['communication']
@@ -17,14 +10,7 @@ export const referenceRepository = {
     comment: Reference['comment']
     rentalDocumentId: Reference['rentalDocumentId']
   }) {
-    await strapiClient.collection('references').create({
-      paidOnTime,
-      wellMaintained,
-      communication,
-      recommended,
-      comment,
-      rentalDocumentId,
-    })
+    await strapiClient.collection('references').create(data)
   },
 
   async findByRentalDocumentId(rentalDocumentId: Rental['documentId']) {

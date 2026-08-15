@@ -1,10 +1,14 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/className'
 import { CSSProperties, Key } from 'react'
+
+type ListItemProps = {
+  index: number
+}
 
 type ListProps<T extends object, P extends object> = {
   className?: string
   items: Array<T>
-  renderItem: React.ComponentType<T & P>
+  renderItem: React.ComponentType<T & P & ListItemProps>
   getKey: (item: T, index: number) => Key
   style?: CSSProperties
   itemExtraProps?: P
@@ -26,7 +30,10 @@ export default function List<T extends object, P extends object>({
       {items.map((item, index) => {
         return (
           <li key={getKey(item, index)}>
-            <Item {...({ ...item, ...itemExtraProps } as T & P)} />
+            <Item
+              {...({ ...item, ...itemExtraProps } as T & P)}
+              index={index}
+            />
           </li>
         )
       })}

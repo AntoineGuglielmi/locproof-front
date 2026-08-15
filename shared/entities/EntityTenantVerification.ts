@@ -1,4 +1,4 @@
-import { TenantVerification } from '@/types/strapi-types'
+import { TenantVerification } from '@/shared/types/strapi-types'
 
 export class EntityTenantVerification {
   private _email: TenantVerification['email']
@@ -6,12 +6,10 @@ export class EntityTenantVerification {
   private _tenantVerificationToken: TenantVerification['tenantVerificationToken']
   private _state: TenantVerification['state']
 
-  constructor({
-    email,
-    expiresAt,
-    tenantVerificationToken,
-    state,
-  }: TenantVerification) {
+  constructor(tenantVerification: TenantVerification) {
+    const { email, expiresAt, tenantVerificationToken, state } =
+      tenantVerification
+
     this._email = email
     this._expiresAt = expiresAt
     this._tenantVerificationToken = tenantVerificationToken

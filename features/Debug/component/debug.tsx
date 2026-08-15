@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/className'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'
 import List from '@/shared/components/list/List'
-import { Rental, Tenant, TenantVerification } from '@/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 
@@ -35,10 +35,8 @@ export default async function Debug({ className }: DebugProps) {
     items: tenantVerifications.filter((tenver) => tenver.state === 'pending'),
     getKey: (item) => item.documentId!,
     renderItem: (tenver) => (
-      <Link
-        href={`${process.env.NEXT_PUBLIC_APP_URL}/create/rental/${tenver.tenantVerificationToken}`}
-      >
-        /create/rental/{tenver.tenantVerificationToken} by{' '}
+      <Link href={`/request-reference/${tenver.tenantVerificationToken}`}>
+        /request-reference/{tenver.tenantVerificationToken} by{' '}
         <span className="font-bold">{tenver.email}</span>
       </Link>
     ),
@@ -53,10 +51,8 @@ export default async function Debug({ className }: DebugProps) {
         rental.tenantDocumentId,
       )
       return (
-        <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/validate/${rental.rentalToken}`}
-        >
-          /validate/{rental.rentalToken} by{' '}
+        <Link href={`/create-reference/${rental.rentalToken}`}>
+          /create-reference/{rental.rentalToken} by{' '}
           <span className="font-bold">{tenant?.email}</span>
         </Link>
       )
@@ -69,9 +65,7 @@ export default async function Debug({ className }: DebugProps) {
     getKey: (item) => item.documentId!,
     renderItem: async (tenant) => {
       return (
-        <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenant.slug}`}
-        >
+        <Link href={`/profile/${tenant.slug}`}>
           /profile/{tenant.slug} by{' '}
           <span className="font-bold">{tenant?.email}</span>
         </Link>

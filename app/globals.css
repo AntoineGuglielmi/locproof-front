@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -64,7 +64,7 @@
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(60.619% 0.21807 33.973);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -101,7 +101,7 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(60.619% 0.21807 33.973);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -129,5 +129,106 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@utility grid-container {
+  --grid-padding-inline: clamp(2rem, 4vw, 2rem);
+
+  --grid-narrow-max-width: 50ch;
+  --grid-content-max-width: 70ch;
+  --grid-breakout-max-width: 1000px;
+  --grid-feature-max-width: 1400px;
+
+  --grid-content-width: min(
+    var(--grid-content-max-width),
+    100% - (var(--grid-padding-inline) * 2)
+  );
+
+  --grid-narrow-width: min(
+    var(--grid-narrow-max-width),
+    var(--grid-content-width)
+  );
+
+  --grid-breakout-width: min(
+    var(--grid-breakout-max-width),
+    100% - (var(--grid-padding-inline) * 2)
+  );
+
+  --grid-feature-width: min(
+    var(--grid-feature-max-width),
+    100% - (var(--grid-padding-inline) * 2)
+  );
+
+  --grid-narrow-size: max(
+    0px,
+    calc((var(--grid-content-width) - var(--grid-narrow-width)) / 2)
+  );
+
+  --grid-breakout-size: max(
+    0px,
+    calc((var(--grid-breakout-width) - var(--grid-content-width)) / 2)
+  );
+
+  --grid-feature-size: max(
+    0px,
+    calc((var(--grid-feature-width) - var(--grid-breakout-width)) / 2)
+  );
+
+  display: grid;
+
+  grid-template-columns:
+    [full-start]
+    minmax(var(--grid-padding-inline), 1fr)
+    [feature-start]
+    var(--grid-feature-size)
+    [breakout-start]
+    var(--grid-breakout-size)
+    [content-start]
+    var(--grid-narrow-size)
+    [narrow-start]
+    var(--grid-narrow-width)
+    [narrow-end]
+    var(--grid-narrow-size)
+    [content-end]
+    var(--grid-breakout-size)
+    [breakout-end]
+    var(--grid-feature-size)
+    [feature-end]
+    minmax(var(--grid-padding-inline), 1fr)
+    [full-end];
+
+  /*
+   * Direct children live in content by default.
+   */
+  & > :not(.grid-narrow, .grid-breakout, .grid-feature, .grid-full) {
+    grid-column: content;
+  }
+}
+
+@utility grid-narrow {
+  grid-column: narrow;
+}
+
+@utility grid-content {
+  grid-column: content;
+}
+
+@utility grid-breakout {
+  grid-column: breakout;
+}
+
+@utility grid-feature {
+  grid-column: feature;
+}
+
+@utility grid-full {
+  grid-column: full;
+
+  display: grid;
+  grid-template-columns: inherit;
+
+  & > :not(.grid-narrow, .grid-breakout, .grid-feature, .grid-full) {
+    grid-column: content;
   }
 }
