@@ -10,7 +10,8 @@
     "types": "node ./bin/get-types.js",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "knip": "knip"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
@@ -52,6 +53,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "jsdom": "^29.1.1",
+    "knip": "^6.32.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.10"
