@@ -56,7 +56,7 @@ export default function ExamplePage({}: ExamplePageProps) {
       />
 
       <Section
-        className="Narrow"
+        className="grid-narrow"
         which="topOnly"
       >
         <CTASection

@@ -14,7 +14,7 @@ type TheProblemProps = {
   children?: React.ReactNode
 }
 
-const TheProblemVariants = cva('TheProblem border-y bg-white FullWidth', {
+const TheProblemVariants = cva('TheProblem border-y bg-white grid-full', {
   variants: {
     variant: {
       default: '',

@@ -87,7 +87,7 @@ export default async function CreateRentalPage({
       <Section
         size="x-small"
         which="topOnly"
-        className="Narrow text-center"
+        className="grid-narrow text-center"
       >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

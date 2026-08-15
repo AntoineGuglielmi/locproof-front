@@ -44,7 +44,7 @@ export default function CreateMePage({}: CreateMePageProps) {
       <Section
         size="x-small"
         which="topOnly"
-        className="Narrow text-center"
+        className="grid-narrow text-center"
       >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

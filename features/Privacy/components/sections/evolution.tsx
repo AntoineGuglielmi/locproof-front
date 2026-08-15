@@ -12,7 +12,7 @@ type EvolutionProps = {
   children?: React.ReactNode
 }
 
-const EvolutionVariants = cva('Evolution FullWidth border-y bg-gray-50', {
+const EvolutionVariants = cva('Evolution grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',

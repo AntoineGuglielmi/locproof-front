@@ -7,7 +7,7 @@ type GridProps = HTMLAttributes<HTMLDivElement>
 export function Grid({ className, ...props }: GridProps) {
   return (
     <div
-      className={cn('Grid', className)}
+      className={cn('Grid grid-container', className)}
       {...props}
     />
   )

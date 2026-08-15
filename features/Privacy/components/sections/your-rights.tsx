@@ -14,7 +14,7 @@ type YourRightsProps = {
   children?: React.ReactNode
 }
 
-const YourRightsVariants = cva('YourRights FullWidth border-y bg-gray-50', {
+const YourRightsVariants = cva('YourRights grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',

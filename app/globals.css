@@ -132,104 +132,103 @@
   }
 }
 
-.Grid {
-  --padding-inline: clamp(2rem, 4vw, 2rem);
+@utility grid-container {
+  --grid-padding-inline: clamp(2rem, 4vw, 2rem);
 
-  --narrow-max-width: 50ch;
-  --content-max-width: 70ch;
-  --breakout-max-width: 1000px;
-  --feature-max-width: 1400px;
+  --grid-narrow-max-width: 50ch;
+  --grid-content-max-width: 70ch;
+  --grid-breakout-max-width: 1000px;
+  --grid-feature-max-width: 1400px;
 
-  /*
-   * Actual widths of each zone.
-   *
-   * They shrink with the viewport instead of overflowing it.
-   */
-  --content-width: min(
-    var(--content-max-width),
-    100% - (var(--padding-inline) * 2)
+  --grid-content-width: min(
+    var(--grid-content-max-width),
+    100% - (var(--grid-padding-inline) * 2)
   );
 
-  --narrow-width: min(var(--narrow-max-width), var(--content-width));
-
-  --breakout-width: min(
-    var(--breakout-max-width),
-    100% - (var(--padding-inline) * 2)
+  --grid-narrow-width: min(
+    var(--grid-narrow-max-width),
+    var(--grid-content-width)
   );
 
-  --feature-width: min(
-    var(--feature-max-width),
-    100% - (var(--padding-inline) * 2)
+  --grid-breakout-width: min(
+    var(--grid-breakout-max-width),
+    100% - (var(--grid-padding-inline) * 2)
   );
 
-  /*
-   * Space between each nested zone.
-   */
-  --narrow-size: max(
+  --grid-feature-width: min(
+    var(--grid-feature-max-width),
+    100% - (var(--grid-padding-inline) * 2)
+  );
+
+  --grid-narrow-size: max(
     0px,
-    calc((var(--content-width) - var(--narrow-width)) / 2)
+    calc((var(--grid-content-width) - var(--grid-narrow-width)) / 2)
   );
 
-  --breakout-size: max(
+  --grid-breakout-size: max(
     0px,
-    calc((var(--breakout-width) - var(--content-width)) / 2)
+    calc((var(--grid-breakout-width) - var(--grid-content-width)) / 2)
   );
 
-  --feature-size: max(
+  --grid-feature-size: max(
     0px,
-    calc((var(--feature-width) - var(--breakout-width)) / 2)
+    calc((var(--grid-feature-width) - var(--grid-breakout-width)) / 2)
   );
 
   display: grid;
 
   grid-template-columns:
     [full-start]
-    minmax(var(--padding-inline), 1fr)
+    minmax(var(--grid-padding-inline), 1fr)
     [feature-start]
-    var(--feature-size)
+    var(--grid-feature-size)
     [breakout-start]
-    var(--breakout-size)
+    var(--grid-breakout-size)
     [content-start]
-    var(--narrow-size)
+    var(--grid-narrow-size)
     [narrow-start]
-    var(--narrow-width)
+    var(--grid-narrow-width)
     [narrow-end]
-    var(--narrow-size)
+    var(--grid-narrow-size)
     [content-end]
-    var(--breakout-size)
+    var(--grid-breakout-size)
     [breakout-end]
-    var(--feature-size)
+    var(--grid-feature-size)
     [feature-end]
-    minmax(var(--padding-inline), 1fr)
+    minmax(var(--grid-padding-inline), 1fr)
     [full-end];
+
+  /*
+   * Direct children live in content by default.
+   */
+  & > :not(.grid-narrow, .grid-breakout, .grid-feature, .grid-full) {
+    grid-column: content;
+  }
 }
 
-/*
- * Direct children live in content by default.
- */
-.Grid > :not(.Narrow, .Breakout, .Feature, .FullWidth),
-.FullWidth > :not(.Narrow, .Breakout, .Feature, .FullWidth) {
-  grid-column: content;
-}
-
-.Grid > .Narrow,
-.FullWidth > .Narrow {
+@utility grid-narrow {
   grid-column: narrow;
 }
 
-.Grid > .Breakout,
-.FullWidth > .Breakout {
+@utility grid-content {
+  grid-column: content;
+}
+
+@utility grid-breakout {
   grid-column: breakout;
 }
 
-.Grid > .Feature,
-.FullWidth > .Feature {
+@utility grid-feature {
   grid-column: feature;
 }
 
-.Grid > .FullWidth {
+@utility grid-full {
   grid-column: full;
 
   display: grid;
   grid-template-columns: inherit;
+
+  & > :not(.grid-narrow, .grid-breakout, .grid-feature, .grid-full) {
+    grid-column: content;
+  }
 }

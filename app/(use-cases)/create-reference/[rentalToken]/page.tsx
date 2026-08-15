@@ -106,7 +106,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
       <Section
         size="x-small"
         which="topOnly"
-        className="Narrow text-center"
+        className="grid-narrow text-center"
       >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}

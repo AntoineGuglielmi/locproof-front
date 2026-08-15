@@ -13,7 +13,7 @@ type ReferencesProps = {
   children?: React.ReactNode
 }
 
-const ReferencesVariants = cva('References FullWidth border-y bg-gray-50', {
+const ReferencesVariants = cva('References grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',
