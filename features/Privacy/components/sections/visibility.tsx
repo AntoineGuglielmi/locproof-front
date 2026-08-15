@@ -27,12 +27,12 @@ const VisibilityVariants = cva('Visibility', {
 
 export default function Visibility({ className, variant }: VisibilityProps) {
   const featuredDate = [
-    { body: 'le prénom et le nom du locataire ;' },
-    { body: 'les villes correspondant aux locations référencées ;' },
-    { body: 'les périodes de location ;' },
-    { body: 'le nombre de références ;' },
-    { body: 'une synthèse des réponses des bailleurs ;' },
-    { body: 'les commentaires associés aux références.' },
+    { body: 'le prénom et le nom du locataire' },
+    { body: 'les villes correspondant aux locations référencées' },
+    { body: 'les périodes de location' },
+    { body: 'le nombre de références' },
+    { body: 'une synthèse des réponses des bailleurs' },
+    { body: 'les commentaires associés aux références' },
   ]
 
   return (
@@ -67,10 +67,10 @@ export default function Visibility({ className, variant }: VisibilityProps) {
 
           <TextBodyList
             items={[
-              { body: 'les adresses e-mail ;' },
-              { body: 'les adresses complètes des logements ;' },
-              { body: 'les jetons utilisés pour les liens de validation ;' },
-              { body: 'les identifiants internes utilisés par le service.' },
+              { body: 'les adresses e-mail' },
+              { body: 'les adresses complètes des logements' },
+              { body: 'les jetons utilisés pour les liens de validation' },
+              { body: 'les identifiants internes utilisés par le service' },
             ]}
           />
 
