@@ -14,7 +14,7 @@ type CollectedDataProps = {
 }
 
 const CollectedDataVariants = cva(
-  'CollectedData FullWidth border-y bg-gray-50',
+  'CollectedData grid-full border-y bg-gray-50',
   {
     variants: {
       variant: {

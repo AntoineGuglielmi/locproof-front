@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="w-full py-4">
       <Grid>
-        <div className="Feature flex items-center justify-between">
+        <div className="grid-feature flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-3 text-xl font-bold tracking-tight"

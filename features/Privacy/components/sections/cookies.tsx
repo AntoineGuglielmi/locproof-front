@@ -12,7 +12,7 @@ type CookiesProps = {
   children?: React.ReactNode
 }
 
-const CookiesVariants = cva('Cookies FullWidth border-y bg-gray-50', {
+const CookiesVariants = cva('Cookies grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',

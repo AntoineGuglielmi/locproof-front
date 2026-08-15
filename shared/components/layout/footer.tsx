@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t bg-white">
       <Grid className="py-10">
-        <div className="Feature">
+        <div className="grid-feature">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <Link

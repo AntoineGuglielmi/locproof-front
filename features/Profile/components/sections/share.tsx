@@ -11,7 +11,7 @@ type ShareProps = {
   children?: React.ReactNode
 }
 
-const ShareVariants = cva('Share Breakout', {
+const ShareVariants = cva('Share grid-breakout', {
   variants: {
     variant: {
       default: '',

@@ -12,7 +12,7 @@ type SecuredLinksProps = {
   children?: React.ReactNode
 }
 
-const SecuredLinksVariants = cva('SecuredLinks FullWidth border-y bg-gray-50', {
+const SecuredLinksVariants = cva('SecuredLinks grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',

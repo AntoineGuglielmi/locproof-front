@@ -13,7 +13,7 @@ type ResponsabilityProps = {
 }
 
 const ResponsabilityVariants = cva(
-  'Responsability FullWidth border-y bg-white',
+  'Responsability grid-full border-y bg-white',
   {
     variants: {
       variant: {

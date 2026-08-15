@@ -16,7 +16,7 @@ type ProfilePreviewProps = {
 }
 
 const ProfilePreviewVariants = cva(
-  'ProfilePreview FullWidth bg-gray-50 border-y',
+  'ProfilePreview grid-full bg-gray-50 border-y',
   {
     variants: {
       variant: {

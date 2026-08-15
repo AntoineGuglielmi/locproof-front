@@ -9,7 +9,7 @@ type CallToActionProps = {
   children?: React.ReactNode
 }
 
-const CallToActionVariants = cva('CallToAction Narrow', {
+const CallToActionVariants = cva('CallToAction grid-narrow', {
   variants: {
     variant: {
       default: '',
