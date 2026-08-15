@@ -13,15 +13,6 @@ export function Grid({ className, ...props }: GridProps) {
   )
 }
 
-export function Narrow({ className, ...props }: GridProps) {
-  return (
-    <div
-      className={cn('Narrow', className)}
-      {...props}
-    />
-  )
-}
-
 export function Breakout({ className, ...props }: GridProps) {
   return (
     <div
