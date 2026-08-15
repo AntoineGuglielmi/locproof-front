@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Feature, Grid } from './grid'
+import { Grid } from './grid'
 import Button from '../form/button'
 import NavLink from '../navigation/nav-link'
 
@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="w-full py-4">
       <Grid>
-        <Feature className="flex items-center justify-between">
+        <div className="Feature flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-3 text-xl font-bold tracking-tight"
@@ -37,7 +37,7 @@ export default function Header() {
               <Link href="/validate-email">Créer une référence</Link>
             </Button>
           </nav>
-        </Feature>
+        </div>
       </Grid>
     </header>
   )
