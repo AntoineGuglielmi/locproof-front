@@ -5,19 +5,13 @@ import { ucfirst } from '@/lib/string'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import { useState } from 'react'
 import { Textarea } from '@/shared/components/shadcn/ui/textarea'
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from '@/shared/components/shadcn/ui/field'
+import { Field, FieldLabel } from '@/shared/components/shadcn/ui/field'
 import Link from 'next/link'
 import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 import { ActionCreateReference } from '../actions/ActionCreateReference'
 import { Rental, Tenant } from '@/shared/types/strapi-types'
 import { TypeQuestion } from '../types/TypeQuestion'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { createReferenceSchema } from '../schemas/create-reference-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
@@ -154,6 +148,7 @@ export default function CreateReferenceForm({
           renderItem={RadioGroupItem}
           getKey={(item) => item.name}
           itemExtraProps={{ form }}
+          className="flex flex-col gap-8"
         />
 
         <Field data-invalid={!!form.formState.errors.comment}>
