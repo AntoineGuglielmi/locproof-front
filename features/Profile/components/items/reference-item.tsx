@@ -63,7 +63,9 @@ export default function ReferenceItem({
       label: 'Locataire recommandé',
       icon: ThumbsUp,
     },
-  ]
+  ].filter(({ value }) => {
+    return value === 'yes'
+  })
 
   return (
     <article className={cn(ReferenceItemVariants({ className }))}>
