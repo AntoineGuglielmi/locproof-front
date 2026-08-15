@@ -13,15 +13,6 @@ export function Grid({ className, ...props }: GridProps) {
   )
 }
 
-export function Feature({ className, ...props }: GridProps) {
-  return (
-    <div
-      className={cn('Feature', className)}
-      {...props}
-    />
-  )
-}
-
 export function FullWidth({ className, ...props }: GridProps) {
   return (
     <div
