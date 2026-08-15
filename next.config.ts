@@ -17,7 +17,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: ['192.168.1.174'],
+  ...(process.env.NODE_ENV === 'development'
+    ? {
+        allowedDevOrigins: [process.env.DEV_ORIGIN ?? 'localhost'],
+      }
+    : {}),
 }
 
 export default nextConfig
