@@ -6,7 +6,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
 import PageErrorState from '@/shared/components/layout/page-error-state'
 import { ServiceGetPageContext } from '@/features/RequestingAReference/services/ServiceGetPageContext'
-import { Narrow } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
 
 type CreateRentalPageProps = {
   params: Promise<{
@@ -84,7 +84,11 @@ export default async function CreateRentalPage({
 
   return (
     <AppLayout>
-      <Narrow className="text-center pt-16 pb-10">
+      <Section
+        size="x-small"
+        which="topOnly"
+        className="Narrow text-center"
+      >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -101,7 +105,7 @@ export default async function CreateRentalPage({
 
           <RequestingAReferenceForm {...requestingAReferenceFormProps} />
         </MotionDiv>
-      </Narrow>
+      </Section>
     </AppLayout>
   )
 }
