@@ -15,9 +15,11 @@ export default function ValidateEmailSuccess({
 
       <TextBody className="text-balance">
         Nous avons envoyé un lien sécurisé à l'adresse{' '}
-        <span className="font-bold text-indigo-500">{email}</span>. Vous
-        disposez de <strong>24 heures</strong> pour cliquer sur ce lien et
-        continuer la création de votre dossier locataire.
+        <span className="font-bold text-indigo-500 wrap-break-word">
+          {email}
+        </span>
+        . Vous disposez de <strong>24 heures</strong> pour cliquer sur ce lien
+        et continuer la création de votre dossier locataire.
       </TextBody>
     </>
   )
