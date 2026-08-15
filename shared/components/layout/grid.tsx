@@ -13,15 +13,6 @@ export function Grid({ className, ...props }: GridProps) {
   )
 }
 
-export function Breakout({ className, ...props }: GridProps) {
-  return (
-    <div
-      className={cn('Breakout', className)}
-      {...props}
-    />
-  )
-}
-
 export function Feature({ className, ...props }: GridProps) {
   return (
     <div
