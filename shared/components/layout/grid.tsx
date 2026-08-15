@@ -12,12 +12,3 @@ export function Grid({ className, ...props }: GridProps) {
     />
   )
 }
-
-export function FullWidth({ className, ...props }: GridProps) {
-  return (
-    <div
-      className={cn('FullWidth', className)}
-      {...props}
-    />
-  )
-}
