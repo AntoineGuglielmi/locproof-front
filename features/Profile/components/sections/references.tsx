@@ -8,6 +8,7 @@ import { TypeSynthesis } from '@/shared/types/profile-synthesis'
 import Link from 'next/link'
 import Button from '@/shared/components/form/button'
 import { ArrowRight } from 'lucide-react'
+import Section from '@/shared/components/layout/section'
 
 type ReferencesProps = {
   className?: string
@@ -17,7 +18,7 @@ type ReferencesProps = {
   references: TypeSynthesis['references']
 }
 
-const ReferencesVariants = cva('References pb-14', {
+const ReferencesVariants = cva('References', {
   variants: {
     variant: {
       default: '',
@@ -36,7 +37,11 @@ export default function References({
   references,
 }: ReferencesProps) {
   return (
-    <section className={cn(ReferencesVariants({ variant, className }))}>
+    <Section
+      size="x-small"
+      which="bottomOnly"
+      className={cn(ReferencesVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,6 +82,6 @@ export default function References({
           </div>
         )}
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
