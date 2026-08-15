@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import { Check } from 'lucide-react'
+import Section from '@/shared/components/layout/section'
 
 type ExplanationProps = {
   className?: string
@@ -8,7 +9,7 @@ type ExplanationProps = {
   children?: React.ReactNode
 }
 
-const ExplanationVariants = cva('Explanation border-t py-10', {
+const ExplanationVariants = cva('Explanation border-t', {
   variants: {
     variant: {
       default: '',
@@ -22,7 +23,11 @@ const ExplanationVariants = cva('Explanation border-t py-10', {
 
 export default function Explanation({ className, variant }: ExplanationProps) {
   return (
-    <section className={cn(ExplanationVariants({ variant, className }))}>
+    <Section
+      size="x-small"
+      which="topOnly"
+      className={cn(ExplanationVariants({ variant, className }))}
+    >
       <div className="flex flex-col gap-3 text-sm text-gray-500">
         <div className="flex gap-2 items-start">
           <Check className="size-4 mt-0.5 shrink-0 text-green-600" />
@@ -48,6 +53,6 @@ export default function Explanation({ className, variant }: ExplanationProps) {
           </p>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

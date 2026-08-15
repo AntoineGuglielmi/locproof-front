@@ -12,7 +12,7 @@ type HostingProps = {
   children?: React.ReactNode
 }
 
-const HostingVariants = cva('Hosting FullWidth border-y bg-white', {
+const HostingVariants = cva('Hosting grid-full border-y bg-white', {
   variants: {
     variant: {
       default: '',

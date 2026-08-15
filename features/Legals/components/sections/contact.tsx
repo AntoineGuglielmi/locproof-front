@@ -10,7 +10,7 @@ type ContactProps = {
   children?: React.ReactNode
 }
 
-const ContactVariants = cva('Contact FullWidth border-t', {
+const ContactVariants = cva('Contact grid-full border-t', {
   variants: {
     variant: {
       default: '',

@@ -1,4 +1,4 @@
-import { Feature, Grid } from './grid'
+import { Grid } from './grid'
 import NavLink from '../navigation/nav-link'
 import Link from 'next/link'
 
@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t bg-white">
       <Grid className="py-10">
-        <Feature>
+        <div className="grid-feature">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <Link
@@ -27,7 +27,7 @@ export default function Footer() {
               <NavLink href="mailto:contact@locproof.fr">Contact</NavLink>
             </nav>
           </div>
-        </Feature>
+        </div>
       </Grid>
     </footer>
   )

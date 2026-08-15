@@ -15,7 +15,7 @@ type FutureProps = {
   children?: React.ReactNode
 }
 
-const FutureVariants = cva('Future FullWidth border-y bg-gray-50', {
+const FutureVariants = cva('Future grid-full border-y bg-gray-50', {
   variants: {
     variant: {
       default: '',

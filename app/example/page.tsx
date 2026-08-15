@@ -6,7 +6,7 @@ import {
 } from '@/features/Example/data/example-profile'
 import Panel from '@/shared/components/text/panel'
 import CTASection from '@/shared/components/layout/CTASection'
-import { Narrow } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
 
 type ExamplePageProps = {
   params: Promise<void>
@@ -55,16 +55,18 @@ export default function ExamplePage({}: ExamplePageProps) {
         share={false}
       />
 
-      <Narrow>
+      <Section
+        className="grid-narrow"
+        which="topOnly"
+      >
         <CTASection
           title="Et si c'était votre profil ?"
           body="Demandez à un ancien bailleur de partager son expérience et commencez
             à constituer votre profil LocProof."
           buttonHref="/validate-email"
           buttonLabel="Créer mon profil LocProof"
-          className="my-20 md:my-34"
         />
-      </Narrow>
+      </Section>
     </AppLayout>
   )
 }

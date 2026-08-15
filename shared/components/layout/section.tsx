@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/className'
 type SectionProps = {
   className?: string
   which?: 'both' | 'topOnly' | 'bottomOnly'
-  size?: 'none' | 'standard' | 'large'
+  size?: 'none' | 'standard' | 'large' | 'small' | 'x-small'
   children?: React.ReactNode
 }
 
@@ -12,6 +12,18 @@ const sectionSizes = {
     both: '',
     topOnly: '',
     bottomOnly: '',
+  },
+
+  'x-small': {
+    both: 'py-8 md:py-16',
+    topOnly: 'pt-8 md:pt-16',
+    bottomOnly: 'pb-8 md:pb-16',
+  },
+
+  small: {
+    both: 'py-12 md:py-20',
+    topOnly: 'pt-12 md:pt-20',
+    bottomOnly: 'pb-12 md:pb-20',
   },
 
   standard: {

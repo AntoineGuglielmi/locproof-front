@@ -5,7 +5,7 @@ import PageMainTitle from '@/shared/components/headings/page-main-title'
 import TextBody from '@/shared/components/text/text-body'
 import { ServiceGetPageContext } from '@/features/CreateReference/services/ServiceGetPageContext'
 import PageErrorState from '@/shared/components/layout/page-error-state'
-import { Narrow } from '@/shared/components/layout/grid'
+import Section from '@/shared/components/layout/section'
 
 type ValidatePageProps = {
   params: Promise<{
@@ -103,7 +103,11 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
 
   return (
     <AppLayout>
-      <Narrow className="text-center pt-16 pb-10">
+      <Section
+        size="x-small"
+        which="topOnly"
+        className="grid-narrow text-center"
+      >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,7 +135,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
             Aucun compte requis • Réponse en moins d’une minute
           </p>
         </MotionDiv>
-      </Narrow>
+      </Section>
     </AppLayout>
   )
 }

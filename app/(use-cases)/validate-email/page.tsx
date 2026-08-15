@@ -1,8 +1,8 @@
 import ValidateEmailForm from '@/features/ValidateEmail/components/validate-email-form'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
-import { Narrow } from '@/shared/components/layout/grid'
 import MotionDiv from '@/shared/components/layout/motion-div'
+import Section from '@/shared/components/layout/section'
 import Tag from '@/shared/components/text/tag'
 import TextBody from '@/shared/components/text/text-body'
 
@@ -41,7 +41,11 @@ export const metadata = {
 export default function CreateMePage({}: CreateMePageProps) {
   return (
     <AppLayout>
-      <Narrow className="text-center pt-16 pb-10">
+      <Section
+        size="x-small"
+        which="topOnly"
+        className="grid-narrow text-center"
+      >
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,7 +68,7 @@ export default function CreateMePage({}: CreateMePageProps) {
             Aucun compte requis • Lien sécurisé envoyé par email
           </p>
         </MotionDiv>
-      </Narrow>
+      </Section>
     </AppLayout>
   )
 }

@@ -15,7 +15,7 @@ type HowItWorksProps = {
   children?: React.ReactNode
 }
 
-const HowItWorksVariants = cva('HowItWorks FullWidth border-y bg-gray-50 ', {
+const HowItWorksVariants = cva('HowItWorks grid-full border-y bg-gray-50 ', {
   variants: {
     variant: {
       default: '',
@@ -86,7 +86,7 @@ export default function HowItWorks({ className, variant }: HowItWorksProps) {
         items={steps}
         renderItem={Step}
         getKey={(step) => step.number}
-        className="Breakout mt-14 grid md:grid-cols-3 gap-8"
+        className="grid-breakout mt-14 grid md:grid-cols-3 gap-8"
       />
     </Section>
   )

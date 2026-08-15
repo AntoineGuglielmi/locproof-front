@@ -12,6 +12,7 @@ import { TypeSynthesis } from '@/shared/types/profile-synthesis'
 import { TypeScores } from '@/features/Profile/types/TypeScores'
 import List from '@/shared/components/list/List'
 import SummaryScoreItem from '@/features/Profile/components/items/summary-score-item'
+import Section from '@/shared/components/layout/section'
 
 type SummaryProps = {
   className?: string
@@ -21,7 +22,7 @@ type SummaryProps = {
   scores: TypeSynthesis['scores']
 }
 
-const SummaryVariants = cva('Summary pb-12', {
+const SummaryVariants = cva('Summary', {
   variants: {
     variant: {
       default: '',
@@ -63,7 +64,11 @@ export default function Summary({
   ]
 
   return (
-    <section className={cn(SummaryVariants({ variant, className }))}>
+    <Section
+      size="x-small"
+      which="bottomOnly"
+      className={cn(SummaryVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -108,6 +113,6 @@ export default function Summary({
           </div>
         )}
       </MotionDiv>
-    </section>
+    </Section>
   )
 }

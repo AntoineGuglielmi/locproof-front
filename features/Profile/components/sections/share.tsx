@@ -2,8 +2,8 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
-import { Breakout } from '@/shared/components/layout/grid'
 import CopyProfileLink from '@/features/Profile/components/items/copy-profile-link'
+import Section from '@/shared/components/layout/section'
 
 type ShareProps = {
   className?: string
@@ -11,7 +11,7 @@ type ShareProps = {
   children?: React.ReactNode
 }
 
-const ShareVariants = cva('Share pb-16', {
+const ShareVariants = cva('Share grid-breakout', {
   variants: {
     variant: {
       default: '',
@@ -25,7 +25,11 @@ const ShareVariants = cva('Share pb-16', {
 
 export default function Share({ className, variant }: ShareProps) {
   return (
-    <Breakout className={cn(ShareVariants({ variant, className }))}>
+    <Section
+      size="x-small"
+      which="bottomOnly"
+      className={cn(ShareVariants({ variant, className }))}
+    >
       <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -43,6 +47,6 @@ export default function Share({ className, variant }: ShareProps) {
           <CopyProfileLink>Copier le lien du profil</CopyProfileLink>
         </div>
       </MotionDiv>
-    </Breakout>
+    </Section>
   )
 }

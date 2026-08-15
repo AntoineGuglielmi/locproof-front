@@ -16,7 +16,7 @@ type CurrentStateProps = {
   children?: React.ReactNode
 }
 
-const CurrentStateVariants = cva('CurrentState FullWidth border-y bg-white', {
+const CurrentStateVariants = cva('CurrentState grid-full border-y bg-white', {
   variants: {
     variant: {
       default: '',

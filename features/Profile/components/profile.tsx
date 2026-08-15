@@ -16,7 +16,7 @@ type ProfileProps = {
   explanation?: boolean
 }
 
-const ProfileVariants = cva('Profile', {
+const ProfileVariants = cva('Profile grid-full', {
   variants: {},
   defaultVariants: {},
 })
