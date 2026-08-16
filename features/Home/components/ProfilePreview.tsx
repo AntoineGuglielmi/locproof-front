@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { cva } from 'class-variance-authority'
 import { cn } from '@/shared/lib/className'
 import MotionDiv from '@/shared/components/layout/motion-div'
@@ -31,22 +30,6 @@ const ProfilePreviewVariants = cva(
     },
   },
 )
-
-function ReferenceRow({ label }: { label: string }) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <span className="text-sm text-gray-600">{label}</span>
-
-      <span className="inline-flex items-center gap-2 text-sm font-medium text-gray-900">
-        <span
-          aria-hidden="true"
-          className="size-2 rounded-full bg-green-500"
-        />
-        Très satisfaisant
-      </span>
-    </div>
-  )
-}
 
 export default function ProfilePreview({
   className,
