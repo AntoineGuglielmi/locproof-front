@@ -1,11 +1,11 @@
 import { StepRetrieveRental } from './StepRetrieveRental'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { Rental } from '@/shared/types/strapi-types'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithRentalToken } from '../../types/TypesSteps'
 
 vi.mock('@/repositories/rental.repository', () => ({
   rentalRepository: {
-    findByDocumentId: vi.fn(),
+    findByRentalToken: vi.fn(),
   },
 }))
 
@@ -22,17 +22,17 @@ describe('StepRetrieveRental', () => {
       state: 'pending',
     }
 
-    vi.mocked(rentalRepository.findByDocumentId).mockResolvedValue(rental)
+    vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
 
-    const context: TypeContextWithFormInput = {
+    const context: TypeContextWithRentalToken = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'yes',
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
+      rentalToken: 'rental-token',
       rental: null,
       tenant: null,
     }
@@ -41,27 +41,27 @@ describe('StepRetrieveRental', () => {
 
     await step.execute(context)
 
-    expect(rentalRepository.findByDocumentId).toHaveBeenCalledWith(
-      'rental-document-id',
+    expect(rentalRepository.findByRentalToken).toHaveBeenCalledWith(
+      'rental-token',
     )
 
     expect(context.rental).toEqual(rental)
   })
 
   it('throws an error when rental retrieval fails', async () => {
-    vi.mocked(rentalRepository.findByDocumentId).mockRejectedValue(
+    vi.mocked(rentalRepository.findByRentalToken).mockRejectedValue(
       new Error('Database error'),
     )
 
-    const context: TypeContextWithFormInput = {
+    const context: TypeContextWithRentalToken = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'yes',
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
+      rentalToken: 'rental-token',
       rental: null,
       tenant: null,
     }

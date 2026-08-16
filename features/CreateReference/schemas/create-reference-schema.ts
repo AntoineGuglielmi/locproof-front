@@ -10,5 +10,4 @@ export const createReferenceSchema = z.object({
   communication: referenceAnswerSchema,
   recommended: referenceAnswerSchema,
   comment: z.string(),
-  rentalDocumentId: z.string(),
 })

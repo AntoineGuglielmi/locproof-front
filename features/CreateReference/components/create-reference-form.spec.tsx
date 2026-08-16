@@ -28,7 +28,7 @@ describe('CreateReferenceForm', () => {
         endDate="2026-08-29"
         firstname="Antoine"
         lastname="Guglielmi"
-        rentalDocumentId="rental-123"
+        rentalToken="rental-token"
       />,
     )
 
@@ -49,14 +49,16 @@ describe('CreateReferenceForm', () => {
       }),
     )
 
-    expect(ActionCreateReference).toHaveBeenCalledWith({
-      paidOnTime: 'yes',
-      wellMaintained: 'yes',
-      communication: 'yes',
-      recommended: 'yes',
-      comment: '',
-      rentalDocumentId: 'rental-123',
-    })
+    expect(ActionCreateReference).toHaveBeenCalledWith(
+      {
+        paidOnTime: 'yes',
+        wellMaintained: 'yes',
+        communication: 'yes',
+        recommended: 'yes',
+        comment: '',
+      },
+      'rental-token',
+    )
 
     expect(
       await screen.findByText('Merci pour votre recommandation !'),
