@@ -29,7 +29,7 @@ type ValidateFormProps = {
   endDate: Rental['endDate']
   firstname: Tenant['firstname']
   lastname: Tenant['lastname']
-  rentalDocumentId: Rental['documentId']
+  rentalToken: Rental['rentalToken']
 }
 
 export default function CreateReferenceForm({
@@ -38,7 +38,7 @@ export default function CreateReferenceForm({
   firstname,
   lastname,
   startDate,
-  rentalDocumentId,
+  rentalToken,
 }: ValidateFormProps) {
   const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -50,7 +50,6 @@ export default function CreateReferenceForm({
       communication: undefined,
       recommended: undefined,
       comment: '',
-      rentalDocumentId,
     },
   })
 
@@ -79,7 +78,7 @@ export default function CreateReferenceForm({
   ]
 
   const onSubmit = async (values: TypeCreateReferenceFormValues) => {
-    const result = await ActionCreateReference(values)
+    const result = await ActionCreateReference(values, rentalToken)
     if (!result.success) {
       form.setError('root', {
         message: result.error,
