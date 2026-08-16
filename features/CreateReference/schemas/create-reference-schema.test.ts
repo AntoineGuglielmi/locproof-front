@@ -86,13 +86,4 @@ describe('createReferenceSchema', () => {
 
     expect(result.success).toBe(true)
   })
-
-  it('rejects an invalid rental document id', () => {
-    const result = createReferenceSchema.safeParse({
-      ...validInput,
-      rentalDocumentId: undefined,
-    })
-
-    expect(result.success).toBe(false)
-  })
 })

@@ -1,6 +1,7 @@
 import { StepCreateReference } from './StepCreateReference'
 import { referenceRepository } from '@/repositories/reference.repository'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithFormInputAndRentalAndTenant } from '../../types/TypesSteps'
+import { Rental, Tenant } from '@/shared/types/strapi-types'
 
 vi.mock('@/repositories/reference.repository', () => ({
   referenceRepository: {
@@ -14,17 +15,31 @@ describe('StepCreateReference', () => {
   })
 
   it('creates the reference', async () => {
-    const context: TypeContextWithFormInput = {
+    const rental = {
+      documentId: 'rental-123',
+      tenantDocumentId: 'tenant-123',
+      state: 'pending',
+    } as Rental
+
+    const tenant = {
+      documentId: 'tenant-123',
+      email: 'tenant@test.com',
+      slug: 'antoine-g',
+      firstname: 'Antoine',
+      lastname: 'G',
+    } as Tenant
+
+    const context: TypeContextWithFormInputAndRentalAndTenant = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'no',
         communication: 'skip',
         recommended: 'yes',
         comment: 'Quelques commentaires',
-        rentalDocumentId: 'rental-document-id',
       },
-      rental: null,
-      tenant: null,
+      rentalToken: 'rental-token',
+      rental,
+      tenant,
     }
 
     const step = new StepCreateReference()
@@ -37,7 +52,8 @@ describe('StepCreateReference', () => {
       communication: 'skip',
       recommended: 'yes',
       comment: 'Quelques commentaires',
-      rentalDocumentId: 'rental-document-id',
+      rental,
+      tenant,
     })
   })
 
@@ -46,17 +62,31 @@ describe('StepCreateReference', () => {
       new Error('Database error'),
     )
 
-    const context: TypeContextWithFormInput = {
+    const rental = {
+      documentId: 'rental-123',
+      tenantDocumentId: 'tenant-123',
+      state: 'pending',
+    } as Rental
+
+    const tenant = {
+      documentId: 'tenant-123',
+      email: 'tenant@test.com',
+      slug: 'antoine-g',
+      firstname: 'Antoine',
+      lastname: 'G',
+    } as Tenant
+
+    const context: TypeContextWithFormInputAndRentalAndTenant = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'yes',
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
-      rental: null,
-      tenant: null,
+      rentalToken: 'rental-token',
+      rental,
+      tenant,
     }
 
     const step = new StepCreateReference()

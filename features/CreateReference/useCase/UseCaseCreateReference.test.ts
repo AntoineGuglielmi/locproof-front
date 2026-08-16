@@ -15,7 +15,7 @@ vi.mock('@/repositories/reference.repository', () => ({
 
 vi.mock('@/repositories/rental.repository', () => ({
   rentalRepository: {
-    findByDocumentId: vi.fn(),
+    findByRentalToken: vi.fn(),
     markAsValidated: vi.fn(),
   },
 }))
@@ -52,7 +52,7 @@ describe('UseCaseCreateReference', () => {
       lastname: 'G',
     } as Tenant
 
-    vi.mocked(rentalRepository.findByDocumentId).mockResolvedValue(rental)
+    vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
     vi.mocked(tenantRepository.findBydDocumentId).mockResolvedValue(tenant)
     vi.mocked(referenceRepository.create).mockResolvedValue(undefined)
     vi.mocked(rentalRepository.markAsValidated).mockResolvedValue(undefined)
@@ -65,8 +65,8 @@ describe('UseCaseCreateReference', () => {
         communication: 'yes',
         recommended: 'yes',
         comment: 'Très bon locataire',
-        rentalDocumentId: 'rental-123',
       },
+      rentalToken: 'rental-token',
       rental: null,
       tenant: null,
     }
@@ -82,12 +82,15 @@ describe('UseCaseCreateReference', () => {
       communication: 'yes',
       recommended: 'yes',
       comment: 'Très bon locataire',
-      rentalDocumentId: 'rental-123',
+      rental,
+      tenant,
     })
 
     expect(rentalRepository.markAsValidated).toHaveBeenCalledWith('rental-123')
 
-    expect(rentalRepository.findByDocumentId).toHaveBeenCalledWith('rental-123')
+    expect(rentalRepository.findByRentalToken).toHaveBeenCalledWith(
+      'rental-token',
+    )
 
     expect(tenantRepository.findBydDocumentId).toHaveBeenCalledWith(
       'tenant-123',

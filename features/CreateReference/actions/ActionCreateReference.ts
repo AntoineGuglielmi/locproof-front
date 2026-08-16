@@ -4,9 +4,11 @@ import { TypeContextCreateReference } from '../types/TypeContextCreateReference'
 import { UseCaseCreateReference } from '../useCase/UseCaseCreateReference'
 import { TypeCreateReferenceFormValues } from '../types/TypeCreateReferenceFormValues'
 import { createReferenceSchema } from '../schemas/create-reference-schema'
+import { Rental } from '@/shared/types/strapi-types'
 
 export async function ActionCreateReference(
   input: TypeCreateReferenceFormValues,
+  rentalToken: Rental['rentalToken'],
 ) {
   const securedDataFromInput = createReferenceSchema.safeParse(input)
 
@@ -23,6 +25,7 @@ export async function ActionCreateReference(
 
     const contextCreateReference: TypeContextCreateReference = {
       formInput,
+      rentalToken,
       rental: null,
       tenant: null,
     }
