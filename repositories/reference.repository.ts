@@ -24,4 +24,37 @@ export const referenceRepository = {
     })
     return res.data.length > 0 ? res.data[0] : null
   },
+
+  async findByTenant(
+    tenantDocumentId: Tenant['documentId'],
+  ): Promise<Array<Reference>> {
+    const res = await strapiClient.collection('references').find({
+      filters: {
+        tenant: {
+          documentId: {
+            $eq: tenantDocumentId,
+          },
+        },
+      },
+      populate: {
+        rental: {
+          fields: ['address', 'startDate', 'endDate', 'cityPublic'],
+        },
+      },
+      fields: [
+        'comment',
+        'paidOnTime',
+        'wellMaintained',
+        'communication',
+        'recommended',
+      ],
+    })
+
+    return res.data.sort((a, b) => {
+      return (
+        new Date(b.rental?.startDate ?? 0).getTime() -
+        new Date(a.rental?.startDate ?? 0).getTime()
+      )
+    })
+  },
 }
