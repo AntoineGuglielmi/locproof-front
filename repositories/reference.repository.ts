@@ -14,11 +14,15 @@ export const referenceRepository = {
     await strapiClient.collection('references').create(data)
   },
 
-  async findByRentalDocumentId(rentalDocumentId: Rental['documentId']) {
+  async findByRentalDocumentId(
+    rentalDocumentId: Rental['documentId'],
+  ): Promise<Reference | null> {
     const res = await strapiClient.collection('references').find({
       filters: {
-        rentalDocumentId: {
-          $eq: rentalDocumentId,
+        rental: {
+          documentId: {
+            $eq: rentalDocumentId,
+          },
         },
       },
     })
@@ -27,7 +31,7 @@ export const referenceRepository = {
 
   async findByTenant(
     tenantDocumentId: Tenant['documentId'],
-  ): Promise<Array<Reference>> {
+  ): Promise<Reference[]> {
     const res = await strapiClient.collection('references').find({
       filters: {
         tenant: {
@@ -42,19 +46,16 @@ export const referenceRepository = {
         },
       },
       fields: [
+        'documentId',
         'comment',
         'paidOnTime',
         'wellMaintained',
         'communication',
         'recommended',
       ],
+      sort: ['rental.startDate:desc'],
     })
 
-    return res.data.sort((a, b) => {
-      return (
-        new Date(b.rental?.startDate ?? 0).getTime() -
-        new Date(a.rental?.startDate ?? 0).getTime()
-      )
-    })
+    return res.data
   },
 }
