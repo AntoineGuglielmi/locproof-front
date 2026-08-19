@@ -1,7 +1,6 @@
 import { dateShort } from '@/shared/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
-import { rentalRepository } from '@/repositories/rental.repository'
-import { Reference, Rental, Tenant } from '../types/strapi-types'
+import { Tenant } from '../types/strapi-types'
 import { TypeRentalReference, TypeSynthesis } from '../types/profile-synthesis'
 
 export class EntityTenantSynthesis {
@@ -28,18 +27,42 @@ export class EntityTenantSynthesis {
   }
 
   private async generateRentalReferences() {
-    const rentals = await rentalRepository.findByTenantDocumentId(
+    const references = await referenceRepository.findByTenant(
       this._tenant.documentId,
     )
-    for (const rental of rentals) {
-      const reference = await referenceRepository.findByRentalDocumentId(
-        rental.documentId,
+    if (references.length >= 1) {
+      this._synthesis.references = references.reduce(
+        (acc: TypeRentalReference[], curr) => {
+          if (!curr.rental) return acc
+          const {
+            comment,
+            communication,
+            documentId: referenceDocumentId,
+            paidOnTime,
+            recommended,
+            wellMaintained,
+            rental: {
+              cityPublic,
+              startDate,
+              endDate,
+              documentId: rentalDocumentId,
+            },
+          } = curr
+          acc.push({
+            id: `${rentalDocumentId}-${referenceDocumentId}`,
+            cityPublic,
+            startDate: dateShort(startDate!),
+            endDate: dateShort(endDate!),
+            comment,
+            communication,
+            paidOnTime,
+            recommended,
+            wellMaintained,
+          })
+          return acc
+        },
+        [],
       )
-      if (reference !== null) {
-        this._synthesis.references.push(
-          this.mergeRentalAndReference(rental, reference!),
-        )
-      }
     }
   }
 
@@ -59,38 +82,5 @@ export class EntityTenantSynthesis {
           return number
         }, 0) / referencesCount
     })
-  }
-
-  mergeRentalAndReference(
-    rental: Rental,
-    reference: Reference,
-  ): TypeRentalReference {
-    const {
-      address,
-      endDate,
-      startDate,
-      documentId: rentalDocumentId,
-      cityPublic,
-    } = rental
-    const {
-      comment,
-      communication,
-      paidOnTime,
-      recommended,
-      wellMaintained,
-      documentId: referenceDocumentId,
-    } = reference
-    return {
-      id: `${rentalDocumentId}-${referenceDocumentId}`,
-      address,
-      endDate: dateShort(endDate!),
-      startDate: dateShort(startDate!),
-      comment,
-      communication,
-      paidOnTime,
-      recommended,
-      wellMaintained,
-      cityPublic,
-    }
   }
 }
