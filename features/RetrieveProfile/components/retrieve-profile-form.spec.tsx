@@ -23,7 +23,7 @@ describe('RetrieveProfileForm', () => {
 
     render(<RetrieveProfileForm />)
 
-    const input = screen.getByLabelText('Votre email')
+    const input = screen.getByLabelText('Adresse email')
 
     await user.type(input, 'hello@example.com')
 

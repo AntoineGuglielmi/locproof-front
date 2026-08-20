@@ -73,7 +73,7 @@ export default function RetrieveProfileForm({
         }}
         className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
       >
-        <RetrieveProfileSuccess email={submittedEmail} />
+        <RetrieveProfileSuccess />
       </MotionDiv>
     )
   }
@@ -94,7 +94,7 @@ export default function RetrieveProfileForm({
       >
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.email}>
-            <FieldLabel htmlFor="email">Votre email</FieldLabel>
+            <FieldLabel htmlFor="email">Adresse email</FieldLabel>
             <Input
               id="email"
               type="email"
@@ -114,7 +114,7 @@ export default function RetrieveProfileForm({
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting
-            ? 'Envoi en cours...'
+            ? 'Envoi du lien...'
             : 'Recevoir mon lien'}
         </Button>
       </form>

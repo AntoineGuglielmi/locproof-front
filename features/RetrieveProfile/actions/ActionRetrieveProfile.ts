@@ -15,7 +15,7 @@ export const ActionRetrieveProfile = async (
   if (!securedDataFromInput.success) {
     return {
       success: false,
-      error: 'Email invalide',
+      error: 'Veuillez saisir une adresse email valide',
     }
   }
 

@@ -92,7 +92,7 @@ describe('StepSendRetrieveProfileMailToTenant', () => {
 
     expect(sendEmailViaSmtp).toHaveBeenCalledWith({
       to: 'tenant@example.com',
-      subject: 'Votre lien vers votre profil Locproof',
+      subject: 'Votre lien vers votre profil LocProof',
       react: 'email-component',
     })
   })
