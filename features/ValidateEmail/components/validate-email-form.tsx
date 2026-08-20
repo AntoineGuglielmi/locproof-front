@@ -22,6 +22,7 @@ import {
 import MotionDiv from '@/shared/components/layout/motion-div'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import Button from '@/shared/components/form/button'
+import Link from 'next/link'
 
 export default function ValidateEmailForm() {
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null)
@@ -105,6 +106,17 @@ export default function ValidateEmailForm() {
           {form.formState.isSubmitting
             ? 'Envoi en cours...'
             : 'Recevoir mon lien sécurisé'}
+        </Button>
+
+        <hr className="h-px bg-gray-200" />
+
+        <p className="text-sm text-gray-500">Vous avez déjà un profil ?</p>
+
+        <Button
+          asChild
+          variant="outline"
+        >
+          <Link href="/profile">Retrouver mon profil</Link>
         </Button>
       </form>
     </MotionDiv>
