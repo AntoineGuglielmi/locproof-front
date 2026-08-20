@@ -1,8 +1,8 @@
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 import { StepSendValidationEmail } from './StepSendValidationEmail'
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: vi.fn(),
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: vi.fn(),
 }))
 
 describe('StepSendValidationEmail', () => {
@@ -18,7 +18,7 @@ describe('StepSendValidationEmail', () => {
       tenantVerificationToken: 'token-123',
     })
 
-    expect(sendEmailViaResend).toHaveBeenCalledWith(
+    expect(sendEmailViaSmtp).toHaveBeenCalledWith(
       expect.objectContaining({
         to: 'hello@example.com',
       }),

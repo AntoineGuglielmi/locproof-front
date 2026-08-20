@@ -3,9 +3,9 @@ import { UseCaseCreateReference } from './UseCaseCreateReference'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantRepository } from '@/repositories/tenant.repository'
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
 import { Rental, Tenant } from '@/shared/types/strapi-types'
 import { TypeContextCreateReference } from '../types/TypeContextCreateReference'
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 
 vi.mock('@/repositories/reference.repository', () => ({
   referenceRepository: {
@@ -26,8 +26,8 @@ vi.mock('@/repositories/tenant.repository', () => ({
   },
 }))
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: vi.fn(),
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: vi.fn(),
 }))
 
 describe('UseCaseCreateReference', () => {
@@ -56,7 +56,7 @@ describe('UseCaseCreateReference', () => {
     vi.mocked(tenantRepository.findBydDocumentId).mockResolvedValue(tenant)
     vi.mocked(referenceRepository.create).mockResolvedValue(undefined)
     vi.mocked(rentalRepository.markAsValidated).mockResolvedValue(undefined)
-    vi.mocked(sendEmailViaResend).mockResolvedValue(undefined)
+    vi.mocked(sendEmailViaSmtp).mockResolvedValue(undefined)
 
     const context: TypeContextCreateReference = {
       formInput: {
@@ -96,6 +96,6 @@ describe('UseCaseCreateReference', () => {
       'tenant-123',
     )
 
-    expect(sendEmailViaResend).toHaveBeenCalled()
+    expect(sendEmailViaSmtp).toHaveBeenCalled()
   })
 })
