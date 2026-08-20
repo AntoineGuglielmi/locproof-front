@@ -13,11 +13,11 @@ import {
   Preview,
 } from 'react-email'
 
-interface EmailValidationProps {
+interface RetrieveProfileProps {
   href: string
 }
 
-export default function EmailValidationEmail({ href }: EmailValidationProps) {
+export default function RetrieveProfileEmail({ href }: RetrieveProfileProps) {
   return (
     <Html>
       <Head />
@@ -36,26 +36,23 @@ export default function EmailValidationEmail({ href }: EmailValidationProps) {
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Container className="mx-auto my-10 max-w-116.25 rounded-2xl border border-[#eaeaea] border-solid p-5">
             <Preview>
-              Cliquez sur le lien fourni pour valider que la demande vient bien
-              de vous
+              Cliquez sur le lien fourni pour accéder à votre profile LocProof
             </Preview>
             <Heading as="h2">Bonjour</Heading>
 
+            <Text>Voous avez demandé à retrouver votre profil LocProof.</Text>
             <Text>
-              Vous êtes sur le point de demander une recommandation à un ancien
-              bailleur.
+              Pour y accéder, cliquez simplement sur le bouton ci-dessous :
             </Text>
             <Text>
-              Pour vérifier que cette demande vient bien de vous, cliquez
-              simplement sur le lien ci-dessous :
+              <EmailButton {...{ href }}>Voir mon profil</EmailButton>
             </Text>
-            <Text>
-              <EmailButton href={href}>Confirmer ma demande</EmailButton>
-            </Text>
-            <Text>Ce lien est valable pendant 24 heures.</Text>
             <Text>
               Si vous n’êtes pas à l’origine de cette demande, vous pouvez
               ignorer cet email.
+            </Text>
+            <Text>
+              Pour toute question, n’hésitez pas à contacter notre équipe.{' '}
             </Text>
             <Hr />
             <Text className="font-bold">

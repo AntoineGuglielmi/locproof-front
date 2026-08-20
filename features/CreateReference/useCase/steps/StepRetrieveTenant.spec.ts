@@ -32,7 +32,6 @@ describe('StepRetrieveTenant', () => {
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
       rental: {
         documentId: 'rental-document-id',
@@ -64,7 +63,6 @@ describe('StepRetrieveTenant', () => {
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
       rental: {
         documentId: 'rental-document-id',

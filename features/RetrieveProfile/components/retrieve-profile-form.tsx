@@ -1,50 +1,64 @@
 'use client'
-
+import { cva } from 'class-variance-authority'
+import { cn } from '@/shared/lib/className'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import { Input } from '@/shared/components/shadcn/ui/input'
-
 import {
-  validateEmailSchema,
-  ValidateEmailFormValues,
-} from '../schemas/validate-email-schema'
-
-import { ActionValidateEmail } from '../actions/ActionValidateEmail'
-import ValidateEmailSuccess from './validate-email-success'
+  retrieveProfileSchema,
+  RetriveProfileFormValues,
+} from '../schemas/retrieve-profile-schema'
+import MotionDiv from '@/shared/components/layout/motion-div'
+import { useForm } from 'react-hook-form'
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
 } from '@/shared/components/shadcn/ui/field'
-import MotionDiv from '@/shared/components/layout/motion-div'
+import { Input } from '@/shared/components/shadcn/ui/input'
 import AnimatedFieldError from '@/shared/components/form/animated-field-error'
 import Button from '@/shared/components/form/button'
-import Link from 'next/link'
+import { ActionRetrieveProfile } from '../actions/ActionRetrieveProfile'
+import RetrieveProfileSuccess from './retrieve-profile-success'
 
-export default function ValidateEmailForm() {
+type RetrieveProfileFormProps = {
+  className?: string
+  variant?: 'default' | 'other'
+  children?: React.ReactNode
+}
+
+const RetrieveProfileFormVariants = cva('RetrieveProfileForm space-y-4', {
+  variants: {
+    variant: {
+      default: '',
+      other: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+})
+
+export default function RetrieveProfileForm({
+  className,
+  variant,
+}: RetrieveProfileFormProps) {
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null)
 
-  const form = useForm<ValidateEmailFormValues>({
-    resolver: zodResolver(validateEmailSchema),
+  const form = useForm<RetriveProfileFormValues>({
+    resolver: zodResolver(retrieveProfileSchema),
     defaultValues: {
       email: '',
     },
   })
 
-  async function onSubmit(values: ValidateEmailFormValues) {
-    const result = await ActionValidateEmail(values)
-
+  async function onSubmit(values: RetriveProfileFormValues) {
+    const result = await ActionRetrieveProfile(values)
     if (!result.success) {
       form.setError('root', {
         message: result.error,
       })
-
       return
     }
-
     setSubmittedEmail(values.email)
   }
 
@@ -59,7 +73,7 @@ export default function ValidateEmailForm() {
         }}
         className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
       >
-        <ValidateEmailSuccess email={submittedEmail} />
+        <RetrieveProfileSuccess />
       </MotionDiv>
     )
   }
@@ -75,12 +89,12 @@ export default function ValidateEmailForm() {
       className="bg-white shadow-xl rounded-3xl p-8 flex flex-col gap-6"
     >
       <form
-        className="space-y-4"
+        className={cn(RetrieveProfileFormVariants({ variant, className }))}
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.email}>
-            <FieldLabel htmlFor="email">Votre email</FieldLabel>
+            <FieldLabel htmlFor="email">Adresse email</FieldLabel>
             <Input
               id="email"
               type="email"
@@ -89,10 +103,6 @@ export default function ValidateEmailForm() {
               aria-invalid={form.formState.errors.email ? true : undefined}
               {...form.register('email')}
             />
-            <FieldDescription>
-              Nous l’utilisons uniquement pour vérifier que la demande vient
-              bien de vous. Aucun compte à créer.
-            </FieldDescription>
             <AnimatedFieldError error={form.formState.errors.email} />
           </Field>
         </FieldGroup>
@@ -104,19 +114,8 @@ export default function ValidateEmailForm() {
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting
-            ? 'Envoi en cours...'
-            : 'Recevoir mon lien sécurisé'}
-        </Button>
-
-        <hr className="h-px bg-gray-200" />
-
-        <p className="text-sm text-gray-500">Vous avez déjà un profil ?</p>
-
-        <Button
-          asChild
-          variant="outline"
-        >
-          <Link href="/profile">Retrouver mon profil</Link>
+            ? 'Envoi du lien...'
+            : 'Recevoir mon lien'}
         </Button>
       </form>
     </MotionDiv>
