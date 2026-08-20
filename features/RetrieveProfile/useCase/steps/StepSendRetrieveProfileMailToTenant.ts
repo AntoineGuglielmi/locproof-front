@@ -25,7 +25,7 @@ export class StepSendRetrieveProfileMailToTenant extends Step<TypeContextWithEma
     }
 
     const href = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${slug}`
-    const subject = 'Votre lien vers votre profil Locproof'
+    const subject = 'Votre lien vers votre profil LocProof'
     const react = RetrieveProfileEmail({ href })
 
     try {

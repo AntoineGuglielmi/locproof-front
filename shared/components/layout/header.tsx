@@ -21,7 +21,7 @@ export default function Header() {
               size="sm"
               variant="dark"
             >
-              <Link href="/validate-email">Créer une référence</Link>
+              <Link href="/validate-email">Demander une référence</Link>
             </Button>
           </nav>
         </div>

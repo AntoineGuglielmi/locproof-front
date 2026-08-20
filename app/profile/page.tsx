@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import RetrieveProfileForm from '@/features/RetrieveProfile/components/retrieve-profile-form'
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import AppLayout from '@/shared/components/layout/app-layout'
@@ -54,8 +53,8 @@ export default function RetrieveProfilePage({}: RetrieveProfilePageProps) {
           <PageMainTitle version="small">Retrouver mon profil</PageMainTitle>
 
           <TextBody className="text-balance mb-8">
-            Vous avez déjà créé votre profil LocProof ? Entrez l'adresse email
-            associée à votre profil et nous vous enverrons son lien.
+            Vous avez déjà créé votre profil LocProof ? Entrez l’adresse email
+            associée à votre profil et recevez votre lien d’accès par email.
           </TextBody>
 
           <RetrieveProfileForm />

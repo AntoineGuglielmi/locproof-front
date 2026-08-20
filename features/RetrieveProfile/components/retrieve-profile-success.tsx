@@ -1,23 +1,21 @@
-/* eslint-disable react/no-unescaped-entities */
 import PageSubTitle from '@/shared/components/headings/page-sub-title'
 import TextBody from '@/shared/components/text/text-body'
 
-type RetrieveProfileSuccessProps = {
-  email: string
-}
+type RetrieveProfileSuccessProps = object
 
-export default function RetrieveProfileSuccess({
-  email,
-}: RetrieveProfileSuccessProps) {
+export default function RetrieveProfileSuccess({}: RetrieveProfileSuccessProps) {
   return (
     <>
       <PageSubTitle>Vérifiez votre boîte mail</PageSubTitle>
 
       <TextBody className="text-balance">
-        Nous avons envoyé un lien vers votre profile à l'adresse{' '}
-        <span className="font-bold text-indigo-500 wrap-break-word">
-          {email}
-        </span>
+        Si un profil LocProof est associé à cette adresse, vous recevrez un
+        email contenant votre lien d’accès.
+      </TextBody>
+
+      <TextBody className="text-balance">
+        Pensez à vérifier vos courriers indésirables si vous ne recevez rien
+        dans quelques minutes.
       </TextBody>
     </>
   )
