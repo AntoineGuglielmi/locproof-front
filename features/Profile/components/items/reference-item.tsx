@@ -23,7 +23,7 @@ type ReferenceItemProps = {
 } & TypeRentalReference
 
 const ReferenceItemVariants = cva(
-  'ReferenceItem @container rounded-2xl border bg-white p-5 md:p-6',
+  'ReferenceItem @container rounded-2xl border bg-white p-5 md:p-6 flex flex-col gap-5',
   {
     variants: {},
     defaultVariants: {},
@@ -102,17 +102,21 @@ export default function ReferenceItem({
         </Tag>
       </div>
 
+      <hr className="h-px bg-gray-600" />
+
       {/* CRITERIA */}
-      <List
-        items={criteria}
-        renderItem={CriterionItem}
-        getKey={(item) => item.label}
-        className={`mt-6 grid grid-cols-1 ${inHomePage ? '@' : ''}sm:grid-cols-2 gap-x-6 gap-y-3 border-t pt-5`}
-      />
+      {criteria.length > 0 && (
+        <List
+          items={criteria}
+          renderItem={CriterionItem}
+          getKey={(item) => item.label}
+          className={`grid grid-cols-1 ${inHomePage ? '@' : ''}sm:grid-cols-2 gap-x-6 gap-y-3`}
+        />
+      )}
 
       {/* COMMENT */}
       {comment && (
-        <blockquote className="mt-6 rounded-xl bg-gray-50 px-5 py-4 text-sm leading-relaxed text-gray-600">
+        <blockquote className="rounded-xl bg-gray-50 px-5 py-4 text-sm leading-relaxed text-gray-600">
           <span className="text-gray-300 text-2xl leading-none">“</span>
           <span className="ml-1">{comment}</span>
           <span className="text-gray-300 text-2xl leading-none">”</span>
@@ -120,7 +124,7 @@ export default function ReferenceItem({
       )}
 
       {/* FOOTER */}
-      <div className="mt-5 flex items-center gap-2 text-xs text-gray-400">
+      <div className="flex items-center gap-2 text-xs text-gray-400">
         <ShieldCheck className="size-3.5" />
         <span>Référence renseignée par un bailleur</span>
       </div>
