@@ -1,96 +1,86 @@
 import { dateShort } from '@/shared/lib/date'
 import { referenceRepository } from '@/repositories/reference.repository'
-import { rentalRepository } from '@/repositories/rental.repository'
-import { Reference, Rental, Tenant } from '../types/strapi-types'
+import { Reference, Tenant } from '../types/strapi-types'
 import { TypeRentalReference, TypeSynthesis } from '../types/profile-synthesis'
 
 export class EntityTenantSynthesis {
-  private _tenant: Tenant
-  private _synthesis: TypeSynthesis = {
-    references: [],
-    scores: {
+  constructor(private readonly _tenant: Tenant) {}
+
+  async getSynthesis(): Promise<TypeSynthesis> {
+    const references = await this.generateReferences()
+
+    return {
+      references,
+      referencesCount: references.length,
+      scores: this.generateScores(references),
+    }
+  }
+
+  private async generateReferences(): Promise<TypeRentalReference[]> {
+    const references = await referenceRepository.findByTenant(
+      this._tenant.documentId,
+    )
+
+    return references
+      .filter((reference) => reference.rental)
+      .map((reference) => this.mapReference(reference))
+  }
+
+  private mapReference(reference: Reference): TypeRentalReference {
+    const {
+      documentId: referenceDocumentId,
+      comment,
+      communication,
+      paidOnTime,
+      recommended,
+      wellMaintained,
+      rental,
+    } = reference
+
+    const {
+      documentId: rentalDocumentId,
+      cityPublic,
+      startDate,
+      endDate,
+    } = rental!
+
+    return {
+      id: `${rentalDocumentId}-${referenceDocumentId}`,
+      cityPublic,
+      startDate: dateShort(startDate!),
+      endDate: dateShort(endDate!),
+      comment,
+      communication,
+      paidOnTime,
+      recommended,
+      wellMaintained,
+    }
+  }
+
+  private generateScores(
+    references: TypeRentalReference[],
+  ): TypeSynthesis['scores'] {
+    const referencesCount = references.length
+
+    const scores: TypeSynthesis['scores'] = {
       communication: 0,
       paidOnTime: 0,
       recommended: 0,
       wellMaintained: 0,
-    },
-    referencesCount: 0,
-  }
-
-  constructor(tenant: Tenant) {
-    this._tenant = tenant
-  }
-
-  async getSynthesis() {
-    await this.generateRentalReferences()
-    this.generateScores()
-    return this._synthesis
-  }
-
-  private async generateRentalReferences() {
-    const rentals = await rentalRepository.findByTenantDocumentId(
-      this._tenant.documentId,
-    )
-    for (const rental of rentals) {
-      const reference = await referenceRepository.findByRentalDocumentId(
-        rental.documentId,
-      )
-      if (reference !== null) {
-        this._synthesis.references.push(
-          this.mergeRentalAndReference(rental, reference!),
-        )
-      }
     }
-  }
 
-  private async generateScores() {
-    const referencesCount = this._synthesis.references.length
-    Object.keys(this._synthesis.scores).map((key) => {
-      if (referencesCount === 0) {
-        return 0
-      }
-      this._synthesis.referencesCount = referencesCount
-      const scoreKey = key as keyof typeof this._synthesis.scores
-      this._synthesis.scores[scoreKey] =
-        this._synthesis.references.reduce((number, reference) => {
-          if (reference[scoreKey] === 'yes') {
-            number++
-          }
-          return number
-        }, 0) / referencesCount
-    })
-  }
-
-  mergeRentalAndReference(
-    rental: Rental,
-    reference: Reference,
-  ): TypeRentalReference {
-    const {
-      address,
-      endDate,
-      startDate,
-      documentId: rentalDocumentId,
-      cityPublic,
-    } = rental
-    const {
-      comment,
-      communication,
-      paidOnTime,
-      recommended,
-      wellMaintained,
-      documentId: referenceDocumentId,
-    } = reference
-    return {
-      id: `${rentalDocumentId}-${referenceDocumentId}`,
-      address,
-      endDate: dateShort(endDate!),
-      startDate: dateShort(startDate!),
-      comment,
-      communication,
-      paidOnTime,
-      recommended,
-      wellMaintained,
-      cityPublic,
+    if (referencesCount === 0) {
+      return scores
     }
+
+    for (const key of Object.keys(scores)) {
+      const scoreKey = key as keyof typeof scores
+
+      scores[scoreKey] =
+        references.filter((reference) => reference[scoreKey] === 'yes').length /
+        referencesCount
+    }
+
+    return scores
   }
 }

@@ -1,13 +1,13 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithRentalToken } from '../../types/TypesSteps'
 
-export class StepRetrieveRental extends Step<TypeContextWithFormInput> {
-  async execute(context: TypeContextWithFormInput): Promise<void> {
-    const { rentalDocumentId } = context.formInput
+export class StepRetrieveRental extends Step<TypeContextWithRentalToken> {
+  async execute(context: TypeContextWithRentalToken): Promise<void> {
+    const { rentalToken } = context
 
     try {
-      const rental = await rentalRepository.findByDocumentId(rentalDocumentId)
+      const rental = await rentalRepository.findByRentalToken(rentalToken)
 
       if (!rental) {
         throw new Error('Location introuvable')

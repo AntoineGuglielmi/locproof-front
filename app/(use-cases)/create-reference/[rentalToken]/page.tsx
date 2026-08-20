@@ -97,7 +97,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
 
   const { tenant, rental } = pageContext
 
-  const { address, startDate, endDate, documentId: rentalDocumentId } = rental
+  const { address, startDate, endDate } = rental
 
   const { firstname, lastname } = tenant
 
@@ -127,7 +127,7 @@ export default async function ValidatePage({ params }: ValidatePageProps) {
               endDate,
               firstname,
               lastname,
-              rentalDocumentId,
+              rentalToken,
             }}
           />
 

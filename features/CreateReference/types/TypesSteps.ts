@@ -1,9 +1,9 @@
 import { RequireNonNullableProperties } from '@/shared/types/RequireNonNullableProperties'
 import { TypeContextCreateReference } from './TypeContextCreateReference'
 
-export type TypeContextWithFormInput = RequireNonNullableProperties<
+export type TypeContextWithRentalToken = RequireNonNullableProperties<
   TypeContextCreateReference,
-  'formInput'
+  'rentalToken'
 >
 
 export type TypeContextWithRental = RequireNonNullableProperties<
@@ -15,3 +15,9 @@ export type TypeContextWithTenant = RequireNonNullableProperties<
   TypeContextCreateReference,
   'tenant'
 >
+
+export type TypeContextWithFormInputAndRentalAndTenant =
+  RequireNonNullableProperties<
+    TypeContextCreateReference,
+    'formInput' | 'tenant' | 'rental'
+  >

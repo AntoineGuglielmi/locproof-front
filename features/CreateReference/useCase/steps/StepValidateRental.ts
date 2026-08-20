@@ -1,10 +1,12 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithRental } from '../../types/TypesSteps'
 
-export class StepValidateRental extends Step<TypeContextWithFormInput> {
-  async execute(context: TypeContextWithFormInput): Promise<void> {
-    const { rentalDocumentId } = context.formInput
+export class StepValidateRental extends Step<TypeContextWithRental> {
+  async execute(context: TypeContextWithRental): Promise<void> {
+    const {
+      rental: { documentId: rentalDocumentId },
+    } = context
 
     try {
       await rentalRepository.markAsValidated(rentalDocumentId)

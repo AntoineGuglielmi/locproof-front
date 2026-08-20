@@ -1,17 +1,22 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { referenceRepository } from '@/repositories/reference.repository'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithFormInputAndRentalAndTenant } from '../../types/TypesSteps'
 
-export class StepCreateReference extends Step<TypeContextWithFormInput> {
-  async execute(context: TypeContextWithFormInput): Promise<void> {
+export class StepCreateReference extends Step<TypeContextWithFormInputAndRentalAndTenant> {
+  async execute(
+    context: TypeContextWithFormInputAndRentalAndTenant,
+  ): Promise<void> {
     const {
-      paidOnTime,
-      wellMaintained,
-      communication,
-      recommended,
-      comment,
-      rentalDocumentId,
-    } = context.formInput
+      formInput: {
+        paidOnTime,
+        wellMaintained,
+        communication,
+        recommended,
+        comment,
+      },
+      rental,
+      tenant,
+    } = context
 
     try {
       await referenceRepository.create({
@@ -20,7 +25,8 @@ export class StepCreateReference extends Step<TypeContextWithFormInput> {
         communication,
         recommended,
         comment,
-        rentalDocumentId,
+        rental,
+        tenant,
       })
     } catch (error) {
       throw new Error('Impossible de créer la référence', {

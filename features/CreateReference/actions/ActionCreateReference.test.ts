@@ -19,7 +19,6 @@ const invalidInput = {
   communication: undefined,
   recommended: undefined,
   comment: '',
-  rentalDocumentId: 'rental-123',
 } as unknown as TypeCreateReferenceFormValues
 
 const validInput = {
@@ -28,7 +27,6 @@ const validInput = {
   communication: 'yes' as const,
   recommended: 'yes' as const,
   comment: 'Très bon locataire.',
-  rentalDocumentId: 'rental-123',
 }
 
 describe('ActionCreateReference', () => {
@@ -38,24 +36,25 @@ describe('ActionCreateReference', () => {
   })
 
   it('should return error and not create useCase when input is invalid', async () => {
-    const result = await ActionCreateReference(invalidInput)
+    const result = await ActionCreateReference(invalidInput, 'rental-token')
 
     expect(result.success).toBe(false)
     expect(UseCaseCreateReference).not.toHaveBeenCalled()
   })
 
   it('should create useCase with the validated context when input is valid', async () => {
-    await ActionCreateReference(validInput)
+    await ActionCreateReference(validInput, 'rental-token')
 
     expect(UseCaseCreateReference).toHaveBeenCalledWith({
       formInput: validInput,
+      rentalToken: 'rental-token',
       rental: null,
       tenant: null,
     })
   })
 
   it('should execute useCase and return success when input is valid', async () => {
-    const result = await ActionCreateReference(validInput)
+    const result = await ActionCreateReference(validInput, 'rental-token')
 
     expect(executeMock).toHaveBeenCalledTimes(1)
 
@@ -67,7 +66,7 @@ describe('ActionCreateReference', () => {
   it('should return error when useCase fails', async () => {
     executeMock.mockRejectedValue(new Error('Impossible de créer la référence'))
 
-    const result = await ActionCreateReference(validInput)
+    const result = await ActionCreateReference(validInput, 'rental-token')
 
     expect(result).toEqual({
       success: false,
