@@ -5,6 +5,7 @@ import {
   retrieveProfileSchema,
   RetriveProfileFormValues,
 } from '../schemas/retrieve-profile-schema'
+import { UseCaseRetrieveProfile } from '../useCase/UseCaseRetrieveProfile'
 
 export const ActionRetrieveProfile = async (
   formvalues: RetriveProfileFormValues,
@@ -21,12 +22,12 @@ export const ActionRetrieveProfile = async (
   try {
     const { email } = securedDataFromInput.data
 
-    // const useCase = new UseCaseValidateEmail({
-    //   email,
-    //   tenantVerificationToken: null,
-    // })
+    const useCase = new UseCaseRetrieveProfile({
+      email,
+      tenant: null,
+    })
 
-    // await useCase.execute()
+    await useCase.execute()
 
     return {
       success: true,
