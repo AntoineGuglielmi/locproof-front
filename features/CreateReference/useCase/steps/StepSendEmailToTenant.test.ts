@@ -2,13 +2,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { StepSendEmailToTenant } from './StepSendEmailToTenant'
 import { TypeContextWithTenant } from '../../types/TypesSteps'
 
-const { sendEmailViaResendMock, newReferenceEmailMock } = vi.hoisted(() => ({
-  sendEmailViaResendMock: vi.fn(),
+const { sendEmailViaSmtp, newReferenceEmailMock } = vi.hoisted(() => ({
+  sendEmailViaSmtp: vi.fn(),
   newReferenceEmailMock: vi.fn(),
 }))
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: sendEmailViaResendMock,
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: sendEmailViaSmtp,
 }))
 
 vi.mock('../../components/new-reference-email', () => ({
@@ -32,7 +32,7 @@ describe('StepSendEmailToTenant', () => {
 
     await step.execute(context)
 
-    expect(sendEmailViaResendMock).not.toHaveBeenCalled()
+    expect(sendEmailViaSmtp).not.toHaveBeenCalled()
   })
 
   it('does not send an email when the tenant slug is missing', async () => {
@@ -44,7 +44,7 @@ describe('StepSendEmailToTenant', () => {
 
     await step.execute(context)
 
-    expect(sendEmailViaResendMock).not.toHaveBeenCalled()
+    expect(sendEmailViaSmtp).not.toHaveBeenCalled()
   })
 
   it('does not send an email in test environment by default', async () => {
@@ -57,7 +57,7 @@ describe('StepSendEmailToTenant', () => {
 
     await step.execute(context)
 
-    expect(sendEmailViaResendMock).not.toHaveBeenCalled()
+    expect(sendEmailViaSmtp).not.toHaveBeenCalled()
   })
 
   it('sends an email when SEND_TENANT_EMAIL is enabled', async () => {
@@ -78,8 +78,7 @@ describe('StepSendEmailToTenant', () => {
       href: `${process.env.NEXT_PUBLIC_APP_URL}/profile/john-doe`,
     })
 
-    expect(sendEmailViaResendMock).toHaveBeenCalledWith({
-      from: 'LocProof <hello@locproof.fr>',
+    expect(sendEmailViaSmtp).toHaveBeenCalledWith({
       to: 'tenant@example.com',
       subject: 'Votre recommandation a été rédigée !',
       react: 'email-component',
@@ -89,7 +88,7 @@ describe('StepSendEmailToTenant', () => {
   it('throws an error when sending the email fails', async () => {
     process.env.SEND_TENANT_EMAIL = 'true'
 
-    sendEmailViaResendMock.mockRejectedValue(new Error('Resend error'))
+    sendEmailViaSmtp.mockRejectedValue(new Error('Resend error'))
 
     const context = {
       tenant: {

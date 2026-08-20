@@ -1,7 +1,7 @@
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 import { TypeContextValidateEmail } from '../types/TypeContextValidateEmail'
 import { UseCaseValidateEmail } from './UseCaseValidateEmail'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
 
 vi.mock('@/repositories/tenant-verification.repository', () => ({
   tenantVerificationRepository: {
@@ -10,8 +10,8 @@ vi.mock('@/repositories/tenant-verification.repository', () => ({
   },
 }))
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: vi.fn(),
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: vi.fn(),
 }))
 
 describe('UseCaseValidateEmail', () => {
@@ -34,6 +34,6 @@ describe('UseCaseValidateEmail', () => {
       vi.mocked(tenantVerificationRepository.deletePendingByEmail),
     ).toHaveBeenCalledWith('hello@example.com')
     expect(context.tenantVerificationToken).toEqual(expect.any(String))
-    expect(sendEmailViaResend).toHaveBeenCalled()
+    expect(sendEmailViaSmtp).toHaveBeenCalled()
   })
 })
