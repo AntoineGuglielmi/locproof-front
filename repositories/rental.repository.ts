@@ -72,4 +72,30 @@ export const rentalRepository = {
   async all(): Promise<Array<Rental>> {
     return (await strapiClient.collection(COLLECTION_NAME).find()).data
   },
+
+  async findOverlappingRental(data: {
+    tenantDocumentId: Tenant['documentId']
+    startDate: Rental['startDate']
+    endDate: Rental['endDate']
+  }): Promise<Rental | null> {
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
+      filters: {
+        tenantDocumentId: {
+          $eq: data.tenantDocumentId,
+        },
+        startDate: {
+          $lte: formatDateForStrapi(data.endDate!),
+        },
+        endDate: {
+          $gte: formatDateForStrapi(data.startDate!),
+        },
+      },
+      pagination: {
+        page: 1,
+        pageSize: 1,
+      },
+    })
+
+    return res.data[0] ?? null
+  },
 }
