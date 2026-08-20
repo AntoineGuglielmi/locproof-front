@@ -1,6 +1,6 @@
 import { Grid } from './grid'
 import NavLink from '../navigation/nav-link'
-import Link from 'next/link'
+import LogoText from './LogoText'
 
 export default function Footer() {
   return (
@@ -9,12 +9,7 @@ export default function Footer() {
         <div className="grid-feature">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
-              <Link
-                href="/"
-                className="font-semibold text-gray-900"
-              >
-                LocProof
-              </Link>
+              <LogoText className="[zoom:0.85]" />
               <p className="mt-1 text-sm text-gray-500">
                 La référence locative qui valorise votre expérience.
               </p>
