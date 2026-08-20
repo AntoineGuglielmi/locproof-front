@@ -2,7 +2,7 @@ import { UseCaseRequestingAReference } from './UseCaseRequestingAReference'
 import { ServiceCreateTenant } from '../services/ServiceCreateTenant'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { tenantVerificationRepository } from '@/repositories/tenant-verification.repository'
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 import { TypeContextRequestingAReference } from '../types/TypeContextRequestingAReference'
 
@@ -24,8 +24,8 @@ vi.mock('@/repositories/tenant-verification.repository', () => ({
   },
 }))
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: vi.fn(),
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: vi.fn(),
 }))
 
 describe('UseCaseRequestingAReference', () => {
@@ -96,7 +96,7 @@ describe('UseCaseRequestingAReference', () => {
     })
 
     expect(rentalRepository.create).toHaveBeenCalled()
-    expect(sendEmailViaResend).toHaveBeenCalled()
+    expect(sendEmailViaSmtp).toHaveBeenCalled()
   })
 
   it('rejects a reference request when the tenant already has a rental during the requested period', async () => {
@@ -149,6 +149,6 @@ describe('UseCaseRequestingAReference', () => {
 
     expect(rentalRepository.create).not.toHaveBeenCalled()
     expect(tenantVerificationRepository.markAsValidated).not.toHaveBeenCalled()
-    expect(sendEmailViaResend).not.toHaveBeenCalled()
+    expect(sendEmailViaSmtp).not.toHaveBeenCalled()
   })
 })

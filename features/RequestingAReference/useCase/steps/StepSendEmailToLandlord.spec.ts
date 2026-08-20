@@ -1,9 +1,9 @@
 import { StepSendEmailToLandlord } from './StepSendEmailToLandlord'
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
 import { TypeContextWithFormuInputAndRental } from '../../types/TypesSteps'
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 
-vi.mock('@/features/Emails/lib/resend', () => ({
-  sendEmailViaResend: vi.fn(),
+vi.mock('@/features/Emails/lib/smtp', () => ({
+  sendEmailViaSmtp: vi.fn(),
 }))
 
 describe('StepSendEmailToLandlord', () => {
@@ -16,7 +16,7 @@ describe('StepSendEmailToLandlord', () => {
     process.env.NEXT_PUBLIC_APP_URL = 'http://localhost:3000'
     process.env.SEND_LANDLORD_EMAIL = 'true'
 
-    vi.mocked(sendEmailViaResend).mockResolvedValue(undefined)
+    vi.mocked(sendEmailViaSmtp).mockResolvedValue(undefined)
 
     const context = {
       formInput: {
@@ -29,8 +29,7 @@ describe('StepSendEmailToLandlord', () => {
 
     await new StepSendEmailToLandlord().execute(context)
 
-    expect(sendEmailViaResend).toHaveBeenCalledWith({
-      from: 'LocProof <hello@locproof.fr>',
+    expect(sendEmailViaSmtp).toHaveBeenCalledWith({
       to: 'landlord@test.com',
       subject:
         'Vous avez reçu une demande de recommandation de la part de votre ancien locataire',
@@ -52,13 +51,13 @@ describe('StepSendEmailToLandlord', () => {
 
     await new StepSendEmailToLandlord().execute(context)
 
-    expect(sendEmailViaResend).not.toHaveBeenCalled()
+    expect(sendEmailViaSmtp).not.toHaveBeenCalled()
   })
 
   it('throws an error when email sending fails', async () => {
     process.env.SEND_LANDLORD_EMAIL = 'true'
 
-    vi.mocked(sendEmailViaResend).mockRejectedValue(new Error('Resend error'))
+    vi.mocked(sendEmailViaSmtp).mockRejectedValue(new Error('Resend error'))
 
     const context = {
       formInput: {
