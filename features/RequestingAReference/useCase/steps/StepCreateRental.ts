@@ -12,6 +12,18 @@ export class StepCreateRental extends Step<TypeContextWithFormInputAndTenant> {
       landlordEmail,
     } = context.formInput
 
+    const overlappingRental = await rentalRepository.findOverlappingRental({
+      tenantDocumentId,
+      startDate,
+      endDate,
+    })
+
+    if (overlappingRental) {
+      throw new Error(
+        'Ce locataire possède déjà une location sur cette période.',
+      )
+    }
+
     const rentalToken = crypto.randomUUID()
 
     const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) // 7 days from now
