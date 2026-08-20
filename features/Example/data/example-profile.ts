@@ -24,7 +24,6 @@ export const exampleSynthesis: TypeSynthesis = {
   references: [
     {
       id: 'example-reference-1',
-      address: '12 rue des Lilas',
       cityPublic: 'Lyon',
       startDate: 'janv. 2022',
       endDate: 'mars 2024',
@@ -40,7 +39,6 @@ export const exampleSynthesis: TypeSynthesis = {
 
     {
       id: 'example-reference-2',
-      address: '8 avenue Victor Hugo',
       cityPublic: 'Lyon',
       startDate: 'juin 2020',
       endDate: 'déc. 2021',
