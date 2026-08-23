@@ -7,9 +7,7 @@ export class StepCheckTenantVerificationToken extends Step<TypeContextCheckTenan
 
     if (!tenantVerificationToken) {
       context.result = 'no-verification-token'
-      throw new Error(
-        'Le token de la varification du locataire est introuvable',
-      )
+      throw new Error('Le lien que vous avez utilisé est invalide.')
     }
   }
 }

@@ -7,7 +7,7 @@ export class StepCheckRentalToken extends Step<TypeContextWithRentalTolen> {
 
     if (!rentalToken) {
       context.result = 'no-rental-token'
-      throw new Error('Le token de la location est introuvable')
+      throw new Error('Le lien que vous avez utilisé est invalide.')
     }
   }
 }

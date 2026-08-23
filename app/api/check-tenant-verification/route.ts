@@ -28,18 +28,16 @@ export async function GET(req: Request) {
 
     switch (checkTenantVerificationContext.result) {
       case 'no-verification-token':
-        redirect = 'no-verification-token'
-        break
       case 'no-verification':
-        redirect = 'no-verification'
+        redirect = 'invalid-link'
         break
 
       case 'verification-expired':
-        redirect = 'rental-expired'
+        redirect = 'verification-expired'
         break
 
       case 'verification-already-validated':
-        redirect = 'rental-already-validated'
+        redirect = 'verification-already-validated'
         break
 
       default:
