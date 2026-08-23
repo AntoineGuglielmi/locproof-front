@@ -25,6 +25,9 @@ export async function GET(req: Request) {
     let redirect
 
     switch (checkRentalContext.result) {
+      case 'no-rental-token':
+        redirect = 'no-rental-token'
+        break
       case 'no-rental':
         redirect = 'no-rental'
         break

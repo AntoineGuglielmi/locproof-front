@@ -1,41 +1,52 @@
 import { NextResponse } from 'next/server'
-import { ServiceCheckTenantToken } from '@/services/ServiceCheckTenantToken'
-import { tenantRepository } from '@/repositories/tenant.repository'
+import { TypeContextCheckTenantVerification } from '@/features/API/CheckTenantVerification/types/TypeContextCheckTenantVerification'
+import { UseCaseCheckTenantVerification } from '@/features/API/CheckTenantVerification/useCase/UseCaseCheckTenantVerification'
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const tenantVerificationToken = searchParams.get('tenantVerificationToken')
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL
 
-  if (!tenantVerificationToken) {
-    return NextResponse.json({ ok: false }, { status: 400 })
+  const checkTenantVerificationContext: TypeContextCheckTenantVerification = {
+    tenantVerificationToken,
+    tenantVerification: null,
+    result: null,
   }
 
-  const { ok, redirectTo, email } = await ServiceCheckTenantToken({
-    tenantVerificationToken,
-  })
+  try {
+    const useCase = new UseCaseCheckTenantVerification(
+      checkTenantVerificationContext,
+    )
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL!
+    await useCase.execute()
 
-  const res = NextResponse.redirect(new URL(redirectTo, appUrl))
+    return NextResponse.redirect(
+      new URL(`/request-reference/${tenantVerificationToken}`, appUrl),
+    )
+  } catch (error) {
+    let redirect
 
-  if (ok) {
-    let cookieValue = ''
-    const tenant = await tenantRepository.findByEmail(email!)
+    switch (checkTenantVerificationContext.result) {
+      case 'no-verification-token':
+        redirect = 'no-verification-token'
+        break
+      case 'no-verification':
+        redirect = 'no-verification'
+        break
 
-    if (tenant) {
-      cookieValue = tenant.documentId!
-    } else {
-      cookieValue = email!
+      case 'verification-expired':
+        redirect = 'rental-expired'
+        break
+
+      case 'verification-already-validated':
+        redirect = 'rental-already-validated'
+        break
+
+      default:
+        redirect = 'unavailable'
+        console.error(error)
     }
 
-    res.cookies.set('tenant_context', cookieValue, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24,
-      sameSite: 'lax',
-      path: '/',
-    })
+    return NextResponse.redirect(new URL(`/error/${redirect}`, appUrl))
   }
-
-  return res
 }
