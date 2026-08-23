@@ -1,14 +1,14 @@
 import AppLayout from '@/shared/components/layout/app-layout'
-import MotionDiv from '@/shared/components/layout/motion-div'
+import PageErrorState from '@/shared/components/layout/page-error-state'
 
 type VerificationNoLongerValidPageProps = {
   params: Promise<void>
 }
 
 export const metadata = {
-  title: 'Lien invalide ou expiré | LocProof',
+  title: 'Lien de vérification déjà utilisé | LocProof',
   description:
-    'Ce lien de vérification n’est plus valide ou a expiré. Veuillez demander un nouveau lien pour continuer.',
+    'Ce lien de vérification a déjà été utilisé. Veuillez demander un nouveau lien pour continuer.',
   robots: {
     index: false,
     follow: false,
@@ -18,24 +18,10 @@ export const metadata = {
 export default function VerificationNoLongerValidPage({}: VerificationNoLongerValidPageProps) {
   return (
     <AppLayout>
-      <section className="text-center px-6 pt-16 pb-10 max-w-2xl mx-auto">
-        <MotionDiv
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              Demande invalide ou expirée
-            </h1>
-
-            <p className="text-gray-600 mb-8">
-              Le lien que vous avez utilisé n’est plus valide. Veuillez demander
-              un nouveau lien de vérification.
-            </p>
-          </div>
-        </MotionDiv>
-      </section>
+      <PageErrorState
+        title="Lien de vérification déjà utilisé"
+        description="Ce lien de vérification a déjà été utilisé. Veuillez demander un nouveau lien pour continuer."
+      />
     </AppLayout>
   )
 }

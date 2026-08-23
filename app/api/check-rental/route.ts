@@ -26,10 +26,8 @@ export async function GET(req: Request) {
 
     switch (checkRentalContext.result) {
       case 'no-rental-token':
-        redirect = 'no-rental-token'
-        break
       case 'no-rental':
-        redirect = 'no-rental'
+        redirect = 'invalid-link'
         break
 
       case 'rental-expired':

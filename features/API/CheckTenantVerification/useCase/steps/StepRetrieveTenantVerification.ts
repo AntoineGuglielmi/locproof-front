@@ -23,7 +23,7 @@ export class StepRetrieveTenantVerification extends Step<TypeContextWithTenantVe
 
     if (!tenantVerification) {
       context.result = 'no-verification'
-      throw new Error('Vérification du locataire introuvable')
+      throw new Error('Demande de vérification introuvable.')
     }
 
     context.tenantVerification = tenantVerification

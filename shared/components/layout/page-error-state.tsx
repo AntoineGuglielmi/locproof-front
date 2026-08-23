@@ -1,6 +1,7 @@
 import PageMainTitle from '@/shared/components/headings/page-main-title'
 import MotionDiv from '@/shared/components/layout/motion-div'
 import TextBody from '@/shared/components/text/text-body'
+import Section from './section'
 
 type PageErrorStateProps = {
   title: string
@@ -12,7 +13,11 @@ export default function PageErrorState({
   description,
 }: PageErrorStateProps) {
   return (
-    <section className="text-center pt-16 pb-10">
+    <Section
+      size="x-small"
+      which="topOnly"
+      className="text-center grid-narrow"
+    >
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,6 +27,6 @@ export default function PageErrorState({
 
         <TextBody className="text-balance">{description}</TextBody>
       </MotionDiv>
-    </section>
+    </Section>
   )
 }
