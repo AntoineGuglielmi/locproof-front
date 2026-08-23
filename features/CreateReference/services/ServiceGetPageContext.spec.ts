@@ -42,7 +42,6 @@ describe('ServiceGetPageContext', () => {
       rentalToken: 'rental-token',
       expiresAt: new Date('2020-01-01'),
       state: 'pending',
-      tenantDocumentId: 'tenant-document-id',
     }
 
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
@@ -62,7 +61,6 @@ describe('ServiceGetPageContext', () => {
       rentalToken: 'rental-token',
       expiresAt: new Date('2099-01-01'),
       state: 'validated',
-      tenantDocumentId: 'tenant-document-id',
     }
 
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
@@ -82,7 +80,6 @@ describe('ServiceGetPageContext', () => {
       rentalToken: 'rental-token',
       expiresAt: new Date('2099-01-01'),
       state: 'pending',
-      tenantDocumentId: 'tenant-document-id',
     }
 
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
@@ -105,7 +102,6 @@ describe('ServiceGetPageContext', () => {
       rentalToken: 'rental-token',
       expiresAt: new Date('2099-01-01'),
       state: 'pending',
-      tenantDocumentId: 'tenant-document-id',
     }
 
     const tenant: Tenant = {
