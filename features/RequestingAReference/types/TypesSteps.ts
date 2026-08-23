@@ -6,10 +6,11 @@ export type TypeContextWithFormInput = RequireNonNullableProperties<
   'formInput'
 >
 
-export type TypeContextWithFormInputAndTenant = RequireNonNullableProperties<
-  TypeContextRequestingAReference,
-  'formInput' | 'tenant'
->
+export type TypeContextWithFormInputAndTenantAndTenantVerification =
+  RequireNonNullableProperties<
+    TypeContextRequestingAReference,
+    'formInput' | 'tenant' | 'tenantVerification'
+  >
 
 export type TypeContextWithTenantVerification = RequireNonNullableProperties<
   TypeContextRequestingAReference,

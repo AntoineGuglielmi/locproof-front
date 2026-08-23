@@ -1,6 +1,6 @@
 import { formatDateForStrapi } from '@/shared/lib/date'
 import { strapiClient } from '@/shared/lib/strapi'
-import { Rental, Tenant } from '@/shared/types/strapi-types'
+import { Rental, Tenant, TenantVerification } from '@/shared/types/strapi-types'
 
 const COLLECTION_NAME = 'rentals'
 
@@ -10,10 +10,11 @@ export const rentalRepository = {
     startDate: Rental['startDate']
     endDate: Rental['endDate']
     landlordEmail: Rental['landlordEmail']
-    tenantDocumentId: Rental['tenantDocumentId']
     expiresAt: Rental['expiresAt']
     rentalToken: Rental['rentalToken']
     cityPublic: Rental['cityPublic']
+    tenant: Tenant
+    tenantVerification: TenantVerification
   }): Promise<Rental> {
     const res = await strapiClient.collection(COLLECTION_NAME).create({
       ...data,
@@ -28,8 +29,25 @@ export const rentalRepository = {
   ): Promise<Rental | null> {
     const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
-        rentalToken: {
-          $eq: rentalToken,
+        rental: {
+          documentId: {
+            $eq: rentalToken,
+          },
+        },
+      },
+    })
+    return res.data.length > 0 ? res.data[0] : null
+  },
+
+  async findByTenantVerificationToken(
+    tenantVerificationToken: TenantVerification['tenantVerificationToken'],
+  ): Promise<Rental | null> {
+    const res = await strapiClient.collection(COLLECTION_NAME).find({
+      filters: {
+        tenantVerification: {
+          tenantVerificationToken: {
+            $eq: tenantVerificationToken,
+          },
         },
       },
     })
@@ -61,8 +79,10 @@ export const rentalRepository = {
   ): Promise<Rental[]> {
     const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
-        tenantDocumentId: {
-          $eq: tenantDocumentId,
+        tenant: {
+          tenantDocumentId: {
+            $eq: tenantDocumentId,
+          },
         },
       },
     })
@@ -74,14 +94,16 @@ export const rentalRepository = {
   },
 
   async findOverlappingRental(data: {
-    tenantDocumentId: Tenant['documentId']
+    tenant: Tenant
     startDate: Rental['startDate']
     endDate: Rental['endDate']
   }): Promise<Rental | null> {
     const res = await strapiClient.collection(COLLECTION_NAME).find({
       filters: {
-        tenantDocumentId: {
-          $eq: data.tenantDocumentId,
+        tenant: {
+          documentId: {
+            $eq: data.tenant.documentId,
+          },
         },
         startDate: {
           $lte: formatDateForStrapi(data.endDate!),

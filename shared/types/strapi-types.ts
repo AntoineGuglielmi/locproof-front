@@ -28,10 +28,11 @@ export interface Rental {
   rentalToken?: string;
   expiresAt?: Date | string;
   landlordEmail?: string;
-  tenantDocumentId?: string;
   validatedAt?: Date | string;
   state?: "pending" | "validated";
   cityPublic?: string;
+  tenantVerification?: TenantVerification | null;
+  tenant?: Tenant | null;
 };
 
 export interface Tenant {

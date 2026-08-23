@@ -1,7 +1,7 @@
 import { StepCreateRental } from './StepCreateRental'
 import { rentalRepository } from '@/repositories/rental.repository'
 import { Rental } from '@/shared/types/strapi-types'
-import { TypeContextWithFormInputAndTenant } from '../../types/TypesSteps'
+import { TypeContextWithFormInputAndTenantAndTenantVerification } from '../../types/TypesSteps'
 
 vi.mock('@/repositories/rental.repository', () => ({
   rentalRepository: {
@@ -39,12 +39,17 @@ describe('StepCreateRental', () => {
         endDate: '2026-08-29',
         landlordEmail: 'landlord@test.com',
       },
-    } as TypeContextWithFormInputAndTenant
+      tenantVerification: {
+        documentId: 'tenantVerification-123',
+      },
+    } as TypeContextWithFormInputAndTenantAndTenantVerification
 
     await new StepCreateRental().execute(context)
 
     expect(rentalRepository.findOverlappingRental).toHaveBeenCalledWith({
-      tenantDocumentId: 'tenant-123',
+      tenant: {
+        documentId: 'tenant-123',
+      },
       startDate: '2026-07-31',
       endDate: '2026-08-29',
     })
@@ -55,10 +60,15 @@ describe('StepCreateRental', () => {
         startDate: '2026-07-31',
         endDate: '2026-08-29',
         landlordEmail: 'landlord@test.com',
-        tenantDocumentId: 'tenant-123',
+        tenant: {
+          documentId: 'tenant-123',
+        },
         cityPublic: 'Bordeaux',
         rentalToken: expect.any(String),
         expiresAt: expect.any(Date),
+        tenantVerification: {
+          documentId: 'tenantVerification-123',
+        },
       }),
     )
 
@@ -68,7 +78,12 @@ describe('StepCreateRental', () => {
   it('rejects creation when an overlapping rental already exists', async () => {
     const overlappingRental: Rental = {
       documentId: 'rental-existing',
-      tenantDocumentId: 'tenant-123',
+      tenant: {
+        documentId: 'tenant-123',
+      },
+      tenantVerification: {
+        documentId: 'tenantVerification-123',
+      },
       startDate: '2026-07-01',
       endDate: '2026-08-15',
     }
@@ -90,7 +105,10 @@ describe('StepCreateRental', () => {
         endDate: '2026-08-29',
         landlordEmail: 'landlord@test.com',
       },
-    } as TypeContextWithFormInputAndTenant
+      tenantVerification: {
+        documentId: 'tenantVerification-123',
+      },
+    } as TypeContextWithFormInputAndTenantAndTenantVerification
 
     await expect(new StepCreateRental().execute(context)).rejects.toThrow(
       'Ce locataire possède déjà une location sur cette période.',
@@ -117,7 +135,10 @@ describe('StepCreateRental', () => {
         endDate: '2026-08-29',
         landlordEmail: 'landlord@test.com',
       },
-    } as TypeContextWithFormInputAndTenant
+      tenantVerification: {
+        documentId: 'tenantVerification-123',
+      },
+    } as TypeContextWithFormInputAndTenantAndTenantVerification
 
     await expect(new StepCreateRental().execute(context)).rejects.toThrow(
       'Impossible de créer la location',

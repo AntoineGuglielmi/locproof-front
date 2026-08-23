@@ -81,6 +81,8 @@ describe('UseCaseRequestingAReference', () => {
         landlordEmail: 'landlord@test.com',
         tenantVerificationToken: 'verification-token',
       },
+      tenantVerification,
+      tenant,
     }
 
     await new UseCaseRequestingAReference(context).execute()
@@ -90,7 +92,7 @@ describe('UseCaseRequestingAReference', () => {
     expect(context.tenantVerification).toEqual(tenantVerification)
 
     expect(rentalRepository.findOverlappingRental).toHaveBeenCalledWith({
-      tenantDocumentId: tenant.documentId,
+      tenant,
       startDate: '2026-07-31',
       endDate: '2026-08-29',
     })
@@ -120,7 +122,7 @@ describe('UseCaseRequestingAReference', () => {
 
     vi.mocked(rentalRepository.findOverlappingRental).mockResolvedValue({
       documentId: 'rental-existing',
-      tenantDocumentId: 'tenant-123',
+      tenant,
       startDate: '2026-07-01',
       endDate: '2026-08-15',
     })
@@ -139,6 +141,8 @@ describe('UseCaseRequestingAReference', () => {
         landlordEmail: 'landlord@test.com',
         tenantVerificationToken: 'verification-token',
       },
+      tenant,
+      tenantVerification,
     }
 
     await expect(
