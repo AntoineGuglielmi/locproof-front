@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { UseCaseCreateReference } from './UseCaseCreateReference'
 import { referenceRepository } from '@/repositories/reference.repository'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { tenantRepository } from '@/repositories/tenant.repository'
 import { Rental, Tenant } from '@/shared/types/strapi-types'
 import { TypeContextCreateReference } from '../types/TypeContextCreateReference'
 import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
@@ -38,12 +37,6 @@ describe('UseCaseCreateReference', () => {
   it('completes a reference creation workflow', async () => {
     process.env.SEND_TENANT_EMAIL = 'true'
 
-    const rental = {
-      documentId: 'rental-123',
-      tenantDocumentId: 'tenant-123',
-      state: 'pending',
-    } as Rental
-
     const tenant = {
       documentId: 'tenant-123',
       email: 'tenant@test.com',
@@ -52,8 +45,13 @@ describe('UseCaseCreateReference', () => {
       lastname: 'G',
     } as Tenant
 
+    const rental = {
+      documentId: 'rental-123',
+      tenant,
+      state: 'pending',
+    } as Rental
+
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
-    vi.mocked(tenantRepository.findBydDocumentId).mockResolvedValue(tenant)
     vi.mocked(referenceRepository.create).mockResolvedValue(undefined)
     vi.mocked(rentalRepository.markAsValidated).mockResolvedValue(undefined)
     vi.mocked(sendEmailViaSmtp).mockResolvedValue(undefined)
@@ -68,13 +66,11 @@ describe('UseCaseCreateReference', () => {
       },
       rentalToken: 'rental-token',
       rental: null,
-      tenant: null,
     }
 
     await new UseCaseCreateReference(context).execute()
 
     expect(context.rental).toEqual(rental)
-    expect(context.tenant).toEqual(tenant)
 
     expect(referenceRepository.create).toHaveBeenCalledWith({
       paidOnTime: 'yes',
@@ -83,17 +79,12 @@ describe('UseCaseCreateReference', () => {
       recommended: 'yes',
       comment: 'Très bon locataire',
       rental,
-      tenant,
     })
 
     expect(rentalRepository.markAsValidated).toHaveBeenCalledWith('rental-123')
 
     expect(rentalRepository.findByRentalToken).toHaveBeenCalledWith(
       'rental-token',
-    )
-
-    expect(tenantRepository.findBydDocumentId).toHaveBeenCalledWith(
-      'tenant-123',
     )
 
     expect(sendEmailViaSmtp).toHaveBeenCalled()

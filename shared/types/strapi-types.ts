@@ -7,7 +7,6 @@ export interface Reference {
   publishedAt?: Date | string;
   locale?: string | null;
   rental?: Rental | null;
-  tenant?: Tenant | null;
   comment?: string;
   paidOnTime?: "yes" | "no" | "skip";
   wellMaintained?: "yes" | "no" | "skip";

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { StepSendEmailToTenant } from './StepSendEmailToTenant'
-import { TypeContextWithTenant } from '../../types/TypesSteps'
+import { TypeContextWithRental } from '../../types/TypesSteps'
 
 const { sendEmailViaSmtp, newReferenceEmailMock } = vi.hoisted(() => ({
   sendEmailViaSmtp: vi.fn(),
@@ -25,10 +25,12 @@ describe('StepSendEmailToTenant', () => {
 
   it('does not send an email when the tenant email is missing', async () => {
     const context = {
-      tenant: {
-        slug: 'john-doe',
+      rental: {
+        tenant: {
+          slug: 'john-doe',
+        },
       },
-    } as TypeContextWithTenant
+    } as TypeContextWithRental
 
     await step.execute(context)
 
@@ -37,10 +39,12 @@ describe('StepSendEmailToTenant', () => {
 
   it('does not send an email when the tenant slug is missing', async () => {
     const context = {
-      tenant: {
-        email: 'tenant@example.com',
+      rental: {
+        tenant: {
+          email: 'tenant@example.com',
+        },
       },
-    } as TypeContextWithTenant
+    } as TypeContextWithRental
 
     await step.execute(context)
 
@@ -49,11 +53,13 @@ describe('StepSendEmailToTenant', () => {
 
   it('does not send an email in test environment by default', async () => {
     const context = {
-      tenant: {
-        email: 'tenant@example.com',
-        slug: 'john-doe',
+      rental: {
+        tenant: {
+          email: 'tenant@example.com',
+          slug: 'john-doe',
+        },
       },
-    } as TypeContextWithTenant
+    } as TypeContextWithRental
 
     await step.execute(context)
 
@@ -66,11 +72,13 @@ describe('StepSendEmailToTenant', () => {
     newReferenceEmailMock.mockReturnValue('email-component')
 
     const context = {
-      tenant: {
-        email: 'tenant@example.com',
-        slug: 'john-doe',
+      rental: {
+        tenant: {
+          email: 'tenant@example.com',
+          slug: 'john-doe',
+        },
       },
-    } as TypeContextWithTenant
+    } as TypeContextWithRental
 
     await step.execute(context)
 
@@ -91,11 +99,13 @@ describe('StepSendEmailToTenant', () => {
     sendEmailViaSmtp.mockRejectedValue(new Error('Resend error'))
 
     const context = {
-      tenant: {
-        email: 'tenant@example.com',
-        slug: 'john-doe',
+      rental: {
+        tenant: {
+          email: 'tenant@example.com',
+          slug: 'john-doe',
+        },
       },
-    } as TypeContextWithTenant
+    } as TypeContextWithRental
 
     await expect(step.execute(context)).rejects.toThrow(
       "Impossible d'envoyer l'email au locataire",

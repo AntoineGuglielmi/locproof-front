@@ -49,7 +49,6 @@ describe('ActionCreateReference', () => {
       formInput: validInput,
       rentalToken: 'rental-token',
       rental: null,
-      tenant: null,
     })
   })
 

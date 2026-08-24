@@ -9,7 +9,6 @@ export const referenceRepository = {
     recommended: Reference['recommended']
     comment: Reference['comment']
     rental: Rental
-    tenant: Tenant
   }) {
     await strapiClient.collection('references').create(data)
   },

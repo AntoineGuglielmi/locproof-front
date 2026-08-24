@@ -2,7 +2,6 @@ import { rentalRepository } from '@/repositories/rental.repository'
 import { Rental } from '@/shared/types/strapi-types'
 import { TypeServiceGetPageContextReturn } from '../types/TypeServiceGetPageContextReturn'
 import { EntityRental } from '@/shared/entities/EntityRental'
-import { tenantRepository } from '@/repositories/tenant.repository'
 
 export const ServiceGetPageContext = async (
   rentalToken: Rental['rentalToken'],
@@ -29,9 +28,7 @@ export const ServiceGetPageContext = async (
     }
   }
 
-  const tenant = await tenantRepository.findBydDocumentId(
-    rental.tenantDocumentId,
-  )
+  const { tenant } = rental
 
   if (!tenant) {
     return {
