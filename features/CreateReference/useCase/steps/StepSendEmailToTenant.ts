@@ -1,13 +1,19 @@
 import { Step } from '@/shared/core/useCase/Step'
 import NewReferenceEmail from '../../components/new-reference-email'
-import { TypeContextWithTenant } from '../../types/TypesSteps'
 import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
+import { TypeContextWithRental } from '../../types/TypesSteps'
 
-export class StepSendEmailToTenant extends Step<TypeContextWithTenant> {
-  async execute(context: TypeContextWithTenant): Promise<void> {
+export class StepSendEmailToTenant extends Step<TypeContextWithRental> {
+  async execute(context: TypeContextWithRental): Promise<void> {
     const {
-      tenant: { slug: tenantSlug, email: tenantEmail },
+      rental: { tenant },
     } = context
+
+    if (!tenant) {
+      throw new Error('Une erreur inconnue est survenue')
+    }
+
+    const { slug: tenantSlug, email: tenantEmail } = tenant
 
     if (tenantEmail && tenantSlug) {
       const href = `${process.env.NEXT_PUBLIC_APP_URL}/profile/${tenantSlug}`

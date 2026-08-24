@@ -27,7 +27,6 @@ export async function ActionCreateReference(
       formInput,
       rentalToken,
       rental: null,
-      tenant: null,
     }
 
     const useCase = new UseCaseCreateReference(contextCreateReference)

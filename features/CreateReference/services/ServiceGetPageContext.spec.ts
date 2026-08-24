@@ -80,30 +80,19 @@ describe('ServiceGetPageContext', () => {
       rentalToken: 'rental-token',
       expiresAt: new Date('2099-01-01'),
       state: 'pending',
+      tenant: undefined,
     }
 
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
-    vi.mocked(tenantRepository.findBydDocumentId).mockResolvedValue(null)
 
     const result = await ServiceGetPageContext('rental-token')
 
     expect(result).toEqual({
       status: 'tenant-not-found',
     })
-
-    expect(tenantRepository.findBydDocumentId).toHaveBeenCalledWith(
-      'tenant-document-id',
-    )
   })
 
   it('returns ready with rental and tenant', async () => {
-    const rental: Rental = {
-      documentId: 'rental-document-id',
-      rentalToken: 'rental-token',
-      expiresAt: new Date('2099-01-01'),
-      state: 'pending',
-    }
-
     const tenant: Tenant = {
       documentId: 'tenant-document-id',
       firstname: 'Antoine',
@@ -111,8 +100,15 @@ describe('ServiceGetPageContext', () => {
       email: 'antoine@example.com',
     }
 
+    const rental: Rental = {
+      documentId: 'rental-document-id',
+      rentalToken: 'rental-token',
+      expiresAt: new Date('2099-01-01'),
+      state: 'pending',
+      tenant,
+    }
+
     vi.mocked(rentalRepository.findByRentalToken).mockResolvedValue(rental)
-    vi.mocked(tenantRepository.findBydDocumentId).mockResolvedValue(tenant)
 
     const result = await ServiceGetPageContext('rental-token')
 
@@ -124,10 +120,6 @@ describe('ServiceGetPageContext', () => {
 
     expect(rentalRepository.findByRentalToken).toHaveBeenCalledWith(
       'rental-token',
-    )
-
-    expect(tenantRepository.findBydDocumentId).toHaveBeenCalledWith(
-      'tenant-document-id',
     )
   })
 })

@@ -11,13 +11,7 @@ export type TypeContextWithRental = RequireNonNullableProperties<
   'rental'
 >
 
-export type TypeContextWithTenant = RequireNonNullableProperties<
+export type TypeContextWithFormInputAndRental = RequireNonNullableProperties<
   TypeContextCreateReference,
-  'tenant'
+  'formInput' | 'rental'
 >
-
-export type TypeContextWithFormInputAndRentalAndTenant =
-  RequireNonNullableProperties<
-    TypeContextCreateReference,
-    'formInput' | 'tenant' | 'rental'
-  >
