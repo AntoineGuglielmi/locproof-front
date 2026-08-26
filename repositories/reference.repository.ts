@@ -33,9 +33,11 @@ export const referenceRepository = {
   ): Promise<Reference[]> {
     const res = await strapiClient.collection('references').find({
       filters: {
-        tenant: {
-          documentId: {
-            $eq: tenantDocumentId,
+        rental: {
+          tenant: {
+            documentId: {
+              $eq: tenantDocumentId,
+            },
           },
         },
       },
