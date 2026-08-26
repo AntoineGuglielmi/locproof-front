@@ -1,6 +1,7 @@
 import { StepValidateRental } from './StepValidateRental'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextWithFormInput } from '../../types/TypesSteps'
+import { TypeContextWithRental } from '../../types/TypesSteps'
+import { Rental } from '@/shared/types/strapi-types'
 
 vi.mock('@/repositories/rental.repository', () => ({
   rentalRepository: {
@@ -14,16 +15,23 @@ describe('StepValidateRental', () => {
   })
 
   it('validates the rental', async () => {
-    const context: TypeContextWithFormInput = {
+    const rental: Rental = {
+      documentId: 'rental-document-id',
+      rentalToken: 'rental-token',
+      tenantDocumentId: 'tenant-document-id',
+      state: 'pending',
+    }
+
+    const context: TypeContextWithRental = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'yes',
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
-      rental: null,
+      rentalToken: 'rental-token',
+      rental,
       tenant: null,
     }
 
@@ -41,16 +49,23 @@ describe('StepValidateRental', () => {
       new Error('Database error'),
     )
 
-    const context: TypeContextWithFormInput = {
+    const rental: Rental = {
+      documentId: 'rental-document-id',
+      rentalToken: 'rental-token',
+      tenantDocumentId: 'tenant-document-id',
+      state: 'pending',
+    }
+
+    const context: TypeContextWithRental = {
       formInput: {
         paidOnTime: 'yes',
         wellMaintained: 'yes',
         communication: 'yes',
         recommended: 'yes',
         comment: '',
-        rentalDocumentId: 'rental-document-id',
       },
-      rental: null,
+      rentalToken: 'rental-token',
+      rental,
       tenant: null,
     }
 

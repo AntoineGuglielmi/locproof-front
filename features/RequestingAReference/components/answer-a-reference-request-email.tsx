@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
+import EmailButton from '@/features/Emails/components/EmailButton'
 import {
   Html,
   Heading,
   Tailwind,
   pixelBasedPreset,
   Text,
-  Link,
   Hr,
   Head,
   Body,
@@ -52,12 +52,7 @@ export default function AnswerAReferenceRequestEmail({
               cliquez simplement sur le lien ci-dessous :
             </Text>
             <Text>
-              <Link
-                href={href}
-                className="inline-flex gap-4 items-center rounded-full py-2 px-4 text-base text-white bg-indigo-600"
-              >
-                Rédiger ma recommandation
-              </Link>
+              <EmailButton href={href}>Rédiger ma recommandation</EmailButton>
             </Text>
             <Text> Ce lien est valable pendant 7 jours.</Text>
             <Text>

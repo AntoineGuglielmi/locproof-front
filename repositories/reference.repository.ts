@@ -1,5 +1,5 @@
 import { strapiClient } from '@/shared/lib/strapi'
-import { Reference, Rental } from '@/shared/types/strapi-types'
+import { Reference, Rental, Tenant } from '@/shared/types/strapi-types'
 
 export const referenceRepository = {
   async create(data: {
@@ -8,19 +8,55 @@ export const referenceRepository = {
     communication: Reference['communication']
     recommended: Reference['recommended']
     comment: Reference['comment']
-    rentalDocumentId: Reference['rentalDocumentId']
+    rental: Rental
   }) {
     await strapiClient.collection('references').create(data)
   },
 
-  async findByRentalDocumentId(rentalDocumentId: Rental['documentId']) {
+  async findByRentalDocumentId(
+    rentalDocumentId: Rental['documentId'],
+  ): Promise<Reference | null> {
     const res = await strapiClient.collection('references').find({
       filters: {
-        rentalDocumentId: {
-          $eq: rentalDocumentId,
+        rental: {
+          documentId: {
+            $eq: rentalDocumentId,
+          },
         },
       },
     })
     return res.data.length > 0 ? res.data[0] : null
+  },
+
+  async findByTenant(
+    tenantDocumentId: Tenant['documentId'],
+  ): Promise<Reference[]> {
+    const res = await strapiClient.collection('references').find({
+      filters: {
+        rental: {
+          tenant: {
+            documentId: {
+              $eq: tenantDocumentId,
+            },
+          },
+        },
+      },
+      populate: {
+        rental: {
+          fields: ['address', 'startDate', 'endDate', 'cityPublic'],
+        },
+      },
+      fields: [
+        'documentId',
+        'comment',
+        'paidOnTime',
+        'wellMaintained',
+        'communication',
+        'recommended',
+      ],
+      sort: ['rental.startDate:desc'],
+    })
+
+    return res.data
   },
 }

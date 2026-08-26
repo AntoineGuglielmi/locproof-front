@@ -1,16 +1,30 @@
 import { Step } from '@/shared/core/useCase/Step'
 import { rentalRepository } from '@/repositories/rental.repository'
-import { TypeContextWithFormInputAndTenant } from '../../types/TypesSteps'
+import { TypeContextWithFormInputAndTenantAndTenantVerification } from '../../types/TypesSteps'
 
-export class StepCreateRental extends Step<TypeContextWithFormInputAndTenant> {
-  async execute(context: TypeContextWithFormInputAndTenant): Promise<void> {
-    const tenantDocumentId = context.tenant.documentId
+export class StepCreateRental extends Step<TypeContextWithFormInputAndTenantAndTenantVerification> {
+  async execute(
+    context: TypeContextWithFormInputAndTenantAndTenantVerification,
+  ): Promise<void> {
+    const { tenant, tenantVerification, formInput } = context
     const {
       address: { city: cityPublic, label: address },
       startDate,
       endDate,
       landlordEmail,
-    } = context.formInput
+    } = formInput
+
+    const overlappingRental = await rentalRepository.findOverlappingRental({
+      tenant,
+      startDate,
+      endDate,
+    })
+
+    if (overlappingRental) {
+      throw new Error(
+        'Ce locataire possède déjà une location sur cette période.',
+      )
+    }
 
     const rentalToken = crypto.randomUUID()
 
@@ -22,10 +36,11 @@ export class StepCreateRental extends Step<TypeContextWithFormInputAndTenant> {
         startDate,
         endDate,
         landlordEmail,
-        tenantDocumentId,
         expiresAt,
         rentalToken,
         cityPublic,
+        tenant,
+        tenantVerification,
       })
     } catch (error) {
       throw new Error('Impossible de créer la location', {

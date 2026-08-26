@@ -1,7 +1,7 @@
 import { Step } from '@/shared/core/useCase/Step'
-import { sendEmailViaResend } from '@/features/Emails/lib/resend'
 import EmailValidationEmail from '../../components/email-verification-email'
 import { TypeContextWithEmailAndTenantVerification } from '../../types/TypesSteps'
+import { sendEmailViaSmtp } from '@/features/Emails/lib/smtp'
 
 export class StepSendValidationEmail extends Step<TypeContextWithEmailAndTenantVerification> {
   async execute(
@@ -11,7 +11,6 @@ export class StepSendValidationEmail extends Step<TypeContextWithEmailAndTenantV
 
     const href = `${process.env.NEXT_PUBLIC_APP_URL}/api/check-tenant-verification?tenantVerificationToken=${tenantVerificationToken}`
 
-    const from = 'LocProof <hello@locproof.fr>'
     const to = email
     const subject = 'Validez votre adresse email'
     const react = EmailValidationEmail({ href })
@@ -22,8 +21,7 @@ export class StepSendValidationEmail extends Step<TypeContextWithEmailAndTenantV
         process.env.SEND_VALIDATION_EMAIL === 'true'
 
       if (shouldSendEmail) {
-        await sendEmailViaResend({
-          from,
+        await sendEmailViaSmtp({
           to,
           subject,
           react,

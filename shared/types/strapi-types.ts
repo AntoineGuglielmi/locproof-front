@@ -6,7 +6,7 @@ export interface Reference {
   updatedAt?: Date | string;
   publishedAt?: Date | string;
   locale?: string | null;
-  rentalDocumentId?: string;
+  rental?: Rental | null;
   comment?: string;
   paidOnTime?: "yes" | "no" | "skip";
   wellMaintained?: "yes" | "no" | "skip";
@@ -27,10 +27,11 @@ export interface Rental {
   rentalToken?: string;
   expiresAt?: Date | string;
   landlordEmail?: string;
-  tenantDocumentId?: string;
   validatedAt?: Date | string;
   state?: "pending" | "validated";
   cityPublic?: string;
+  tenantVerification?: TenantVerification | null;
+  tenant?: Tenant | null;
 };
 
 export interface Tenant {

@@ -47,9 +47,7 @@ export default async function Debug({ className }: DebugProps) {
     items: rentals.filter((rental) => rental.state === 'pending'),
     getKey: (item) => item.documentId!,
     renderItem: async (rental) => {
-      const tenant = await tenantRepository.findBydDocumentId(
-        rental.tenantDocumentId,
-      )
+      const { tenant } = rental
       return (
         <Link href={`/create-reference/${rental.rentalToken}`}>
           /create-reference/{rental.rentalToken} by{' '}
